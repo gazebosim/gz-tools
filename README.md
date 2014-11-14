@@ -4,7 +4,8 @@
 
 Ignition tools provide the `ign` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
-specific Ignition project. For example, all the commands that start with `ign topic ...` will be implemented by the Ignition Transport library.
+specific Ignition project. For example, all the commands that start with
+`ign topic ...` will be implemented by the Ignition Transport library.
 
   [http://ignitionrobotics.org](http://ignitionrobotics.org)
 

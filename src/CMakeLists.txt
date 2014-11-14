@@ -7,4 +7,4 @@ set (sources
 set (gtest_sources
 )
 
-install (PROGRAMS ign DESTINATION ${BIN_INSTALL_DIR})
+install (PROGRAMS ${sources} DESTINATION ${BIN_INSTALL_DIR})
