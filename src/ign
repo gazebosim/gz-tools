@@ -1,0 +1,156 @@
+#!/usr/bin/ruby
+
+# Copyright (C) 2014 Open Source Robotics Foundation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+require 'dl/import'
+require 'optparse'
+require 'yaml'
+
+# List of required keys in each YAML file.
+#  - format: Format of the YAML file. This version has to be supported by this
+#            script.
+#  - library_version: Expected library version to work with the conf file.
+#  - library: Name of the shared library that will handle the commands.
+#  - commands: List of top level commands supported by the library, as well as
+#              a brief description.
+required_keys = %w(format library_version library commands)
+
+# Supported format versions.
+supported_format_versions = %w(1.0.0)
+
+commands = {}
+
+conf_directory = '/usr/share/ignition/'
+conf_directory = ENV['IGN_CONFIG_PATH'] if ENV.key?('IGN_CONFIG_PATH')
+
+# Check that we have at least one configuration file with ign commands.
+if Dir.glob(conf_directory + '/*.yaml').empty?
+  puts "I cannot find any available 'ign' command:"
+  puts "\t* Did you install any ignition library?"
+  puts "\t* Did you set the IGN_CONFIG_PATH environment variable?"
+  puts "\t    E.g.: export IGN_CONFIG_PATH=$HOME/local/share/ignition"
+  exit(-1)
+end
+
+# Iterate over the list of configuration files.
+Dir.glob(conf_directory + '/*.yaml') do |conf_file|
+  next if conf_file == '.' || conf_file == '..'
+
+  # Read the configuration file.
+  yml = YAML.load_file(conf_file)
+
+  # Sanity check.
+  required_keys.each do |required_key|
+    # Verify that the YAML file contains the needed keys.
+    unless yml.key?(required_key)
+      puts "Configuration error: File [#{conf_file}] has a missing key. "\
+           "Make sure that the file contains '#{required_key}'."
+      exit(-1)
+    end
+
+    # Verify that the value for this key is not empty.
+    unless yml[required_key]
+      puts "Configuration error: File [#{conf_file}] does not contain any "\
+           "value for the key '#{required_key}'."
+      exit(-1)
+    end
+  end
+
+  yml['commands'].each do |cmd|
+    cmd.each do |key, value|
+      # Sanity check: Verify that we have a non-empty key and value.
+      unless key && value
+        puts "Configuration error: File [#{conf_file}] contains an empty value"\
+             " in the 'commands' section."
+        exit(-1)
+      end
+      commands[key] = { 'library' => yml['library'], 'description' => value,
+                        'library_version' => yml['library_version'] }
+    end
+  end
+
+  # Sanity check: Verify the format version of the configuration file.
+  unless supported_format_versions.include? yml['format']
+    puts "Configuration error: File [#{conf_file}] is written using format "\
+         "#{yml['format']} but this version is not supported by this script."
+  end
+end
+
+# Debug: show the list of available commands.
+# puts commands
+
+# Read the command line arguments.
+usage = 'The ign command provides a command line interface to the ignition '\
+        'tools.\n\n'\
+        '  Usage: ign [options] command\n\n'\
+        'List of available commands:\n\n'
+
+commands.each do |cmd, value|
+  usage += cmd + "\t" + value['description'] + "\n"
+end
+
+usage += "\nUse \"ign help <command>\" to print help for a command"
+
+OptionParser.new do |opts|
+  opts.banner = usage
+
+  opts.on('-h', '--help', 'Show this message') do
+    puts opts
+    exit(0)
+  end
+end.parse
+
+# Check that there is at least one command and there is a plugin that knows
+# how to handle it.
+if ARGV.empty? || !commands.key?(ARGV[0])
+  puts usage
+  exit(-1)
+end
+
+# Read the plugin that handles the command.
+plugin = commands[ARGV[0]]['library']
+conf_version = commands[ARGV[0]]['library_version']
+
+ARGV.insert(0, 'ign')
+
+begin
+  DL::Importer.dlload plugin
+rescue DL::DLError
+  puts "Library error: [#{plugin}] not found."
+  exit(-1)
+end
+DL::Importer.extern 'char* version()'
+DL::Importer.extern 'void execute(int, char**)'
+
+begin
+  plugin_version = DL::Importer.version.to_s
+rescue DL::DLError
+  puts "Library error: Problem running 'version()' from #{plugin}."
+  exit(-1)
+end
+
+# Sanity check: Verify that the version of the yaml file matches the version
+# of the library that we are using.
+unless plugin_version.eql? conf_version
+  puts "Error: Version mismatch. Your configuration file version is
+        [#{conf_version}] but #{plugin} version is [#{plugin_version}]."
+  exit(-1)
+end
+
+begin
+  DL::Importer.execute(ARGV.size, ARGV.pack('p**'))
+rescue DL::DLError
+  puts "Library error: Problem running 'execute()' from #{plugin}."
+end

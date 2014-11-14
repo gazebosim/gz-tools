@@ -3,6 +3,8 @@ if (@PKG_NAME@_CONFIG_INCLUDED)
 endif()
 set(@PKG_NAME@_CONFIG_INCLUDED TRUE)
 
+list(APPEND @PKG_NAME@_BINARY_DIRS @CMAKE_INSTALL_PREFIX@/bin)
+
 list(APPEND @PKG_NAME@_INCLUDE_DIRS @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_INCLUDEDIR@)
 
 list(APPEND @PKG_NAME@_LIBRARY_DIRS @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@)
@@ -14,17 +16,17 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
   set(@PKG_NAME@_CXX_FLAGS "${@PKG_NAME@_CXX_FLAGS} -stdlib=libc++")
 endif ()
 
-foreach(lib @PKG_LIBRARIES@)
-  set(onelib "${lib}-NOTFOUND")
-  find_library(onelib ${lib}
-    PATHS @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@
-    NO_DEFAULT_PATH
-    )
-  if(NOT onelib)
-    message(FATAL_ERROR "Library '${lib}' in package @PKG_NAME@ is not installed properly")
-  endif()
-  list(APPEND @PKG_NAME@_LIBRARIES ${onelib})
-endforeach()
+#foreach(lib @PKG_LIBRARIES@)
+#  set(onelib "${lib}-NOTFOUND")
+#  find_library(onelib ${lib}
+#    PATHS @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@;@PKG_LIBRARY_DIRS@
+#    NO_DEFAULT_PATH
+#    )
+#  if(NOT onelib)
+#    message(FATAL_ERROR "Library '${lib}' in package @PKG_NAME@ is not installed #properly")
+#  endif()
+#  list(APPEND @PKG_NAME@_LIBRARIES ${onelib})
+#endforeach()
 
 foreach(dep @PKG_DEPENDS@)
   if(NOT ${dep}_FOUND)
