@@ -20,7 +20,7 @@ set (project_cmake_dir ${PROJECT_SOURCE_DIR}/cmake
 
 include (${project_cmake_dir}/Utils.cmake)
 
-##########
+#################################################
 # Package Creation:
 include (${project_cmake_dir}/cpack.cmake)
 set (CPACK_PACKAGE_VERSION "${PROJECT_VERSION_FULL}")
@@ -224,17 +224,6 @@ if (build_errors)
       "Please see the BUILD ERRORS above.")
 else (build_errors)
 
-  ########################################
-  # Write the config.h file
-  configure_file (${project_cmake_dir}/config.hh.in
-    ${PROJECT_BINARY_DIR}/include/ignition/${IGN_PROJECT_NAME}/config.hh)
-  ign_install_includes(${IGN_PROJECT_NAME}
-    ${PROJECT_BINARY_DIR}/include/ignition/${IGN_PROJECT_NAME}/config.hh)
-
-  include_directories(
-    ${PROJECT_SOURCE_DIR}/include
-    ${PROJECT_BINARY_DIR}/include
-  )
   link_directories(${PROJECT_BINARY_DIR}/src)
 
   if (DEFINED CMAKE_CXX_FLAGS)
@@ -248,8 +237,7 @@ else (build_errors)
   if (BUILD_IGNITION)
     set(TEST_TYPE "UNIT")
     add_subdirectory(src)
-    add_subdirectory(include)
-    add_subdirectory(test)
+    #add_subdirectory(test)
   endif (BUILD_IGNITION)
 
   ########################################
@@ -265,7 +253,7 @@ else (build_errors)
   # Make the cmake config files
   set(PKG_NAME ${PROJECT_NAME_UPPER})
   set(PKG_LIBRARIES ${PROJECT_NAME_LOWER})
-  set(PKG_DEPENDS Protobuf)
+  set(PKG_DEPENDS)
 
   configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/ignition-config.cmake.in"

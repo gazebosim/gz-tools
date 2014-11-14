@@ -2,10 +2,9 @@
 
 ** Ignition entry point for using all the suite of ignition tools.**
 
-Ignition tools provide the `ign` tool that accepts multiple subcommands. Each
-subcommand is implemented in a plugin that belongs to a specific inition
-project. For example, all the commands that start with `ign topic ...` will be
-implemented by the ignition transport library.
+Ignition tools provide the `ign` command line tool that accepts multiple
+subcommands. Each subcommand is implemented in a plugin that belongs to a
+specific Ignition project. For example, all the commands that start with `ign topic ...` will be implemented by the Ignition Transport library.
 
   [http://ignitionrobotics.org](http://ignitionrobotics.org)
 
@@ -23,10 +22,8 @@ The following dependencies are required to compile ignition-tools from
 source:
 
  - cmake
- - libtclap-dev
  - mercurial
  - ruby-ronn
- - C++ compiler with c++11 support (eg. GCC>=4.8).
 
 ## Installation
 
