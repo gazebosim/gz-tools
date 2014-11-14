@@ -76,6 +76,23 @@ Dir.glob(conf_directory + '/*.yaml') do |conf_file|
              " in the 'commands' section."
         exit(-1)
       end
+
+      # Sanity check: A 'help' command is not allowed.
+      if key.eql? 'help'
+        puts "Configuration error: File [#{conf_file}] contains a command "\
+             "named 'help' but this is a reserved name."
+        exit(-1)
+      end
+
+      # Sanity check: Verify that a command has not been used before.
+      if commands.key?(key)
+        puts "Configuration error: File [#{conf_file}] contains a command "\
+             "already registered by #{commands[key]['library']}."
+        exit(-1)
+      end
+
+      # Create a hash where the command is the key and the value contains all
+      # the additional information (in a hash).
       commands[key] = { 'library' => yml['library'], 'description' => value,
                         'library_version' => yml['library_version'] }
     end
@@ -92,24 +109,29 @@ end
 # puts commands
 
 # Read the command line arguments.
-usage = 'The ign command provides a command line interface to the ignition '\
-        'tools.\n\n'\
-        '  Usage: ign [options] command\n\n'\
-        'List of available commands:\n\n'
+usage = 'The \'ign\' command provides a command line interface to the ignition'\
+        " tools.\n\n"\
+        "  Usage: ign <command>\n\n"\
+        "List of available commands:\n\n"
 
+# Used to align the commands and the description.
+padding_width = 15
 commands.each do |cmd, value|
-  usage += cmd + "\t" + value['description'] + "\n"
+
+  # Calculate the padding to add between the command and the description.
+  padding_to_apply = padding_width - cmd.size - 1
+  padding = ''
+  padding_to_apply.times do
+    padding += ' '
+  end
+
+  usage += '  ' + cmd + ':' + padding + value['description'] + "\n"
 end
 
-usage += "\nUse \"ign help <command>\" to print help for a command"
+usage += "\nUse 'ign help <command>' to print help for a command."
 
 OptionParser.new do |opts|
   opts.banner = usage
-
-  opts.on('-h', '--help', 'Show this message') do
-    puts opts
-    exit(0)
-  end
 end.parse
 
 # Check that there is at least one command and there is a plugin that knows
