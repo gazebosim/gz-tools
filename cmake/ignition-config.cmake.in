@@ -16,18 +16,6 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
   set(@PKG_NAME@_CXX_FLAGS "${@PKG_NAME@_CXX_FLAGS} -stdlib=libc++")
 endif ()
 
-#foreach(lib @PKG_LIBRARIES@)
-#  set(onelib "${lib}-NOTFOUND")
-#  find_library(onelib ${lib}
-#    PATHS @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@;@PKG_LIBRARY_DIRS@
-#    NO_DEFAULT_PATH
-#    )
-#  if(NOT onelib)
-#    message(FATAL_ERROR "Library '${lib}' in package @PKG_NAME@ is not installed #properly")
-#  endif()
-#  list(APPEND @PKG_NAME@_LIBRARIES ${onelib})
-#endforeach()
-
 foreach(dep @PKG_DEPENDS@)
   if(NOT ${dep}_FOUND)
     find_package(${dep} REQUIRED)
