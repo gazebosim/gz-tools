@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'dl/import'
 require 'optparse'
 require 'yaml'
 
@@ -25,10 +24,10 @@ require 'yaml'
 #  - library: Name of the shared library that will handle the commands.
 #  - commands: List of top level commands supported by the library, as well as
 #              a brief description.
-required_keys = %w(format library_version library commands)
-
-# Supported format versions.
-supported_format_versions = %w(1.0.0)
+required_tags =
+{
+  '1.0.0' => %w(format library_name library_version library_path commands)
+}
 
 commands = {}
 
@@ -51,19 +50,26 @@ Dir.glob(conf_directory + '/*.yaml') do |conf_file|
   # Read the configuration file.
   yml = YAML.load_file(conf_file)
 
-  # Sanity check.
-  required_keys.each do |required_key|
+  # Sanity check: Verify that the format of the configuration file is supported.
+  unless yml.key?('format') && required_tags.key?(yml['format'])
+    puts "Configuration error: File [#{conf_file}] uses format #{yml[format]}"\
+         ' but this version is not supported.'
+    exit(-1)
+  end
+
+  # Sanity check: Verify that the format of the conf file is correct.
+  required_tags[yml['format']].each do |tag|
     # Verify that the YAML file contains the needed keys.
-    unless yml.key?(required_key)
+    unless yml.key?(tag)
       puts "Configuration error: File [#{conf_file}] has a missing key. "\
-           "Make sure that the file contains '#{required_key}'."
+           "Make sure that the file contains '#{tag}'."
       exit(-1)
     end
 
     # Verify that the value for this key is not empty.
-    unless yml[required_key]
+    unless yml[tag]
       puts "Configuration error: File [#{conf_file}] does not contain any "\
-           "value for the key '#{required_key}'."
+           "value for the key '#{tag}'."
       exit(-1)
     end
   end
@@ -84,26 +90,49 @@ Dir.glob(conf_directory + '/*.yaml') do |conf_file|
         exit(-1)
       end
 
-      # Sanity check: Verify that a command has not been used before.
-      if commands.key?(key)
+      # Sanity check: Verify that a command has not been used before by other
+      # library.
+      if commands.key?(key) &&
+         commands[key].values[0]['library_name'] != yml['library_name']
         puts "Configuration error: File [#{conf_file}] contains a command "\
-             "already registered by #{commands[key]['library']}."
+             "already registered by #{commands[key].values[0]['library_name']}."
         exit(-1)
       end
 
       # Create a hash where the command is the key and the value contains all
       # the additional information (in a hash).
-      commands[key] = { 'library' => yml['library'], 'description' => value,
-                        'library_version' => yml['library_version'] }
+      if !commands.key?(key)
+        commands[key] =
+        { yml['library_version'] =>
+          {
+            'library_name' => yml['library_name'],
+            'library_path' => yml['library_path'],
+            'description' => value
+          }
+        }
+      else
+        new_value = {}
+        new_value[yml['library_version']] =
+        {
+          'library_name' => yml['library_name'],
+          'library_path' => yml['library_path'],
+          'description' => value
+        }
+        commands[key].update(new_value)
+      end
     end
   end
-
-  # Sanity check: Verify the format version of the configuration file.
-  unless supported_format_versions.include? yml['format']
-    puts "Configuration error: File [#{conf_file}] is written using format "\
-         "#{yml['format']} but this version is not supported by this script."
-  end
 end
+
+# Use an auxiliary hash to sort the commands ordered by version. Newest
+# versions go first.
+sorted_commands = {}
+commands.each do |cmd, versions|
+  sorted_commands[cmd] = versions.sort.reverse
+end
+
+# Commands is a hash where the key is the command and the value is a list.
+commands = sorted_commands
 
 # Debug: show the list of available commands.
 # puts commands
@@ -111,12 +140,13 @@ end
 # Read the command line arguments.
 usage = 'The \'ign\' command provides a command line interface to the ignition'\
         " tools.\n\n"\
-        "  Usage: ign <command>\n\n"\
-        "List of available commands:\n\n"
+        "  Usage: ign <command> [options]\n\n"\
+        "List of available commands:\n\n"\
+        "  help:          Print this help text.\n"
 
 # Used to align the commands and the description.
 padding_width = 15
-commands.each do |cmd, value|
+commands.each do |cmd, versions|
 
   # Calculate the padding to add between the command and the description.
   padding_to_apply = padding_width - cmd.size - 1
@@ -125,10 +155,14 @@ commands.each do |cmd, value|
     padding += ' '
   end
 
-  usage += '  ' + cmd + ':' + padding + value['description'] + "\n"
+  usage += '  ' + cmd + ':' + padding + versions.first[1]['description'] + "\n"
 end
 
-usage += "\nUse 'ign help <command>' to print help for a command."
+usage += "\nOptions:\n\n"\
+         "  --force-version <VERSION>  Use a specific library version.\n"\
+         "  --versions                 Show the available versions."
+
+usage += "\nUse 'ign help <command>' to print help for a command.\n"
 
 OptionParser.new do |opts|
   opts.banner = usage
@@ -136,43 +170,80 @@ end.parse
 
 # Check that there is at least one command and there is a plugin that knows
 # how to handle it.
-if ARGV.empty? || !commands.key?(ARGV[0])
+if ARGV.empty? || (ARGV[0] != 'help' && !commands.key?(ARGV[0]))
   puts usage
   exit(-1)
 end
 
+# The 'help' command is managed here.
+if ARGV[0].eql? 'help'
+
+  # Sanity check: Verify that there is a known command after help.
+  unless ARGV.size == 2 && commands.key?(ARGV[1])
+    puts usage
+    exit(-1)
+  end
+
+  # Remove the help command.
+  ARGV.delete_at(0)
+end
+
+version_index = 0
+
+# The user wants to use a specific version of the command.
+if ARGV.include?('--force-version')
+  i = ARGV.index('--force-version')
+
+  # Sanity check: Verify that there is an argument after --force-version
+  unless ARGV.size >= i + 2
+    puts usage
+    exit(-1)
+  end
+  required_version = ARGV.at(i + 1)
+
+  # Sanity check: The version value shouldn't start with '-' or '--'.
+  if required_version.start_with?('-', '--')
+    puts usage
+    exit(-1)
+  end
+
+  # Sanity check: Verify if we have the command for the specified version.
+  found = false
+  commands[ARGV[0]].each do |version|
+    if version.first.eql?(required_version)
+      found = true
+      break
+    end
+    version_index += 1
+  end
+
+  unless found
+    puts 'Version error: I cannot find this command in '\
+         "version [#{required_version}]."
+    exit(-1)
+  end
+
+  ARGV.delete_at(i)
+  ARGV.delete_at(i)
+end
+
+# The user wants to show the available versions.
+if ARGV.include?('--versions')
+  i = ARGV.index('--versions')
+
+  # Sanity check: Verify if we have the command for the specified version.
+  found = false
+  commands[ARGV[0]].each do |version|
+    puts version.first
+  end
+
+  exit(0)
+end
+
 # Read the plugin that handles the command.
-plugin = commands[ARGV[0]]['library']
-conf_version = commands[ARGV[0]]['library_version']
+cmd_rb_library = commands[ARGV[0]].at(version_index)[1]['library_path']
 
-ARGV.insert(0, 'ign')
-
-begin
-  DL::Importer.dlload plugin
-rescue DL::DLError
-  puts "Library error: [#{plugin}] not found."
-  exit(-1)
-end
-DL::Importer.extern 'char* version()'
-DL::Importer.extern 'void execute(int, char**)'
-
-begin
-  plugin_version = DL::Importer.version.to_s
-rescue DL::DLError
-  puts "Library error: Problem running 'version()' from #{plugin}."
-  exit(-1)
-end
-
-# Sanity check: Verify that the version of the yaml file matches the version
-# of the library that we are using.
-unless plugin_version.eql? conf_version
-  puts "Error: Version mismatch. Your configuration file version is
-        [#{conf_version}] but #{plugin} version is [#{plugin_version}]."
-  exit(-1)
-end
-
-begin
-  DL::Importer.execute(ARGV.size, ARGV.pack('p**'))
-rescue DL::DLError
-  puts "Library error: Problem running 'execute()' from #{plugin}."
-end
+# Pass the request to the specific ruby library.
+require cmd_rb_library
+cmd = Cmd.new
+cmd.execute(ARGV)
