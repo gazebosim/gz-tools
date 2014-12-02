@@ -31,15 +31,15 @@ required_tags =
 
 commands = {}
 
-conf_directory = '/usr/share/ignition/'
+conf_directory = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
 conf_directory = ENV['IGN_CONFIG_PATH'] if ENV.key?('IGN_CONFIG_PATH')
 
 # Check that we have at least one configuration file with ign commands.
 if Dir.glob(conf_directory + '/*.yaml').empty?
-  puts "I cannot find any available 'ign' command:"
-  puts "\t* Did you install any ignition library?"
-  puts "\t* Did you set the IGN_CONFIG_PATH environment variable?"
-  puts "\t    E.g.: export IGN_CONFIG_PATH=$HOME/local/share/ignition"
+  puts "I cannot find any available 'ign' command:\n"\
+       "\t* Did you install any ignition library?\n"\
+       "\t* Did you set the IGN_CONFIG_PATH environment variable?\n"\
+       "\t    E.g.: export IGN_CONFIG_PATH=$HOME/local/share/ignition\n"
   exit(-1)
 end
 
