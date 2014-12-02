@@ -216,12 +216,12 @@ if ARGV.include?('--force-version')
 
   # Sanity check: Verify if we have the command for the specified version.
   found = false
-  commands[ARGV[0]].each do |version|
+  commands[ARGV[0]].each_with_index do |version, index|
     if version.first.eql?(required_version)
       found = true
+      version_index = index
       break
     end
-    version_index += 1
   end
 
   unless found
