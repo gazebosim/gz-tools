@@ -50,6 +50,13 @@ Dir.glob(conf_directory + '/*.yaml') do |conf_file|
   # Read the configuration file.
   yml = YAML.load_file(conf_file)
 
+  # Sanity check: Verify that the content of the file is YAML.
+  unless yml && yml.is_a?(Hash)
+    puts "Configuration warning: File [#{conf_file}] does not contain a valid "\
+         'YAML format. Ignoring this configuration file.'
+    next
+  end
+
   # Sanity check: Verify that the format of the configuration file is supported.
   unless yml.key?('format') && required_tags.key?(yml['format'])
     puts "Configuration error: File [#{conf_file}] uses format #{yml[format]}"\
