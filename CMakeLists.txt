@@ -1,15 +1,14 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-set(IGN_PROJECT_NAME "Ignition project name, such as 'math', or 'transport'. The name should be one word and lower case.")
-
+set(IGN_PROJECT_NAME "tools")
 
 project (ignition-${IGN_PROJECT_NAME})
 string (TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 string (TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 set (PROJECT_MAJOR_VERSION 0)
-set (PROJECT_MINOR_VERSION 1)
-set (PROJECT_PATCH_VERSION 0)
+set (PROJECT_MINOR_VERSION 0)
+set (PROJECT_PATCH_VERSION 1)
 
 set (PROJECT_VERSION ${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION})
 set (PROJECT_VERSION_FULL ${PROJECT_MAJOR_VERSION}.${PROJECT_MINOR_VERSION}.${PROJECT_PATCH_VERSION})
@@ -90,7 +89,6 @@ endif()
 
 set (INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}/ignition")
 set (LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
-set (LIB_INSTALL_DIR_ARCH_INDEPENDENT "lib/")
 set (BIN_INSTALL_DIR ${CMAKE_INSTALL_BINDIR})
 
 set (USE_FULL_RPATH OFF CACHE BOOL "Set to true to enable full rpath")
@@ -226,17 +224,6 @@ if (build_errors)
       "Please see the BUILD ERRORS above.")
 else (build_errors)
 
-  ########################################
-  # Write the config.h file
-  configure_file (${project_cmake_dir}/config.hh.in
-    ${PROJECT_BINARY_DIR}/include/ignition/${IGN_PROJECT_NAME}/config.hh)
-  ign_install_includes(${IGN_PROJECT_NAME}
-    ${PROJECT_BINARY_DIR}/include/ignition/${IGN_PROJECT_NAME}/config.hh)
-
-  include_directories(
-    ${PROJECT_SOURCE_DIR}/include
-    ${PROJECT_BINARY_DIR}/include
-  )
   link_directories(${PROJECT_BINARY_DIR}/src)
 
   if (DEFINED CMAKE_CXX_FLAGS)
@@ -247,12 +234,10 @@ else (build_errors)
   message (STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
   message (STATUS "Install path: ${CMAKE_INSTALL_PREFIX}")
 
-
   if (BUILD_IGNITION)
     set(TEST_TYPE "UNIT")
     add_subdirectory(src)
-    add_subdirectory(include)
-    add_subdirectory(test)
+    #add_subdirectory(test)
   endif (BUILD_IGNITION)
 
   ########################################
@@ -261,14 +246,13 @@ else (build_errors)
     ${CMAKE_SOURCE_DIR}/cmake/pkgconfig/ignition.in
     ${CMAKE_CURRENT_BINARY_DIR}/cmake/pkgconfig/${PROJECT_NAME_LOWER}.pc @ONLY)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cmake/pkgconfig/${PROJECT_NAME_LOWER}.pc
-    DESTINATION ${LIB_INSTALL_DIR_ARCH_INDEPENDENT}/pkgconfig
+    DESTINATION ${LIB_INSTALL_DIR}/pkgconfig
     COMPONENT pkgconfig)
 
   ########################################
   # Make the cmake config files
   set(PKG_NAME ${PROJECT_NAME_UPPER})
   set(PKG_LIBRARIES ${PROJECT_NAME_LOWER})
-
   set(PKG_DEPENDS)
 
   configure_file(

@@ -1,11 +1,4 @@
 include (${project_cmake_dir}/Utils.cmake)
 
-set (sources
-)
-
-set (gtest_sources
-)
-
-ign_build_tests(${gtest_sources})
-ign_add_library(${PROJECT_NAME_LOWER} ${sources})
-ign_install_library(${PROJECT_NAME_LOWER})
+configure_file(ign.in ${PROJECT_BINARY_DIR}/ign)
+install (PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${BIN_INSTALL_DIR})
