@@ -147,7 +147,7 @@ commands = sorted_commands
 # Read the command line arguments.
 usage = 'The \'ign\' command provides a command line interface to the ignition'\
         " tools.\n\n"\
-        "  Usage: ign <command> [options]\n\n"\
+        "  ign <command> [options]\n\n"\
         "List of available commands:\n\n"\
         "  help:          Print this help text.\n"
 
