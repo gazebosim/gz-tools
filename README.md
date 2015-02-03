@@ -25,6 +25,7 @@ source:
  - cmake
  - mercurial
  - ruby-ronn
+ - ruby-dev
 
 ## Installation
 
