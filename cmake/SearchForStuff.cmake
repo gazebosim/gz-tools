@@ -6,8 +6,8 @@ include (FindPkgConfig)
 
 ########################################
 # The ruby Interpreter.
-find_package(Ruby REQUIRED)
-if (NOT RUBY_FOUND)
+find_program(RUBY ruby)
+if (NOT RUBY)
   BUILD_ERROR ("Missing: ruby (ruby)")
 endif()
 
