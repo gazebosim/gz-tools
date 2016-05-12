@@ -34,6 +34,11 @@ commands = {}
 conf_directory = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
 conf_directory = ENV['IGN_CONFIG_PATH'] if ENV.key?('IGN_CONFIG_PATH')
 
+# ToDo: Remove and replace backslahes with slashes.
+conf_directory = 'C://Users/Carlos Aguero/Desktop/ign-ws4/ign-transport/build/install/Release/share/ignition'
+
+puts conf_directory
+
 # Check that we have at least one configuration file with ign commands.
 if Dir.glob(conf_directory + '/*.yaml').empty?
   puts "I cannot find any available 'ign' command:\n"\
