@@ -188,7 +188,7 @@ if ARGV[0].eql? 'help'
   # Sanity check: Verify that there is a known command after help.
   unless ARGV.size == 2 && commands.key?(ARGV[1])
     puts usage
-    exit(-1)
+    exit(0)
   end
 
   # Remove the help command.
