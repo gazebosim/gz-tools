@@ -29,10 +29,10 @@
 #include <ignition/common/Console.hh>
 #include <ignition/common/SignalHandler.hh>
 #include <ignition/common/SystemPaths.hh>
-// \todo(nkoenig) Future PR #include <ignition/plugin/Loader.hh>
+#include <ignition/plugin/Loader.hh>
 
 #include "ignition/tools/launch/config.hh"
-// \todo(nkoenig) Future PR #include "ignition/tools/Plugin.hh"
+#include "ignition/tools/launch/Plugin.hh"
 #include "Manager.hh"
 
 using namespace ignition::tools::launch;
@@ -121,8 +121,7 @@ class ignition::tools::launch::ManagerPrivate
   /// \brief Load a plugin based on data contained in an XML element.
   /// \param[in] _elem Pointer to the XML element containing the plugin
   /// information.
-  // \todo(nkoenig) future PR
-  // public: void LoadPlugin(const tinyxml2::XMLElement *_elem);
+  public: void LoadPlugin(const tinyxml2::XMLElement *_elem);
 
   /// \brief Handle SIG_INT and SIG_TERM signals
   /// \param[in] _sig The signal
@@ -136,15 +135,20 @@ class ignition::tools::launch::ManagerPrivate
   /// \param[in] _elem XML element that contains an <executable>
   private: void ParseExecutables(const tinyxml2::XMLElement *_elem);
 
-  // \todo(nkoenig) Future PR.
+  /// \brief Parse executable wrappers. Executable wrappers allow a plugin
+  /// to run in a process.
+  /// \param[in] _elem  XML element that contains an <executable_wrapper>
+  // \todo(nkoenig) Future PR
   // private: void ParseExecutableWrappers(const tinyxml2::XMLElement *_elem);
 
   /// \brief A list of executables that are running, or have been run.
   public: std::list<Executable> executables;
 
-  // \todo(nkoenig) Future PR.
-  // public: std::unordered_set<tools::PluginPtr> plugins;
-  // public: std::list<pid_t> wrappedPlugins;
+  /// \brief All the plugins
+  public: std::unordered_set<tools::launch::PluginPtr> plugins;
+
+  /// \brief All the wrapped plugins
+  // \todo(nkoenig) Future PR: public: std::list<pid_t> wrappedPlugins;
 
   /// \brief Mutex to protect the executables list.
   public: std::mutex executablesMutex;
@@ -210,8 +214,8 @@ bool Manager::RunConfig(const std::string &_config)
     return true;
 
   // Get whether or not we should run (block).
-  this->dataPtr->running = !this->dataPtr->executables.empty();
-             // \todo(nkoenig) Future PR || !this->dataPtr->plugins.empty();
+  this->dataPtr->running = !this->dataPtr->executables.empty()
+    || !this->dataPtr->plugins.empty();
 
   // Wait for a shutdown event, or for all the executables to quit.
   while (this->dataPtr->running && !this->dataPtr->executables.empty())
@@ -219,8 +223,7 @@ bool Manager::RunConfig(const std::string &_config)
   this->dataPtr->running = false;
 
   // Stop plugins.
-  // \todo(nkoenig) Future PR
-  // this->dataPtr->plugins.clear();
+  this->dataPtr->plugins.clear();
 
   // Stop executables.
   this->dataPtr->ShutdownExecutables();
@@ -338,17 +341,17 @@ bool ManagerPrivate::ParseConfig(const std::string &_config)
   // if (this->master)
   //   this->ParseExecutableWrappers(root);
 
-  // // Parse and create all the <executable_wrapper> elements.
-  // if (this->master)
-  // {
-  //   // Process all the plugins.
-  //   tinyxml2::XMLElement *pluginElem = root->FirstChildElement("plugin");
-  //   while (pluginElem)
-  //   {
-  //     this->LoadPlugin(pluginElem);
-  //     pluginElem = pluginElem->NextSiblingElement("plugin");
-  //   }
-  // }
+  // Parse and create all the <plugin> elements.
+  if (this->master)
+  {
+    // Process all the plugins.
+    tinyxml2::XMLElement *pluginElem = root->FirstChildElement("plugin");
+    while (pluginElem)
+    {
+      this->LoadPlugin(pluginElem);
+      pluginElem = pluginElem->NextSiblingElement("plugin");
+    }
+  }
 
   return true;
 }
@@ -548,80 +551,80 @@ void ManagerPrivate::ParseExecutables(const tinyxml2::XMLElement *_elem)
   }
 }
 
-// \todo(nkoenig) Future PR
 //////////////////////////////////////////////////
-// void ManagerPrivate::LoadPlugin(const tinyxml2::XMLElement *_elem)
-// {
-//   // Get the plugin's name
-//   const char *nameStr = _elem->Attribute("name");
-//   std::string name = nameStr == nullptr ? "" : nameStr;
-//   if (name.empty())
-//   {
-//     ignerr << "Invalid config file, "
-//       << "missing a name attribute for a plugin." << std::endl;
-//     return;
-//   }
-//
-//   // Get the plugin's filename
-//   const char *fileStr = _elem->Attribute("filename");
-//   std::string file = fileStr == nullptr ? "" : fileStr;
-//   if (file.empty())
-//   {
-//     ignerr << "Invalid config file, "
-//       << "missing filename attribute for plugin with name[" << name << "]"
-//       << std::endl;
-//     return;
-//   }
-//
-//   ignition::common::SystemPaths systemPaths;
-//   systemPaths.SetPluginPathEnv("IGN_LAUNCH_PLUGIN_PATH");
-//   systemPaths.AddPluginPaths(IGNITION_LAUNCH_PLUGIN_INSTALL_PATH);
-//
-//   // Add in the gazebo plugin path for convenience
-//   std::string homePath;
-//   ignition::common::env(IGN_HOMEDIR, homePath);
-//   systemPaths.AddPluginPaths(homePath + "/.ignition/gazebo/plugins");
-//
-//   std::string pathToLib = systemPaths.FindSharedLibrary(file);
-//   if (pathToLib.empty())
-//   {
-//     ignerr << "Failed to find the path to library[" << file << "]. "
-//       << "Try adding the path to the IGN_LAUNCH_PLUGIN_PATH environment "
-//       << "variable.\n";
-//     return;
-//   }
-//
-//   plugin::Loader loader;
-//   std::unordered_set<std::string> localPlugins = loader.LoadLib(pathToLib);
-//   if (localPlugins.empty())
-//   {
-//     ignerr << "Failed to load plugin [camera] : cloud load the "
-//       << "library\n";
-//     return;
-//   }
-//
-//   std::unordered_set<std::string> validPlugins =
-//     loader.PluginsImplementing<ignition::tools::launch::Plugin>();
-//   if (validPlugins.count(name) == 0)
-//   {
-//     std::string availablePlugins;
-//     for (const std::string &vp : validPlugins)
-//       availablePlugins += vp + " ";
-//
-//     ignerr << "Failed to find implementation with name[" << name << "] in "
-//       << file << ". Available implementations include: "
-//       << availablePlugins << std::endl;
-//     return;
-//   }
-//
-//   igndbg << "Loading plugin. Name[" << name
-//     << "] File[" << file << "]" << std::endl;
-//
-//   PluginPtr plugin = loader.Instantiate(name);
-//   plugin->QueryInterface<Plugin>()->Load(_elem);
-//   this->plugins.insert(plugin);
-// }
-//
+void ManagerPrivate::LoadPlugin(const tinyxml2::XMLElement *_elem)
+{
+  // Get the plugin's name
+  const char *nameStr = _elem->Attribute("name");
+  std::string name = nameStr == nullptr ? "" : nameStr;
+  if (name.empty())
+  {
+    ignerr << "Invalid config file, "
+      << "missing a name attribute for a plugin." << std::endl;
+    return;
+  }
+
+  // Get the plugin's filename
+  const char *fileStr = _elem->Attribute("filename");
+  std::string file = fileStr == nullptr ? "" : fileStr;
+  if (file.empty())
+  {
+    ignerr << "Invalid config file, "
+      << "missing filename attribute for plugin with name[" << name << "]"
+      << std::endl;
+    return;
+  }
+
+  ignition::common::SystemPaths systemPaths;
+  systemPaths.SetPluginPathEnv("IGN_LAUNCH_PLUGIN_PATH");
+  systemPaths.AddPluginPaths(IGNITION_TOOLS_LAUNCH_PLUGIN_INSTALL_PATH);
+
+  // Add in the gazebo plugin path for convenience
+  std::string homePath;
+  ignition::common::env(IGN_HOMEDIR, homePath);
+  systemPaths.AddPluginPaths(homePath + "/.ignition/gazebo/plugins");
+
+  std::string pathToLib = systemPaths.FindSharedLibrary(file);
+  if (pathToLib.empty())
+  {
+    ignerr << "Failed to find the path to library[" << file << "]. "
+      << "Try adding the path to the IGN_LAUNCH_PLUGIN_PATH environment "
+      << "variable.\n";
+    return;
+  }
+
+  plugin::Loader loader;
+  std::unordered_set<std::string> localPlugins = loader.LoadLib(pathToLib);
+  if (localPlugins.empty())
+  {
+    ignerr << "Failed to load plugin [camera] : cloud load the "
+      << "library\n";
+    return;
+  }
+
+  std::unordered_set<std::string> validPlugins =
+    loader.PluginsImplementing<ignition::tools::launch::Plugin>();
+  if (validPlugins.count(name) == 0)
+  {
+    std::string availablePlugins;
+    for (const std::string &vp : validPlugins)
+      availablePlugins += vp + " ";
+
+    ignerr << "Failed to find implementation with name[" << name << "] in "
+      << file << ". Available implementations include: "
+      << availablePlugins << std::endl;
+    return;
+  }
+
+  igndbg << "Loading plugin. Name[" << name
+    << "] File[" << file << "]" << std::endl;
+
+  PluginPtr plugin = loader.Instantiate(name);
+  plugin->QueryInterface<Plugin>()->Load(_elem);
+  this->plugins.insert(plugin);
+}
+
+// \todo(nkoenig) Future PR
 // //////////////////////////////////////////////////
 // void ManagerPrivate::ParseExecutableWrappers(
 //   const tinyxml2::XMLElement *_elem)

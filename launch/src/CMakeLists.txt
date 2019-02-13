@@ -17,6 +17,8 @@ ign_add_component(launch SOURCES ${sources} GET_TARGET_NAME launch_lib_target
 target_link_libraries(${launch_lib_target}
   PRIVATE
     ignition-common${IGN_COMMON_MAJOR_VER}::ignition-common${IGN_COMMON_MAJOR_VER}
+    ignition-plugin${IGN_PLUGIN_MAJOR_VER}::loader
+    ignition-plugin${IGN_PLUGIN_MAJOR_VER}::register
     TINYXML2::TINYXML2
 )
 
