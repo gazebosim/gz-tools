@@ -25,7 +25,8 @@ extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE char *ignitionVersion();
 
 /// \brief Set verbosity level
 /// \param[in] _verbosity 0 to 4
-extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE void cmdVerbosity(const char *_verbosity);
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE void cmdVerbosity(
+    const char *_verbosity);
 
 /// \brief External hook to execute 'ign fuel list -t model' from the command
 /// line.

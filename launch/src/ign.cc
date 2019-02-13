@@ -28,7 +28,8 @@ extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE char *ignitionVersion()
 }
 
 //////////////////////////////////////////////////
-extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE void cmdVerbosity(const char *_verbosity)
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE void cmdVerbosity(
+    const char *_verbosity)
 {
   ignition::common::Console::SetVerbosity(std::atoi(_verbosity));
 }
