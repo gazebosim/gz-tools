@@ -1,3 +1,5 @@
+# add_subdirectory(plugins)
+
 set (sources
   ign.cc
   Manager.cc

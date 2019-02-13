@@ -1,1 +1,1 @@
-add_subdirectory(launch)
+ign_install_all_headers(COMPONENT launch)
