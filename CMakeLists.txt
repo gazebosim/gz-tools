@@ -25,6 +25,15 @@ ign_configure_project()
 #============================================================================
 message(STATUS "\n\n-- ====== Finding Dependencies ======")
 
+#--------------------------------------
+# Find Tinyxml2
+ign_find_package(TINYXML2 REQUIRED PRIVATE PRETTY tinyxml2)
+
+#--------------------------------------
+# Find ignition-common
+ign_find_package(ignition-common3 REQUIRED PRIVATE)
+set(IGN_COMMON_MAJOR_VER ${ignition-common3_VERSION_MAJOR})
+
 ########################################
 # Include ruby
 find_package(Ruby 1.9 QUIET)
