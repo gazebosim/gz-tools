@@ -17,20 +17,20 @@
 #ifndef IGNITION_TOOLS_LAUNCH_IGN_HH_
 #define IGNITION_TOOLS_LAUNCH_IGN_HH_
 
-#include "ignition/tools/Export.hh"
+#include "ignition/tools/launch/Export.hh"
 
 /// \brief External hook to read the library version.
 /// \return C-string representing the version. Ex.: 0.1.2
-extern "C" IGNITION_TOOLS_VISIBLE char *ignitionVersion();
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE char *ignitionVersion();
 
 /// \brief Set verbosity level
 /// \param[in] _verbosity 0 to 4
-extern "C" IGNITION_TOOLS_VISIBLE void cmdVerbosity(const char *_verbosity);
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE void cmdVerbosity(const char *_verbosity);
 
 /// \brief External hook to execute 'ign fuel list -t model' from the command
 /// line.
 /// \param[in] _config Config file to run.
 /// \return 1 if successful, 0 if not.
-extern "C" IGNITION_TOOLS_VISIBLE int run(const char *_config);
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE int run(const char *_config);
 
 #endif

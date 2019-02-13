@@ -17,24 +17,24 @@
 #include <cstring>
 #include <ignition/common/Console.hh>
 
-#include "ignition/tools/config.hh"
+#include "ignition/tools/launch/config.hh"
 #include "ign.hh"
 #include "Manager.hh"
 
 //////////////////////////////////////////////////
-extern "C" IGNITION_TOOLS_VISIBLE char *ignitionVersion()
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE char *ignitionVersion()
 {
   return strdup(IGNITION_TOOLS_VERSION_FULL);
 }
 
 //////////////////////////////////////////////////
-extern "C" IGNITION_TOOLS_VISIBLE void cmdVerbosity(const char *_verbosity)
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE void cmdVerbosity(const char *_verbosity)
 {
   ignition::common::Console::SetVerbosity(std::atoi(_verbosity));
 }
 
 //////////////////////////////////////////////////
-extern "C" IGNITION_TOOLS_VISIBLE int run(const char *_config)
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE int run(const char *_config)
 {
   ignition::tools::launch::Manager mgr;
   return mgr.RunConfig(_config);

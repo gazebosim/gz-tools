@@ -31,13 +31,11 @@
 #include <ignition/common/SystemPaths.hh>
 // \todo(nkoenig) Future PR #include <ignition/plugin/Loader.hh>
 
-#include "ignition/tools/config.hh"
+#include "ignition/tools/launch/config.hh"
 // \todo(nkoenig) Future PR #include "ignition/tools/Plugin.hh"
 #include "Manager.hh"
 
-using namespace ignition;
-using namespace tools;
-using namespace launch;
+using namespace ignition::tools::launch;
 
 /// \brief A class to encapsulate an executable (program) to run.
 class Executable

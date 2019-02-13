@@ -9,10 +9,12 @@ set (gtest_sources
 )
 
 # Create the library target.
-ign_create_core_library(SOURCES ${sources} CXX_STANDARD 17)
+ign_add_component(launch SOURCES ${sources} GET_TARGET_NAME launch_lib_target
+                  CXX_STANDARD 17
+                  INDEPENDENT_FROM_PROJECT_LIB)
 
 # Link the libraries that we always need.
-target_link_libraries(${PROJECT_LIBRARY_TARGET_NAME}
+target_link_libraries(${launch_lib_target}
   PRIVATE
     ignition-common${IGN_COMMON_MAJOR_VER}::ignition-common${IGN_COMMON_MAJOR_VER}
     TINYXML2::TINYXML2
@@ -20,7 +22,9 @@ target_link_libraries(${PROJECT_LIBRARY_TARGET_NAME}
 
 # Build the unit tests.
 ign_build_tests(TYPE UNIT SOURCES ${gtest_sources}
+                EXCLUDE_PROJECT_LIB
                 LIB_DEPS
+                  ${launch_lib_target}
                   ignition-common${IGN_COMMON_MAJOR_VER}::ignition-common${IGN_COMMON_MAJOR_VER}
                   TINYXML2::TINYXML2
 )
@@ -29,9 +33,9 @@ ign_build_tests(TYPE UNIT SOURCES ${gtest_sources}
 # Note that the major version of the library is included in the name.
 # Ex: cmdlaunch0.rb
 if (APPLE)
-  set(IGN_LIBRARY_NAME lib${PROJECT_NAME_LOWER}.dylib)
+  set(IGN_LIBRARY_NAME lib${launch_lib_target}.dylib)
 else()
-  set(IGN_LIBRARY_NAME lib${PROJECT_NAME_LOWER}.so)
+  set(IGN_LIBRARY_NAME lib${launch_lib_target}.so)
 endif()
 
 configure_file(
@@ -64,7 +68,7 @@ set(cmd_script_configured_test "${cmd_script_generated_test}.configured")
 
 # Set the library_location variable to the full path of the library file within
 # the build directory.
-set(IGN_LIBRARY_NAME "$<TARGET_FILE:${PROJECT_LIBRARY_TARGET_NAME}>")
+set(IGN_LIBRARY_NAME "$<TARGET_FILE:${launch_lib_target}>")
 
 configure_file(
   "cmdlaunch.rb.in"

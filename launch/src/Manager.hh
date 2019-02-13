@@ -19,7 +19,7 @@
 
 #include <memory>
 #include <string>
-#include <ignition/tools/Export.hh>
+#include <ignition/tools/launch/Export.hh>
 
 namespace ignition
 {
@@ -31,7 +31,7 @@ namespace ignition
       class ManagerPrivate;
 
       /// \brief Class for starting and managing programs and plugins.
-      class IGNITION_TOOLS_VISIBLE Manager
+      class IGNITION_TOOLS_LAUNCH_VISIBLE Manager
       {
         /// \brief Constructor.
         public: Manager();

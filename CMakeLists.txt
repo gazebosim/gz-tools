@@ -47,7 +47,8 @@ endif()
 #============================================================================
 # Configure the build
 #============================================================================
-ign_configure_build(QUIT_IF_BUILD_ERRORS)
+ign_configure_build(QUIT_IF_BUILD_ERRORS
+  COMPONENTS launch)
 
 #============================================================================
 # Create package information
