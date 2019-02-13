@@ -27,11 +27,11 @@ message(STATUS "\n\n-- ====== Finding Dependencies ======")
 
 #--------------------------------------
 # Find Tinyxml2
-ign_find_package(TINYXML2 REQUIRED PRIVATE PRETTY tinyxml2)
+ign_find_package(TINYXML2 REQUIRED_BY launch PRIVATE PRETTY tinyxml2)
 
 #--------------------------------------
 # Find ignition-common
-ign_find_package(ignition-common3 REQUIRED PRIVATE)
+ign_find_package(ignition-common3 REQUIRED_BY launch PRIVATE)
 set(IGN_COMMON_MAJOR_VER ${ignition-common3_VERSION_MAJOR})
 
 ########################################
