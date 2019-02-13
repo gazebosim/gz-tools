@@ -12,9 +12,9 @@ pipelines:
           - wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
           - apt-get update
           - apt-get -y install
-            cmake build-essential curl git mercurial cppcheck g++-8
+            cmake build-essential curl git mercurial cppcheck g++-8 libyaml-dev
             doxygen ruby-ronn libtinyxml2-dev software-properties-common 
-            clang-tidy-6.0 libclang-6.0-dev
+            clang-tidy-6.0 libclang-6.0-dev python-yaml
           - update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
           - gcc -v
           - g++ -v
@@ -33,9 +33,9 @@ pipelines:
           - cmake .. -DCMAKE_BUILD_TYPE=coverage
           - make -j4
           - make test ARGS="-VV"
-          - make coverage
+          # - make coverage
           # Use a special version of codecov for handling gcc8 output.
           # - bash <(curl -s https://raw.githubusercontent.com/codecov/codecov-bash/4678d212cce2078bbaaf5027af0c0dafaad6a095/codecov) -X gcovout -X gcov
-          - make codecheck
+          # - make codecheck
           - cd ..
           - ./tools/clang_tidy.sh

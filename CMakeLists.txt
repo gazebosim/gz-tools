@@ -49,6 +49,10 @@ else()
   message (STATUS "Searching for Ruby - found.")
 endif()
 
+#--------------------------------------
+# Find libyaml
+ign_find_package(YAML REQUIRED PRIVATE)
+
 #============================================================================
 # Configure the build
 #============================================================================
