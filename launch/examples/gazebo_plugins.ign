@@ -89,6 +89,8 @@
         <camera_pose>-6 0 6 0 0.5 0</camera_pose>
         <service>/world/<%= worldName %>/scene/info</service>
         <pose_topic>/world/<%= worldName %>/pose/info</pose_topic>
+        <scene_topic>/world/<%= worldName %>/scene/info</scene_topic>
+        <deletion_topic>/world/<%= worldName %>/scene/deletion</deletion_topic>
       </plugin>
       <plugin filename="WorldControl" name="World control">
         <ignition-gui>

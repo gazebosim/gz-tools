@@ -213,12 +213,15 @@ bool Manager::RunConfig(const std::string &_config)
     return true;
 
   // Get whether or not we should run (block).
-  this->dataPtr->running = !this->dataPtr->executables.empty()
-    || !this->dataPtr->plugins.empty();
+  this->dataPtr->running = !this->dataPtr->executables.empty() ||
+                           !this->dataPtr->plugins.empty();
 
   // Wait for a shutdown event, or for all the executables to quit.
-  while (this->dataPtr->running && !this->dataPtr->executables.empty())
+  while (this->dataPtr->running && (!this->dataPtr->executables.empty() ||
+                                    !this->dataPtr->plugins.empty()))
+  {
     this->dataPtr->runCondition.wait(lock);
+  }
   this->dataPtr->running = false;
 
   // Stop plugins.
