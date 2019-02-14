@@ -579,6 +579,14 @@ void ManagerPrivate::LoadPlugin(const tinyxml2::XMLElement *_elem)
   systemPaths.SetPluginPathEnv("IGN_LAUNCH_PLUGIN_PATH");
   systemPaths.AddPluginPaths(IGNITION_TOOLS_LAUNCH_PLUGIN_INSTALL_PATH);
 
+  // Add LD_LIBRARY_PATH
+#ifdef __linux__
+  std::string libPath;
+  ignition::common::env("LD_LIBRARY_PATH", libPath);
+  std::cout << "LD_LIB_PATH[" << libPath << "]\n";
+  systemPaths.AddPluginPaths(libPath);
+#endif
+
   // Add in the gazebo plugin path for convenience
   std::string homePath;
   ignition::common::env(IGN_HOMEDIR, homePath);
