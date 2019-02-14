@@ -136,13 +136,21 @@ class Cmd
         # Check if the passed in file exists. 
         if File.exists?(options['file'])
           path = options['file']
-        # If not, then get the configuration path from the launch library.
+        # If not, then first check the IGN_LAUNCH_CONFIG_PATH environment
+        # variable, then the configuration path from the launch library.
         else
-          Importer.extern 'char *configPath()'
-          path = File.join(Importer.configPath().to_s, options['file'])
-          if !File.exists?(path) 
-            puts "Unable to find file " + options['file']
-            exit(-1)
+          configPathEnv = ENV['IGN_LAUNCH_CONFIG_PATH']
+          if !configPathEnv.nil? &&
+              File.exists?(File.join(configPathEnv, options['file']))
+            path = File.join(configPathEnv, options['file'])
+          # get the configuration path from the launch library.
+          else
+            Importer.extern 'char *configPath()'
+            path = File.join(Importer.configPath().to_s, options['file'])
+            if !File.exists?(path) 
+              puts "Unable to find file " + options['file']
+              exit(-1)
+            end
           end
         end
 
