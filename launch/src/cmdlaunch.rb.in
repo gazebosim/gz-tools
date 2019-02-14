@@ -133,7 +133,21 @@ class Cmd
       end
 
       if options.key?('file')
-        parsed = ERB.new(File.read(options['file'])).result()
+        # Check if the passed in file exists. 
+        if File.exists?(options['file'])
+          path = options['file']
+        # If not, then get the configuration path from the launch library.
+        else
+          Importer.extern 'char *configPath()'
+          path = File.join(Importer.configPath().to_s, options['file'])
+          if !File.exists?(path) 
+            puts "Unable to find file " + options['file']
+            exit(-1)
+          end
+        end
+
+        # ERB parse the file, and then run the result
+        parsed = ERB.new(File.read(path)).result()
         Importer.extern 'int run(const char *)'
         if not Importer.run(parsed)
           exit(-1)

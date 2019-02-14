@@ -28,6 +28,12 @@ extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE char *ignitionVersion()
 }
 
 //////////////////////////////////////////////////
+extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE const char *configPath()
+{
+  return IGNITION_TOOLS_LAUNCH_INITIAL_CONFIG_PATH;
+}
+
+//////////////////////////////////////////////////
 extern "C" IGNITION_TOOLS_LAUNCH_VISIBLE void cmdVerbosity(
     const char *_verbosity)
 {

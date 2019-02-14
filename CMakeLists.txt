@@ -59,6 +59,8 @@ ign_find_package(YAML REQUIRED PRIVATE)
 ign_configure_build(QUIT_IF_BUILD_ERRORS
   COMPONENTS launch)
 
+add_subdirectory(launch/examples)
+
 #============================================================================
 # Create package information
 #============================================================================
