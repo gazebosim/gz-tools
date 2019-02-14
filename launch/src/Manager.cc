@@ -138,8 +138,7 @@ class ignition::tools::launch::ManagerPrivate
   /// \brief Parse executable wrappers. Executable wrappers allow a plugin
   /// to run in a process.
   /// \param[in] _elem  XML element that contains an <executable_wrapper>
-  // \todo(nkoenig) Future PR
-  // private: void ParseExecutableWrappers(const tinyxml2::XMLElement *_elem);
+  private: void ParseExecutableWrappers(const tinyxml2::XMLElement *_elem);
 
   /// \brief A list of executables that are running, or have been run.
   public: std::list<Executable> executables;
@@ -148,7 +147,7 @@ class ignition::tools::launch::ManagerPrivate
   public: std::unordered_set<tools::launch::PluginPtr> plugins;
 
   /// \brief All the wrapped plugins
-  // \todo(nkoenig) Future PR: public: std::list<pid_t> wrappedPlugins;
+  public: std::list<pid_t> wrappedPlugins;
 
   /// \brief Mutex to protect the executables list.
   public: std::mutex executablesMutex;
@@ -337,9 +336,9 @@ bool ManagerPrivate::ParseConfig(const std::string &_config)
   // Parse and create all the <executable> elements.
   this->ParseExecutables(root);
 
-  // \todo(nkoenig) Future PR
-  // if (this->master)
-  //   this->ParseExecutableWrappers(root);
+  // Parse and create all the <executable_wrapper> elements.
+  if (this->master)
+    this->ParseExecutableWrappers(root);
 
   // Parse and create all the <plugin> elements.
   if (this->master)
@@ -442,9 +441,8 @@ void ManagerPrivate::ShutdownExecutables()
   for (const Executable &exec : this->executables)
     monitors.push_back(std::thread([&] {waitpid(exec.pid, nullptr, 0);}));
 
-  // \todo(nkoenig) Future PR
-  // for (const pid_t &wrapper : this->wrappedPlugins)
-  //   monitors.push_back(std::thread([&] {waitpid(wrapper, nullptr, 0);}));
+  for (const pid_t &wrapper : this->wrappedPlugins)
+    monitors.push_back(std::thread([&] {waitpid(wrapper, nullptr, 0);}));
 
   // Shutdown the processes
   for (const Executable &exec : this->executables)
@@ -455,12 +453,11 @@ void ManagerPrivate::ShutdownExecutables()
   }
 
   // Shutdown the wrapped plugins
-  // \todo(nkoenig) Future PR
-  // for (const pid_t &pid : this->wrappedPlugins)
-  // {
-  //   igndbg << "Killing the wrapped plugin PID[" << pid << "]\n";
-  //   kill(pid, SIGINT);
-  // }
+  for (const pid_t &pid : this->wrappedPlugins)
+  {
+    igndbg << "Killing the wrapped plugin PID[" << pid << "]\n";
+    kill(pid, SIGINT);
+  }
 
   igndbg << "Waiting for each process to end\n";
 
@@ -632,49 +629,48 @@ void ManagerPrivate::LoadPlugin(const tinyxml2::XMLElement *_elem)
   this->plugins.insert(plugin);
 }
 
-// \todo(nkoenig) Future PR
-// //////////////////////////////////////////////////
-// void ManagerPrivate::ParseExecutableWrappers(
-//   const tinyxml2::XMLElement *_elem)
-// {
-//   // Process all the executables.
-//   const tinyxml2::XMLElement *execElem = _elem->FirstChildElement(
-//       "executable_wrapper");
-//   std::list<pid_t> pluginPids;
-//
-//   // This "i" variable is just used for output messages.
-//   for (int i = 0; execElem && this->master; ++i)
-//   {
-//     const tinyxml2::XMLElement *pluginElem =
-//       execElem->FirstChildElement("plugin");
-//     if (pluginElem)
-//     {
-//       // Fork a process for the command
-//       pid_t pid = fork();
-//       // If parent process...
-//       if (pid)
-//       {
-//         this->master = true;
-//         pluginPids.push_back(pid);
-//       }
-//       else
-//       {
-//         this->master = false;
-//
-//         // Remove from foreground process group.
-//         setpgid(0, 0);
-//
-//         this->plugins.clear();
-//         this->wrappedPlugins.clear();
-//         this->sigHandler.reset();
-//         this->executables.clear();
-//         this->LoadPlugin(pluginElem);
-//         return;
-//       }
-//     }
-//     execElem = execElem->NextSiblingElement("executable_wrapper");
-//   }
-//
-//   if (this->master)
-//     this->wrappedPlugins = pluginPids;
-// }
+//////////////////////////////////////////////////
+void ManagerPrivate::ParseExecutableWrappers(
+  const tinyxml2::XMLElement *_elem)
+{
+  // Process all the executables.
+  const tinyxml2::XMLElement *execElem = _elem->FirstChildElement(
+      "executable_wrapper");
+  std::list<pid_t> pluginPids;
+
+  // This "i" variable is just used for output messages.
+  for (int i = 0; execElem && this->master; ++i)
+  {
+    const tinyxml2::XMLElement *pluginElem =
+      execElem->FirstChildElement("plugin");
+    if (pluginElem)
+    {
+      // Fork a process for the command
+      pid_t pid = fork();
+      // If parent process...
+      if (pid)
+      {
+        this->master = true;
+        pluginPids.push_back(pid);
+      }
+      else
+      {
+        this->master = false;
+
+        // Remove from foreground process group.
+        setpgid(0, 0);
+
+        this->plugins.clear();
+        this->wrappedPlugins.clear();
+        this->sigHandler.reset();
+        this->executables.clear();
+        this->LoadPlugin(pluginElem);
+        return;
+      }
+    }
+    execElem = execElem->NextSiblingElement("executable_wrapper");
+  }
+
+  if (this->master)
+    this->wrappedPlugins = pluginPids;
+}
