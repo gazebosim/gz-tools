@@ -57,7 +57,7 @@ class Executable
   /// \param[in] _envs Environment variables to set.
   public: Executable(const std::string &_name, const pid_t _pid,
             const std::vector<std::string> &_cmd, bool _autoRestart,
-            const std::list<std::pair<std::string, std::string>> &_envs)
+            const std::list<std::string> &_envs)
           : name(_name), pid(_pid), command(_cmd), autoRestart(_autoRestart),
             envs(_envs)
           {}
@@ -75,7 +75,7 @@ class Executable
   public: bool autoRestart = false;
 
   /// \brief Environment variables.
-  public: std::list<std::pair<std::string, std::string>> envs;
+  public: std::list<std::string> envs;
 };
 
 /// \brief Private data variables for the Ignition class.
@@ -109,7 +109,7 @@ class ignition::tools::launch::ManagerPrivate
   public: bool RunExecutable(const std::string &_name,
     const std::vector<std::string> &_cmd,
     const bool _autoRestart,
-    const std::list<std::pair<std::string, std::string>> &_envs);
+    const std::list<std::string> &_envs);
 
   /// \brief Stop all executables
   public: void ShutdownExecutables();
@@ -134,6 +134,14 @@ class ignition::tools::launch::ManagerPrivate
   /// \brief Parse executable configurations.
   /// \param[in] _elem XML element that contains an <executable>
   private: void ParseExecutables(const tinyxml2::XMLElement *_elem);
+
+  /// \brief Parse <env> elements.
+  /// \return List of envirnoment variable name,value pairs.
+  private: std::list<std::string> ParseEnvs(const tinyxml2::XMLElement *_elem);
+
+  /// \brief Set environment variables.
+  /// \param[in] _envs List of envirnoment variable name,value pairs.
+  private: void SetEnvs(const std::list<std::string> &_envs);
 
   /// \brief Parse executable wrappers. Executable wrappers allow a plugin
   /// to run in a process.
@@ -166,6 +174,9 @@ class ignition::tools::launch::ManagerPrivate
 
   /// \brief Our signal handler.
   public: std::unique_ptr<common::SignalHandler> sigHandler = nullptr;
+
+  /// \brief Top level environment variables.
+  public: std::list<std::string> envs;
 
   /// \brief Pointer to myself. This is used in the signal handlers.
   /// A raw pointer is acceptable here since it is used only internally.
@@ -343,6 +354,10 @@ bool ManagerPrivate::ParseConfig(const std::string &_config)
   if (this->master)
     this->ParseExecutableWrappers(root);
 
+  // Keep the environment variables in memory. See manpage for putenv.
+  this->envs = this->ParseEnvs(root);
+  this->SetEnvs(this->envs);
+
   // Parse and create all the <plugin> elements.
   if (this->master)
   {
@@ -368,7 +383,7 @@ bool ManagerPrivate::RunExecutable(const Executable &_exec)
 /////////////////////////////////////////////////
 bool ManagerPrivate::RunExecutable(const std::string &_name,
     const std::vector<std::string> &_cmd, bool _autoRestart,
-    const std::list<std::pair<std::string, std::string>> &_envs)
+    const std::list<std::string> &_envs)
 {
   // Check for empty
   if (_cmd.empty())
@@ -412,13 +427,7 @@ bool ManagerPrivate::RunExecutable(const std::string &_name,
     // Remove from foreground process group.
     setpgid(0, 0);
 
-    for (const std::pair<std::string, std::string> &env : _envs)
-    {
-      char finalEnv[1024];
-      snprintf(finalEnv, sizeof(finalEnv), "%s=%s", env.first.c_str(),
-          env.second.c_str());
-      putenv(finalEnv);
-    }
+    this->SetEnvs(_envs);
 
     // Run the command, replacing the current process image
     if (execvp(cstrings[0], &cstrings[0]) < 0)
@@ -519,28 +528,11 @@ void ManagerPrivate::ParseExecutables(const tinyxml2::XMLElement *_elem)
       autoRestart = txt == "true" || txt == "1" || txt == "t";
     }
 
-    std::list<std::pair<std::string, std::string>> envs;
-
-    // Get the environment variables
-    const tinyxml2::XMLElement *envElem = execElem->FirstChildElement("env");
-    while (envElem)
-    {
-      const tinyxml2::XMLElement *nameElem = envElem->FirstChildElement("name");
-      const tinyxml2::XMLElement *valueElem =
-        envElem->FirstChildElement("value");
-      if (nameElem && valueElem)
-      {
-        std::string name = nameElem->GetText();
-        std::string value = valueElem->GetText();
-        envs.push_back({name, value});
-      }
-
-      envElem = envElem->NextSiblingElement("env");
-    }
+    std::list<std::string> localEnvs = this->ParseEnvs(execElem);
 
     if (valid)
     {
-      if (!this->RunExecutable(nameStr, cmdParts, autoRestart, envs))
+      if (!this->RunExecutable(nameStr, cmdParts, autoRestart, localEnvs))
       {
         ignerr << "Unable to run executable named[" << nameStr << "] in "
           << "configuration file.\n";
@@ -549,6 +541,32 @@ void ManagerPrivate::ParseExecutables(const tinyxml2::XMLElement *_elem)
 
     execElem = execElem->NextSiblingElement("executable");
   }
+}
+
+//////////////////////////////////////////////////
+std::list<std::string> ManagerPrivate::ParseEnvs(
+    const tinyxml2::XMLElement *_elem)
+{
+  std::list<std::string> result;
+
+  // Get the environment variables
+  const tinyxml2::XMLElement *envElem = _elem->FirstChildElement("env");
+  while (envElem)
+  {
+    const tinyxml2::XMLElement *nameElem = envElem->FirstChildElement("name");
+    const tinyxml2::XMLElement *valueElem =
+      envElem->FirstChildElement("value");
+    if (nameElem && valueElem)
+    {
+      std::string name = nameElem->GetText();
+      std::string value = valueElem->GetText();
+      result.push_back(name + "=" + value);
+    }
+
+    envElem = envElem->NextSiblingElement("env");
+  }
+
+  return result;
 }
 
 //////////////////////////////////////////////////
@@ -675,4 +693,11 @@ void ManagerPrivate::ParseExecutableWrappers(
 
   if (this->master)
     this->wrappedPlugins = pluginPids;
+}
+
+//////////////////////////////////////////////////
+void ManagerPrivate::SetEnvs(const std::list<std::string> &_envs)
+{
+  for (const std::string &env : _envs)
+    putenv(const_cast<char*>(env.c_str()));
 }

@@ -35,7 +35,7 @@
   <!-- Run the gazebo server with a set of plugins -->
   <plugin name="ignition::plugins::GazeboServer"
           filename="libignition-plugins-gazebo0.so">
-    <world_file>/home/nkoenig/test.sdf</world_file>
+    <world_file><%= worldName %>.sdf</world_file>
     <run>true</run>
     <levels>false</levels>
 
