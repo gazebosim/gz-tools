@@ -580,7 +580,6 @@ void ManagerPrivate::LoadPlugin(const tinyxml2::XMLElement *_elem)
 #ifdef __linux__
   std::string libPath;
   ignition::common::env("LD_LIBRARY_PATH", libPath);
-  std::cout << "LD_LIB_PATH[" << libPath << "]\n";
   systemPaths.AddPluginPaths(libPath);
 #endif
 
