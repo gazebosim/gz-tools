@@ -3,6 +3,7 @@
 :: Users and developers should build and install this library using cmake and Visual Studio
 
 :: Install dependencies
+call %win_lib% :download_unzip_install libyaml-0.1.7-vc15-x64-md.zip
 call %win_lib% :install_ign_project ign-cmake ign-cmake2
 
 :: Set configuration variables
