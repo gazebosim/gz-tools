@@ -27,17 +27,10 @@ message(STATUS "\n\n-- ====== Finding Dependencies ======")
 
 ########################################
 # Include ruby
-find_package(Ruby 1.9 QUIET)
-if (NOT RUBY_FOUND)
-  IGN_BUILD_WARNING("Ruby is missing: Install ruby-dev to enable ruby interface to ignition math.")
-  message (STATUS "Searching for Ruby - not found.")
-else()
-  message (STATUS "Searching for Ruby - found.")
+find_program(RUBY ruby)
+if (NOT RUBY)
+  BUILD_ERROR ("Missing: ruby (ruby). Ruby is required for the command line interface.")
 endif()
-
-#--------------------------------------
-# Find libyaml
-ign_find_package(YAML REQUIRED PRIVATE)
 
 #============================================================================
 # Configure the build
