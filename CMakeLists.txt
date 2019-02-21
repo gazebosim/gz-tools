@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
 
 #============================================================================
 # Initialize the project
 #============================================================================
-project(ignition-tools VERSION 0.1.0)
+project(ignition-tools VERSION 0.2.0)
 
 #============================================================================
 # Find ignition-cmake
@@ -36,17 +36,10 @@ set(IGN_COMMON_MAJOR_VER ${ignition-common3_VERSION_MAJOR})
 
 ########################################
 # Include ruby
-find_package(Ruby 1.9 QUIET)
-if (NOT RUBY_FOUND)
-  IGN_BUILD_WARNING("Ruby is missing: Install ruby-dev to enable ruby interface to ignition math.")
-  message (STATUS "Searching for Ruby - not found.")
-else()
-  message (STATUS "Searching for Ruby - found.")
+find_program(RUBY ruby)
+if (NOT RUBY)
+  BUILD_ERROR ("Missing: ruby (ruby). Ruby is required for the command line interface.")
 endif()
-
-#--------------------------------------
-# Find libyaml
-ign_find_package(YAML REQUIRED PRIVATE)
 
 #============================================================================
 # Configure the build
