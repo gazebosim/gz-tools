@@ -56,21 +56,16 @@ else
     find $CHECK_DIRS -name "*.cc" -o -name "*.hh" -o -name "*.c" -o -name "*.h"`
 fi
 
-SUPPRESS=/tmp/cpp_check.suppress
-
-# The follow suppression is useful when checking for missing includes.
-# It's disable for now because checking for missing includes is very
-# time consuming. See CPPCHECK_CMD3.
-echo "missingIncludeSystem" >> $SUPPRESS
-
 #cppcheck
-CPPCHECK_BASE="cppcheck -q --suppressions-list=$SUPPRESS"
+CPPCHECK_BASE="cppcheck -q --inline-suppr"
 if [ $CPPCHECK_LT_157 -eq 0 ]; then
   # use --language argument if 1.57 or greater (issue #907)
   CPPCHECK_BASE="$CPPCHECK_BASE --language=c++"
 fi
-CPPCHECK_INCLUDES="-I . -I $builddir -I test"
-CPPCHECK_RULES="-DIGNITION_VISIBLE"
+CPPCHECK_INCLUDES="-I ./include -I $builddir -I test -I ./include/ignition/gazebo"
+CPPCHECK_RULES="-UM_PI"\
+" --rule-file=./tools/cppcheck_rules/header_guard.rule"\
+" --rule-file=./tools/cppcheck_rules/namespace_AZ.rule"
 CPPCHECK_CMD1A="-j 4 --enable=style,performance,portability,information"
 CPPCHECK_CMD1B="$CPPCHECK_RULES $CPPCHECK_FILES"
 CPPCHECK_CMD1="$CPPCHECK_CMD1A $CPPCHECK_CMD1B"
@@ -78,16 +73,15 @@ CPPCHECK_CMD2="--enable=unusedFunction $CPPCHECK_FILES"
 
 # Checking for missing includes is very time consuming. This is disabled
 # for now
-# CPPCHECK_CMD3="-j 4 --enable=missingInclude $CPPCHECK_FILES"\
-# " $CPPCHECK_INCLUDES"
-CPPCHECK_CMD3=""
+CPPCHECK_CMD3="-j 4 --enable=missingInclude $CPPCHECK_FILES $CPPCHECK_INCLUDES"
+# CPPCHECK_CMD3=""
 
 if [ $xmlout -eq 1 ]; then
   # Performance, style, portability, and information
-  ($CPPCHECK_BASE --xml $CPPCHECK_CMD1) 2> $xmldir/cppcheck.xml
+  ($CPPCHECK_BASE --xml --xml-version=2 $CPPCHECK_CMD1) 2> $xmldir/cppcheck.xml
 
   # Check the configuration
-  ($CPPCHECK_BASE --xml $CPPCHECK_CMD3) 2> $xmldir/cppcheck-configuration.xml
+  ($CPPCHECK_BASE --xml --xml-version=2 $CPPCHECK_CMD3) 2> $xmldir/cppcheck-configuration.xml
 elif [ $QUICK_CHECK -eq 1 ]; then
   for f in $CHECK_FILES; do
     prefix=`basename $f | sed -e 's@\..*$@@'`
@@ -95,9 +89,6 @@ elif [ $QUICK_CHECK -eq 1 ]; then
     tmp2="$QUICK_TMP"."$ext"
     tmp2base=`basename "$QUICK_TMP"`
     hg cat -r $QUICK_SOURCE $hg_root/$f > $tmp2
-
-    # Fix suppressions for tmp files
-    sed -i -e "s@$f@$tmp2@" $SUPPRESS
 
     # Skip cppcheck for header files if cppcheck is old
     DO_CPPCHECK=0
@@ -114,10 +105,7 @@ elif [ $QUICK_CHECK -eq 1 ]; then
         | grep -v 'Include file: .*not found'
     fi
 
-    # Undo changes to suppression file
-    sed -i -e "s@$tmp2@$f@" $SUPPRESS
-
-    python $hg_root/tools/cpplint.py $tmp2 2>&1 \
+    python $hg_root/tools/cpplint.py --quiet $tmp2 2>&1 \
       | sed -e "s@$tmp2@$f@g" -e "s@$tmp2base@$prefix@g" \
       | grep -v 'Total errors found: 0'
 
@@ -126,7 +114,7 @@ elif [ $QUICK_CHECK -eq 1 ]; then
   rm $QUICK_TMP
 else
   # Performance, style, portability, and information
-  $CPPCHECK_BASE $CPPCHECK_CMD1 2>&1
+  $CPPCHECK_BASE $CPPCHECK_INCLUDES $CPPCHECK_CMD1 2>&1
 
   # Check the configuration
   $CPPCHECK_BASE $CPPCHECK_CMD3 2>&1
@@ -134,8 +122,8 @@ fi
 
 # cpplint
 if [ $xmlout -eq 1 ]; then
-  (echo $CPPLINT_FILES | xargs python tools/cpplint.py 2>&1) \
+  (echo $CPPLINT_FILES | xargs python tools/cpplint.py --extensions=cc,hh --quiet 2>&1) \
     | python tools/cpplint_to_cppcheckxml.py 2> $xmldir/cpplint.xml
 elif [ $QUICK_CHECK -eq 0 ]; then
-  echo $CPPLINT_FILES | xargs python tools/cpplint.py 2>&1
+  echo $CPPLINT_FILES | xargs python tools/cpplint.py --extensions=cc,hh --quiet 2>&1
 fi
