@@ -60,7 +60,7 @@ conf_dirs.each do |conf_directory|
     # Sanity check: Verify that the the configuration file format is supported.
     unless yml.key?('format') && required_tags.key?(yml['format'])
       puts "Configuration error: File [#{conf_file}] uses format "\
-           '#{yml[format]} but this version is not supported.'
+           "#{yml[format]} but this version is not supported."
       exit(-1)
     end
 
