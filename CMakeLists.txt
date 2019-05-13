@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project (ignition-tools)
+project (ignition-tools1)
 
 string (SUBSTRING ${PROJECT_NAME} 9 -1 IGN_PROJECT_NAME)
 string (TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
