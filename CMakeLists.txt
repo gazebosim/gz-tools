@@ -45,4 +45,8 @@ ign_create_packages()
 #============================================================================
 # Configure documentation
 #============================================================================
-ign_create_docs()
+
+configure_file(${CMAKE_SOURCE_DIR}/tutorials.md.in ${CMAKE_BINARY_DIR}/tutorials.md)
+
+ign_create_docs(
+  TUTORIALS_MAINPAGE_MD "${CMAKE_BINARY_DIR}/tutorials.md")
