@@ -17,6 +17,6 @@ pipelines:
           # Ignition Tools
           - mkdir build
           - cd build
-          - cmake .. -DCMAKE_BUILD_TYPE=coverage
+          - cmake ..
           - make -j4
           - make test ARGS="-VV"
