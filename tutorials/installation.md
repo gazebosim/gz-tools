@@ -24,7 +24,7 @@ Install Ignition Tools:
 
 ```
 sudo apt-get update
-sudo apt-get install libignition-tools1-dev
+sudo apt-get install libignition-tools-dev
 ```
 
 ## Mac OS X
@@ -49,7 +49,7 @@ Run the following commands:
 
 ```
 brew tap osrf/simulation
-brew install ignition-tools1
+brew install ignition-tools
 ```
 
 ## Install from sources (Ubuntu Linux)
@@ -61,7 +61,7 @@ Make sure you have removed the Ubuntu pre-compiled binaries before
 installing from source:
 
 ```
-sudo apt-get remove libignition-tools1-dev
+sudo apt-get remove libignition-tools-dev
 ```
 
 Install prerequisites. A clean Ubuntu system will need:
