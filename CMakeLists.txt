@@ -2,6 +2,14 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 project (ignition-tools)
 
+# Note about ignition-cmake:
+# -------------------------
+# The project is not using ignition-cmake2 due to problems
+# with compatibility when mixed with projects using ignition-cmake0
+# When ignition-cmake0 will be EOL the code to implement
+# ignition-cmake2 back to this project can be found at:
+# https://bitbucket.org/ignitionrobotics/ign-tools/pull-requests/6
+
 string (SUBSTRING ${PROJECT_NAME} 9 -1 IGN_PROJECT_NAME)
 string (TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 string (TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
