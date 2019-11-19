@@ -263,6 +263,28 @@ else (build_errors)
     COMPONENT cmake)
 
   ########################################
+  # Tutorials generation
+  #
+  # (code copied from ign-cmake2 to generate IGN_DESIGNATION_CAP)
+  #
+  set(IGN_DESIGNATION ${PROJECT_NAME})
+  # Remove the leading "ignition-"
+  string(REGEX REPLACE "ignition-" "" IGN_DESIGNATION ${IGN_DESIGNATION})
+  # Remove the trailing version number
+  string(REGEX REPLACE "[0-9]+" "" IGN_DESIGNATION ${IGN_DESIGNATION})
+
+  # Get IGN_DESIGNATION_CAP
+  string(SUBSTRING ${IGN_DESIGNATION} 0 1 IGN_DESIGNATION_FIRST_LETTER)
+  string(TOUPPER ${IGN_DESIGNATION_FIRST_LETTER} IGN_DESIGNATION_FIRST_LETTER)
+  string(REGEX REPLACE "^.(.*)" "${IGN_DESIGNATION_FIRST_LETTER}\\1"
+    IGN_DESIGNATION_CAP "${IGN_DESIGNATION}")
+  configure_file(${CMAKE_SOURCE_DIR}/tutorials.md.in
+      ${CMAKE_BINARY_DIR}/tutorials.md)
+  include(cmake/IgnCreateDocs.cmake)
+  ign_create_docs(
+    TUTORIALS_MAINPAGE_MD "${CMAKE_BINARY_DIR}/tutorials.md")
+
+  ########################################
   # If present, load platform-specific build hooks.  This system is used,
   # for example, by the Ubuntu overlay, to arrange for installation of
   # Ubuntu-specific application-launching configuration.
