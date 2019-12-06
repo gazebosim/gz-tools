@@ -2,9 +2,6 @@
 :: NOTE: This script is only meant to be used as part of the ignition developers' CI system
 :: Users and developers should build and install this library using cmake and Visual Studio
 
-:: Install dependencies
-call %win_lib% :install_ign_project ign-cmake ign-cmake2
-
 :: Set configuration variables
 @set build_type=Release
 @if not "%1"=="" set build_type=%1
