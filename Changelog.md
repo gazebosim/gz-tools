@@ -1,4 +1,12 @@
+## Ignition Tools 2.x
+
+### Ignition Tools 2.X.X (20XX-XX-XX)
+
+### Ignition Tools 2.0.0 (20XX-XX-XX)
+
 ## Ignition Tools 1.x
+
+### Ignition Tools 1.X.X (20XX-XX-XX)
 
 ### Ignition Tools 1.0.0 (2019-12-09)
 
