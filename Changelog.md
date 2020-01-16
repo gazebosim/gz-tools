@@ -1,4 +1,6 @@
-## Ignition Tools 0.x
+## Ignition Tools 1.x
+
+### Ignition Tools 1.0.0 (2019-12-09)
 
 ### Ignition Tools 0.2.0
 
