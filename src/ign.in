@@ -264,4 +264,8 @@ cmd_rb_library = commands[ARGV[0]].at(version_index)[1]['library_path']
 # Pass the request to the specific ruby library.
 require cmd_rb_library
 cmd = Cmd.new
+
+# Set the process title to something nice.
+Process.setproctitle("ign #{ARGV[0]}")
+
 cmd.execute(ARGV)
