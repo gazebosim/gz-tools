@@ -266,6 +266,6 @@ require cmd_rb_library
 cmd = Cmd.new
 
 # Set the process title to something nice.
-Process.setproctitle("ign #{ARGV[0]}")
+Process.setproctitle("ign #{ARGV.join(' ')}")
 
 cmd.execute(ARGV)
