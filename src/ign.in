@@ -178,13 +178,26 @@ end
 
 usage += "\nOptions:\n\n"\
          "  --force-version <VERSION>  Use a specific library version.\n"\
-         "  --versions                 Show the available versions."
+         "  --versions                 Show the available versions.\n"\
+         "  --commands                 Show the available commands."
 
 usage += "\nUse 'ign help <command>' to print help for a command.\n"
 
 OptionParser.new do |opts|
   opts.banner = usage
 end.parse
+
+# The user wants to show the available commands.
+if ARGV.include?('--commands')
+  i = ARGV.index('--commands')
+
+  commands.each do |cmd, version|
+    puts cmd
+  end
+
+  exit(0)
+end
+
 
 # Check that there is at least one command and there is a plugin that knows
 # how to handle it.
@@ -264,4 +277,8 @@ cmd_rb_library = commands[ARGV[0]].at(version_index)[1]['library_path']
 # Pass the request to the specific ruby library.
 require cmd_rb_library
 cmd = Cmd.new
+
+# Set the process title to something nice.
+Process.setproctitle("ign #{ARGV.join(' ')}")
+
 cmd.execute(ARGV)
