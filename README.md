@@ -9,21 +9,13 @@ specific Ignition project. For example, all the commands that start with
 
   [http://ignitionrobotics.org](http://ignitionrobotics.org)
 
-## Continuous integration
-
-Please refer to the [drone.io
-job](https://drone.io/bitbucket.org/ignitionrobotics/ign-tools).
-
-[![Build Status](https://drone.io/bitbucket.org/ignitionrobotics/ign-tools/status.png)](https://drone.io/bitbucket.org/ignitionrobotics/ign-tools/latest)
-
-
 ## Dependencies
 
 The following dependencies are required to compile ignition-tools from
 source:
 
  - cmake
- - mercurial
+ - git
  - ruby-ronn
  - ruby-dev
 

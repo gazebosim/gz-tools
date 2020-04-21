@@ -8,7 +8,7 @@ project (ignition-tools)
 # with compatibility when mixed with projects using ignition-cmake0
 # When ignition-cmake0 will be EOL the code to implement
 # ignition-cmake2 back to this project can be found at:
-# https://bitbucket.org/ignitionrobotics/ign-tools/pull-requests/6
+# https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/6
 
 string (SUBSTRING ${PROJECT_NAME} 9 -1 IGN_PROJECT_NAME)
 string (TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
