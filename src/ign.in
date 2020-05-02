@@ -215,8 +215,9 @@ if ARGV[0].eql? 'help'
     exit(0)
   end
 
-  # Remove the help command.
+  # Remove the help command and append --help.
   ARGV.delete_at(0)
+  ARGV.append('--help')
 end
 
 version_index = 0
