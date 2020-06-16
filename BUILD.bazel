@@ -1,0 +1,34 @@
+load(
+    "@bazelruby_rules_ruby//ruby:defs.bzl",
+    "ruby_binary",
+    "ruby_library",
+    "ruby_test",
+    "ruby_rspec",
+)
+
+load(
+    "//ign_bazel:cmake_configure_file.bzl",
+    "cmake_configure_file",
+)
+
+CMAKE_INSTALL_PREFIX = "/USR"
+
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "config",
+    src = "src/ign.in",
+    out = "src/ign.rb",
+    cmakelists = ["CMakeLists.txt"],
+    defines = [
+        "CMAKE_INSTALL_PREFIX=%s" % (CMAKE_INSTALL_PREFIX),
+    ],
+    visibility = ["//visibility:public"],
+)
+
+ruby_binary(
+    name = "ign",
+    srcs = ["src/ign.rb"],
+    includes = ["src"],
+    main = "src/ign.rb",
+    visibility = ["//visibility:public"],
+)
