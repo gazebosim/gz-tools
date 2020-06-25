@@ -10,8 +10,44 @@ load(
     "//ign_bazel:cmake_configure_file.bzl",
     "cmake_configure_file",
 )
+load(
+    "//ign_bazel:generate_yaml.bzl",
+    "generate_yaml",
+)
 
-CMAKE_INSTALL_PREFIX = "/USR"
+package(default_visibility = ["//visibility:public"])
+
+SDF_MAJOR_VERSION = 10
+SDF_MINOR_VERSION = 0
+SDF_PATCH_VERSION = 0
+SDF_PROJECT_NAME = "sdformat"
+sdf_library_location = "../sdformat/libsdformat10.so"
+
+MSGS_MAJOR_VERSION = 6
+MSGS_MINOR_VERSION = 0
+MSGS_PATCH_VERSION = 0
+MSGS_PROJECT_NAME = "ignition-msgs"
+msgs_library_location = "../ign_msgs/libignition-msgs6.so"
+
+TRANSPORT_MAJOR_VERSION = 8
+TRANSPORT_MINOR_VERSION = 0
+TRANSPORT_PATCH_VERSION = 0
+TRANSPORT_PROJECT_NAME = "ignition-transport"
+transport_library_location = "../ign_transport/libignition-transport8.so"
+transport_log_library_location = "../ign_transport/libignition-transport8-log.so"
+
+FUEL_MAJOR_VERSION = 4
+FUEL_MINOR_VERSION = 1
+FUEL_PATCH_VERSION = 0
+FUEL_PROJECT_NAME = "ignition-fuel-tools"
+fuel_library_location = "../ign_fuel_tools/libignition-fuel-tools4.so"
+
+CMAKE_INSTALL_PREFIX = "./ign_tools"
+sdfcmds = "    - sdf   : Utilities for SDF files."
+transportcmds = "    - topic   : Print information about topics.\n    - service   : Print information about services."
+logcmds = "    - log   : Record or playback topics."
+msgscmds = "    - msg   : Print information about messages."
+fuelcmds = "    - fuel   : Manage simulation resources."
 
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
@@ -31,4 +67,113 @@ ruby_binary(
     includes = ["."],
     main = "ign.rb",
     visibility = ["//visibility:public"],
+    data = [
+        ":sdf",
+        ":msgs",
+        ":transport",
+        ":transport-log",
+        ":fuel",
+    ],
+)
+
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "sdformat.rb",
+    src = "//sdformat:src/cmd/cmdsdformat.rb.in",
+    out = "cmdsdformat.rb",
+    cmakelists = ["//sdformat:CMakeLists.txt"],
+    defines = [
+        "library_location=%s" % sdf_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (SDF_MAJOR_VERSION, SDF_MINOR_VERSION, SDF_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % [SDF_PROJECT_NAME],
+    ],
+    visibility = ["//visibility:public"],
+)
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "msgs.rb",
+    src = "//ign_msgs:src/cmd/cmdmsgs.rb.in",
+    out = "cmdmsgs.rb",
+    cmakelists = ["//ign_msgs:CMakeLists.txt"],
+    defines = [
+        "library_location=%s" % msgs_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (MSGS_MAJOR_VERSION, MSGS_MINOR_VERSION, MSGS_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % [MSGS_PROJECT_NAME],
+    ],
+    visibility = ["//visibility:public"],
+)
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "transport.rb",
+    src = "//ign_transport:src/cmd/cmdtransport.rb.in",
+    out = "cmdtransport.rb",
+    cmakelists = ["//ign_transport:CMakeLists.txt"],
+    defines = [
+        "library_location=%s" % transport_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (TRANSPORT_MAJOR_VERSION, TRANSPORT_MINOR_VERSION, TRANSPORT_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % [TRANSPORT_PROJECT_NAME],
+    ],
+    visibility = ["//visibility:public"],
+)
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "log.rb",
+    src = "//ign_transport/log:src/cmd/cmdlog.rb.in",
+    out = "cmdlog.rb",
+    cmakelists = ["//ign_transport/log:src/CMakeLists.txt"],
+    defines = [
+        "log_library_location=%s" % transport_log_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (TRANSPORT_MAJOR_VERSION, TRANSPORT_MINOR_VERSION, TRANSPORT_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % [TRANSPORT_PROJECT_NAME],
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "fuel.rb",
+    src = "//ign_fuel_tools:src/cmd/cmdfuel.rb.in",
+    out = "cmdfuel.rb",
+    cmakelists = ["//ign_fuel_tools:CMakeLists.txt"],
+    defines = [
+        "library_location=%s" % fuel_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (FUEL_MAJOR_VERSION, FUEL_MINOR_VERSION, FUEL_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % [FUEL_PROJECT_NAME],
+    ],
+    visibility = ["//visibility:public"],
+)
+generate_yaml(
+    name = "sdf",
+    library_name = SDF_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (SDF_MAJOR_VERSION, SDF_MINOR_VERSION, SDF_PATCH_VERSION),
+    commands = sdfcmds,
+    ruby_target = "sdformat.rb",
+)
+generate_yaml(
+    name = "msgs",
+    library_name = MSGS_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (MSGS_MAJOR_VERSION, MSGS_MINOR_VERSION, MSGS_PATCH_VERSION),
+    commands = msgscmds,
+    ruby_target = "msgs.rb",
+)
+generate_yaml(
+    name = "transport",
+    library_name = TRANSPORT_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (TRANSPORT_MAJOR_VERSION, TRANSPORT_MINOR_VERSION, TRANSPORT_PATCH_VERSION),
+    commands = transportcmds,
+    ruby_target = "transport.rb",
+)
+generate_yaml(
+    name = "transport-log",
+    library_name = TRANSPORT_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (TRANSPORT_MAJOR_VERSION, TRANSPORT_MINOR_VERSION, TRANSPORT_PATCH_VERSION),
+    commands = logcmds,
+    ruby_target = "log.rb",
+)
+generate_yaml(
+    name = "fuel",
+    library_name = FUEL_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (FUEL_MAJOR_VERSION, FUEL_MINOR_VERSION, FUEL_PATCH_VERSION),
+    commands = fuelcmds,
+    ruby_target = "fuel.rb",
 )
