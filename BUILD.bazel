@@ -45,7 +45,7 @@ fuel_library_location = "../ign_fuel_tools/libignition-fuel-tools4.so"
 GUI_MAJOR_VERSION = 4
 GUI_MINOR_VERSION = 0
 GUI_PATCH_VERSION = 0
-GUI_PROJECT_NAME = "ignition-gui"
+GUI_PROJECT_NAME = "libignition-gui4"
 gui_library_location = "../ign_gui/libignition-gui4.so"
 
 GAZEBO_MAJOR_VERSION = 4
@@ -94,6 +94,7 @@ ruby_binary(
         ":transport",
         ":transport-log",
         ":fuel",
+        ":gui",
     ],
 )
 
@@ -172,7 +173,7 @@ cmake_configure_file(
     defines = [
         "library_location=%s" % gui_library_location,
         "PROJECT_VERSION_FULL=%d.%d.%d" % (GUI_MAJOR_VERSION, GUI_MINOR_VERSION, GUI_PATCH_VERSION),  # noqa
-        "IGN_LIBRARY_NAME=%s" % [GUI_PROJECT_NAME],
+        "IGN_LIBRARY_NAME=%s" % GUI_PROJECT_NAME,
     ],
     visibility = ["//visibility:public"],
 )
