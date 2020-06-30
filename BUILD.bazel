@@ -95,6 +95,8 @@ ruby_binary(
         ":transport-log",
         ":fuel",
         ":gui",
+        "//ign_gui:ign_gui",
+        "//ign_gui/src/plugins/publisher:publisher",
     ],
 )
 
