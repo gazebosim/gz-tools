@@ -96,7 +96,7 @@ ruby_binary(
         ":fuel",
         ":gui",
         "//ign_gui:ign_gui",
-        "//ign_gui/src/plugins/publisher:publisher",
+        "//ign_gui/src/plugins:plugin-data",
     ],
 )
 
