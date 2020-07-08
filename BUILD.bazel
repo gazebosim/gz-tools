@@ -42,12 +42,33 @@ FUEL_PATCH_VERSION = 0
 FUEL_PROJECT_NAME = "ignition-fuel-tools"
 fuel_library_location = "../ign_fuel_tools/libignition-fuel-tools4.so"
 
+GUI_MAJOR_VERSION = 4
+GUI_MINOR_VERSION = 0
+GUI_PATCH_VERSION = 0
+GUI_PROJECT_NAME = "libignition-gui4"
+gui_library_location = "../ign_gui/libignition-gui4.so"
+
+GAZEBO_MAJOR_VERSION = 4
+GAZEBO_MINOR_VERSION = 0
+GAZEBO_PATCH_VERSION = 0
+GAZEBO_PROJECT_NAME = "ignition-gazebo"
+gazebo_library_location = "../ign_gazebo/libignition-gazebo4.so"
+
+LAUNCH_MAJOR_VERSION = 3
+LAUNCH_MINOR_VERSION = 0
+LAUNCH_PATCH_VERSION = 0
+LAUNCH_PROJECT_NAME = "ignition-launch"
+launch_library_location = "../ign_launch/libignition-launch3.so"
+
 CMAKE_INSTALL_PREFIX = "./ign_tools"
 sdfcmds = "    - sdf   : Utilities for SDF files."
 transportcmds = "    - topic   : Print information about topics.\n    - service   : Print information about services."
 logcmds = "    - log   : Record or playback topics."
 msgscmds = "    - msg   : Print information about messages."
 fuelcmds = "    - fuel   : Manage simulation resources."
+guicmds = "    - gui   : Launch graphical interfaces."
+gazebocmds = "    - gazebo   : Run and manage Gazebo."
+launchcmds = "    - launch   : Run and manage executables and plugins."
 
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
@@ -73,6 +94,9 @@ ruby_binary(
         ":transport",
         ":transport-log",
         ":fuel",
+        ":gui",
+        "//ign_gui:ign_gui",
+        "//ign_gui/src/plugins:plugin-data",
     ],
 )
 
@@ -142,6 +166,47 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "gui.rb",
+    src = "//ign_gui:src/cmd/cmdgui.rb.in",
+    out = "cmdgui.rb",
+    cmakelists = ["//ign_gui:CMakeLists.txt"],
+    defines = [
+        "library_location=%s" % gui_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (GUI_MAJOR_VERSION, GUI_MINOR_VERSION, GUI_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % GUI_PROJECT_NAME,
+    ],
+    visibility = ["//visibility:public"],
+)
+'''
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "gazebo.rb",
+    src = "//ign_gazebo:src/cmd/cmdgazebo.rb.in",
+    out = "cmdgazebo.rb",
+    cmakelists = ["//ign_gazebo:src/CMakeLists.txt"],
+    defines = [
+        "library_location=%s" % gazebo_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (GAZEBO_MAJOR_VERSION, GAZEBO_MINOR_VERSION, GAZEBO_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % [GAZEBO_PROJECT_NAME],
+    ],
+    visibility = ["//visibility:public"],
+)
+# Generates config.hh based on the version numbers in CMake code.
+cmake_configure_file(
+    name = "launch.rb",
+    src = "//ign_launch:src/cmdlaunch.rb.in",
+    out = "cmdlaunch.rb",
+    cmakelists = ["//ign_launch:CMakeLists.txt"],
+    defines = [
+        "library_location=%s" % launch_library_location,
+        "PROJECT_VERSION_FULL=%d.%d.%d" % (LAUNCH_MAJOR_VERSION, LAUNCH_MINOR_VERSION, LAUNCH_PATCH_VERSION),  # noqa
+        "IGN_LIBRARY_NAME=%s" % [LAUNCH_PROJECT_NAME],
+    ],
+    visibility = ["//visibility:public"],
+)
+'''
 generate_yaml(
     name = "sdf",
     library_name = SDF_PROJECT_NAME,
@@ -177,3 +242,26 @@ generate_yaml(
     commands = fuelcmds,
     ruby_target = "fuel.rb",
 )
+generate_yaml(
+    name = "gui",
+    library_name = GUI_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (GUI_MAJOR_VERSION, GUI_MINOR_VERSION, GUI_PATCH_VERSION),
+    commands = guicmds,
+    ruby_target = "gui.rb",
+)
+'''
+generate_yaml(
+    name = "gazebo",
+    library_name = GAZEBO_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (GAZEBO_MAJOR_VERSION, GAZEBO_MINOR_VERSION, GAZEBO_PATCH_VERSION),
+    commands = gazebocmds,
+    ruby_target = "gazebo.rb",
+)
+generate_yaml(
+    name = "launch",
+    library_name = LAUNCH_PROJECT_NAME,
+    library_version = "%d.%d.%d" % (LAUNCH_MAJOR_VERSION, LAUNCH_MINOR_VERSION, LAUNCH_PATCH_VERSION),
+    commands = launchcmds,
+    ruby_target = "launch.rb",
+)
+'''
