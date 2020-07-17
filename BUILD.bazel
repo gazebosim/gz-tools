@@ -95,6 +95,8 @@ ruby_binary(
         ":transport-log",
         ":fuel",
         ":gui",
+        ":gazebo",
+        ":launch",
         "//ign_gui:ign_gui",
         "//ign_gui/src/plugins:plugin-data",
     ],
@@ -179,7 +181,6 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
-'''
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "gazebo.rb",
@@ -206,7 +207,6 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
-'''
 generate_yaml(
     name = "sdf",
     library_name = SDF_PROJECT_NAME,
@@ -249,7 +249,6 @@ generate_yaml(
     commands = guicmds,
     ruby_target = "gui.rb",
 )
-'''
 generate_yaml(
     name = "gazebo",
     library_name = GAZEBO_PROJECT_NAME,
@@ -264,4 +263,3 @@ generate_yaml(
     commands = launchcmds,
     ruby_target = "launch.rb",
 )
-'''
