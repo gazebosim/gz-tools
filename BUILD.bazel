@@ -57,7 +57,7 @@ gazebo_library_location = "../ign_gazebo/libignition-gazebo4.so"
 LAUNCH_MAJOR_VERSION = 3
 LAUNCH_MINOR_VERSION = 0
 LAUNCH_PATCH_VERSION = 0
-LAUNCH_PROJECT_NAME = "ignition-launch"
+LAUNCH_PROJECT_NAME = "../ign_launch/libignition-launch3.so"
 launch_library_location = "../ign_launch/libignition-launch3.so"
 
 CMAKE_INSTALL_PREFIX = "./ign_tools"
@@ -98,7 +98,11 @@ ruby_binary(
         ":gazebo",
         ":launch",
         "//ign_gui:ign_gui",
+        "//ign_launch",
+	"//ign_launch:ign-launch-plugins",
         "//ign_gui/src/plugins:plugin-data",
+        "//ign_gazebo",
+	"//ign_gazebo:ign_gazebo_systems",
     ],
 )
 
@@ -203,7 +207,7 @@ cmake_configure_file(
     defines = [
         "library_location=%s" % launch_library_location,
         "PROJECT_VERSION_FULL=%d.%d.%d" % (LAUNCH_MAJOR_VERSION, LAUNCH_MINOR_VERSION, LAUNCH_PATCH_VERSION),  # noqa
-        "IGN_LIBRARY_NAME=%s" % [LAUNCH_PROJECT_NAME],
+        "IGN_LIBRARY_NAME=%s" % LAUNCH_PROJECT_NAME,
     ],
     visibility = ["//visibility:public"],
 )
