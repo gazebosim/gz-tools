@@ -12,8 +12,6 @@ jobs:
       - name: Compile and test
         id: ci
         uses: ignition-tooling/action-ignition-ci@master
-        with:
-          codecov-token: ${{ secrets.CODECOV_TOKEN }}
   focal-ci:
     runs-on: ubuntu-latest
     name: Ubuntu Focal CI
