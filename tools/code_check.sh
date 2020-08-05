@@ -1,3 +1,3 @@
 #!/bin/sh
 
-# TODO(anyone) add code checking for ruby
+rubocop -E ../build/ign
