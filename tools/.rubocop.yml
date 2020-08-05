@@ -1,2 +1,6 @@
+AllCops:
+  Include:
+    - '**/src/ign.in'
+
 Metrics/BlockLength:
   Max: 80

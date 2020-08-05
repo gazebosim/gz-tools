@@ -1,3 +1,4 @@
 #!/bin/sh
 
-rubocop -E ../build/ign
+BASEDIR=$(dirname "$0")
+rubocop -E -c $BASEDIR/.rubocop.yml $BASEDIR/../src
