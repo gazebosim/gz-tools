@@ -25,27 +25,25 @@ require 'yaml'
 #  - commands: List of top level commands supported by the library, as well as
 #              a brief description.
 required_tags =
-{
-  '1.0.0' => %w(format library_name library_version library_path commands)
-}
+  {
+    '1.0.0' => %w[format library_name library_version library_path commands]
+  }
 
 commands = {}
 yaml_found = false
 
 conf_dirs = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
 conf_dirs = ENV['IGN_CONFIG_PATH'] if ENV.key?('IGN_CONFIG_PATH')
-conf_dirs = conf_dirs.split(":")
+conf_dirs = conf_dirs.split(':')
 
 conf_dirs.each do |conf_directory|
-  if Dir.glob(conf_directory + '/*.yaml').empty?
-    next
-  end
+  next if Dir.glob(conf_directory + '/*.yaml').empty?
 
   yaml_found = true
 
   # Iterate over the list of configuration files.
   Dir.glob(conf_directory + '/*.yaml') do |conf_file|
-    next if conf_file == '.' || conf_file == '..'
+    next if conf_file == [',', '..'].any?
 
     # Read the configuration file.
     yml = YAML.load_file(conf_file)
@@ -74,11 +72,10 @@ conf_dirs.each do |conf_directory|
       end
 
       # Verify that the value for this key is not empty.
-      unless yml[tag]
-        puts "Configuration error: File [#{conf_file}] does not contain any "\
-             "value for the key '#{tag}'."
-        exit(-1)
-      end
+      next if yml[tag]
+      puts "Configuration error: File [#{conf_file}] does not contain any "\
+           "value for the key '#{tag}'."
+      exit(-1)
     end
 
     yml['commands'].each do |cmd|
@@ -102,7 +99,7 @@ conf_dirs.each do |conf_directory|
         if commands.key?(key) &&
            commands[key].values[0]['library_name'] != yml['library_name']
           puts "Configuration error: File [#{conf_file}] contains a command "\
-               "already registered by "\
+               'already registered by '\
                "#{commands[key].values[0]['library_name']}."
           exit(-1)
         end
@@ -111,21 +108,20 @@ conf_dirs.each do |conf_directory|
         # the additional information (in a hash).
         if !commands.key?(key)
           commands[key] =
-          { yml['library_version'] =>
+            { yml['library_version'] =>
+              {
+                'library_name' => yml['library_name'],
+                'library_path' => yml['library_path'],
+                'description' => value
+              } }
+        else
+          new_value = {}
+          new_value[yml['library_version']] =
             {
               'library_name' => yml['library_name'],
               'library_path' => yml['library_path'],
               'description' => value
             }
-          }
-        else
-          new_value = {}
-          new_value[yml['library_version']] =
-          {
-            'library_name' => yml['library_name'],
-            'library_path' => yml['library_path'],
-            'description' => value
-          }
           commands[key].update(new_value)
         end
       end
@@ -165,7 +161,6 @@ usage = 'The \'ign\' command provides a command line interface to the ignition'\
 # Used to align the commands and the description.
 padding_width = 15
 commands.each do |cmd, versions|
-
   # Calculate the padding to add between the command and the description.
   padding_to_apply = padding_width - cmd.size - 1
   padding = ''
@@ -179,7 +174,7 @@ end
 usage += "\nOptions:\n\n"\
          "  --force-version <VERSION>  Use a specific library version.\n"\
          "  --versions                 Show the available versions.\n"\
-         "  --commands                 Show the available commands."
+         '  --commands                 Show the available commands.'
 
 usage += "\nUse 'ign help <command>' to print help for a command.\n"
 
@@ -189,15 +184,12 @@ end.parse
 
 # The user wants to show the available commands.
 if ARGV.include?('--commands')
-  i = ARGV.index('--commands')
-
-  commands.each do |cmd, version|
+  commands.each_key do |cmd|
     puts cmd
   end
 
   exit(0)
 end
-
 
 # Check that there is at least one command and there is a plugin that knows
 # how to handle it.
@@ -242,11 +234,10 @@ if ARGV.include?('--force-version')
   # Sanity check: Verify if we have the command for the specified version.
   found = false
   commands[ARGV[0]].each_with_index do |version, index|
-    if version.first.eql?(required_version)
-      found = true
-      version_index = index
-      break
-    end
+    next unless version.first.eql?(required_version)
+    found = true
+    version_index = index
+    break
   end
 
   unless found
@@ -261,10 +252,6 @@ end
 
 # The user wants to show the available versions.
 if ARGV.include?('--versions')
-  i = ARGV.index('--versions')
-
-  # Sanity check: Verify if we have the command for the specified version.
-  found = false
   commands[ARGV[0]].each do |version|
     puts version.first
   end

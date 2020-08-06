@@ -1,3 +1,4 @@
 #!/bin/sh
 
-# TODO(anyone) add code checking for ruby
+BASEDIR=$(dirname "$0")
+rubocop -E -c $BASEDIR/.rubocop.yml $BASEDIR/../src
