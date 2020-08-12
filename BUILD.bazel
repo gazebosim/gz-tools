@@ -57,7 +57,7 @@ gazebo_library_location = "../ign_gazebo/libignition-gazebo4.so"
 LAUNCH_MAJOR_VERSION = 3
 LAUNCH_MINOR_VERSION = 0
 LAUNCH_PATCH_VERSION = 0
-LAUNCH_PROJECT_NAME = "ignition-launch"
+LAUNCH_PROJECT_NAME = "../ign_launch/libignition-launch3.so"
 launch_library_location = "../ign_launch/libignition-launch3.so"
 
 CMAKE_INSTALL_PREFIX = "./ign_tools"
@@ -95,8 +95,11 @@ ruby_binary(
         ":transport-log",
         ":fuel",
         ":gui",
+        ":gazebo",
         "//ign_gui:ign_gui",
         "//ign_gui/src/plugins:plugin-data",
+        "//ign_gazebo",
+        "//ign_gazebo:ign_gazebo_systems",
     ],
 )
 
@@ -179,7 +182,6 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
-'''
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "gazebo.rb",
@@ -193,6 +195,7 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+'''
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "launch.rb",
@@ -202,7 +205,7 @@ cmake_configure_file(
     defines = [
         "library_location=%s" % launch_library_location,
         "PROJECT_VERSION_FULL=%d.%d.%d" % (LAUNCH_MAJOR_VERSION, LAUNCH_MINOR_VERSION, LAUNCH_PATCH_VERSION),  # noqa
-        "IGN_LIBRARY_NAME=%s" % [LAUNCH_PROJECT_NAME],
+        "IGN_LIBRARY_NAME=%s" % LAUNCH_PROJECT_NAME,
     ],
     visibility = ["//visibility:public"],
 )
@@ -249,7 +252,6 @@ generate_yaml(
     commands = guicmds,
     ruby_target = "gui.rb",
 )
-'''
 generate_yaml(
     name = "gazebo",
     library_name = GAZEBO_PROJECT_NAME,
@@ -257,6 +259,7 @@ generate_yaml(
     commands = gazebocmds,
     ruby_target = "gazebo.rb",
 )
+'''
 generate_yaml(
     name = "launch",
     library_name = LAUNCH_PROJECT_NAME,
