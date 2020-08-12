@@ -102,7 +102,6 @@ ruby_binary(
         "//ign_gui:ign_gui",
         "//ign_gui/src/plugins:plugin-data",
         "//ign_gazebo",
-        "//ign_gazebo:example-worlds",
         "//ign_gazebo:ign_gazebo_systems",
     ],
 )
