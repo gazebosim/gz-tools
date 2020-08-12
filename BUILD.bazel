@@ -99,7 +99,6 @@ ruby_binary(
         "//ign_gui:ign_gui",
         "//ign_gui/src/plugins:plugin-data",
         "//ign_gazebo",
-        "//ign_gazebo:example-worlds",
         "//ign_gazebo:ign_gazebo_systems",
     ],
 )
@@ -260,6 +259,7 @@ generate_yaml(
     commands = gazebocmds,
     ruby_target = "gazebo.rb",
 )
+'''
 generate_yaml(
     name = "launch",
     library_name = LAUNCH_PROJECT_NAME,
@@ -267,3 +267,4 @@ generate_yaml(
     commands = launchcmds,
     ruby_target = "launch.rb",
 )
+'''
