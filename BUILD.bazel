@@ -99,10 +99,11 @@ ruby_binary(
         ":launch",
         "//ign_gui:ign_gui",
         "//ign_launch",
-	"//ign_launch:ign-launch-plugins",
+        "//ign_launch:ign-launch-plugins",
         "//ign_gui/src/plugins:plugin-data",
         "//ign_gazebo",
-	"//ign_gazebo:ign_gazebo_systems",
+        "//ign_gazebo:example-worlds",
+        "//ign_gazebo:ign_gazebo_systems",
     ],
 )
 
