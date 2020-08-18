@@ -96,6 +96,9 @@ ruby_binary(
         ":fuel",
         ":gui",
         ":gazebo",
+        ":launch"
+        "//ign_launch",
+        "//ign_launch:ign-launch-plugins",
         "//ign_gui:ign_gui",
         "//ign_gui/src/plugins:plugin-data",
         "//ign_gazebo",
@@ -195,7 +198,6 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
-'''
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "launch.rb",
@@ -209,7 +211,6 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
-'''
 generate_yaml(
     name = "sdf",
     library_name = SDF_PROJECT_NAME,
