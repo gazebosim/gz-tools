@@ -96,7 +96,7 @@ ruby_binary(
         ":fuel",
         ":gui",
         ":gazebo",
-        ":launch"
+        ":launch",
         "//ign_launch",
         "//ign_launch:ign-launch-plugins",
         "//ign_gui:ign_gui",
