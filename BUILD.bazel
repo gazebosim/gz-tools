@@ -260,7 +260,6 @@ generate_yaml(
     commands = gazebocmds,
     ruby_target = "gazebo.rb",
 )
-'''
 generate_yaml(
     name = "launch",
     library_name = LAUNCH_PROJECT_NAME,
@@ -268,4 +267,3 @@ generate_yaml(
     commands = launchcmds,
     ruby_target = "launch.rb",
 )
-'''
