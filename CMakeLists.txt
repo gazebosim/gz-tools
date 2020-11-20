@@ -263,9 +263,12 @@ else (build_errors)
   set(PKG_LIBRARIES ${PROJECT_NAME_LOWER})
   set(PKG_DEPENDS)
 
-  configure_file(
+  include(CMakePackageConfigHelpers)
+  configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/ignition-config.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake" @ONLY)
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake"
+    INSTALL_DESTINATION ${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME_LOWER}
+  )
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake
     DESTINATION ${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME_LOWER}
     COMPONENT cmake)
