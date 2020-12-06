@@ -100,7 +100,6 @@ ruby_binary(
         "//ign_launch",
         "//ign_launch:ign-launch-plugins",
         "//ign_gui:ign_gui",
-        "//ign_gui/src/plugins:plugin-data",
         "//ign_gazebo",
         "//ign_gazebo:ign_gazebo_systems",
     ],
