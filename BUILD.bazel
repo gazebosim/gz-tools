@@ -2,10 +2,9 @@ load(
     "@bazelruby_rules_ruby//ruby:defs.bzl",
     "ruby_binary",
     "ruby_library",
-    "ruby_test",
     "ruby_rspec",
+    "ruby_test",
 )
-
 load(
     "//ign_bazel:cmake_configure_file.bzl",
     "cmake_configure_file",
@@ -18,56 +17,93 @@ load(
 package(default_visibility = ["//visibility:public"])
 
 SDF_MAJOR_VERSION = 10
+
 SDF_MINOR_VERSION = 0
+
 SDF_PATCH_VERSION = 0
+
 SDF_PROJECT_NAME = "sdformat"
+
 sdf_library_location = "../sdformat/libsdformat10.so"
 
 MSGS_MAJOR_VERSION = 6
+
 MSGS_MINOR_VERSION = 0
+
 MSGS_PATCH_VERSION = 0
+
 MSGS_PROJECT_NAME = "ignition-msgs"
+
 msgs_library_location = "../ign_msgs/libignition-msgs6.so"
 
 TRANSPORT_MAJOR_VERSION = 8
+
 TRANSPORT_MINOR_VERSION = 0
+
 TRANSPORT_PATCH_VERSION = 0
+
 TRANSPORT_PROJECT_NAME = "ignition-transport"
+
 transport_library_location = "../ign_transport/libignition-transport8.so"
+
 transport_log_library_location = "../ign_transport/libignition-transport8-log.so"
 
 FUEL_MAJOR_VERSION = 4
+
 FUEL_MINOR_VERSION = 1
+
 FUEL_PATCH_VERSION = 0
+
 FUEL_PROJECT_NAME = "ignition-fuel-tools"
+
 fuel_library_location = "../ign_fuel_tools/libignition-fuel-tools4.so"
 
 GUI_MAJOR_VERSION = 4
+
 GUI_MINOR_VERSION = 0
+
 GUI_PATCH_VERSION = 0
+
 GUI_PROJECT_NAME = "libignition-gui4"
+
 gui_library_location = "../ign_gui/libignition-gui4.so"
 
 GAZEBO_MAJOR_VERSION = 4
+
 GAZEBO_MINOR_VERSION = 0
+
 GAZEBO_PATCH_VERSION = 0
+
 GAZEBO_PROJECT_NAME = "ignition-gazebo"
+
 gazebo_library_location = "../ign_gazebo/libignition-gazebo4.so"
 
 LAUNCH_MAJOR_VERSION = 3
+
 LAUNCH_MINOR_VERSION = 0
+
 LAUNCH_PATCH_VERSION = 0
+
 LAUNCH_PROJECT_NAME = "../ign_launch/libignition-launch3.so"
+
 launch_library_location = "../ign_launch/libignition-launch3.so"
 
 CMAKE_INSTALL_PREFIX = "./ign_tools"
+
 sdfcmds = "    - sdf   : Utilities for SDF files."
+
 transportcmds = "    - topic   : Print information about topics.\n    - service   : Print information about services."
+
 logcmds = "    - log   : Record or playback topics."
+
 msgscmds = "    - msg   : Print information about messages."
+
 fuelcmds = "    - fuel   : Manage simulation resources."
+
 guicmds = "    - gui   : Launch graphical interfaces."
+
 gazebocmds = "    - gazebo   : Run and manage Gazebo."
+
 launchcmds = "    - launch   : Run and manage executables and plugins."
 
 # Generates config.hh based on the version numbers in CMake code.
@@ -77,7 +113,7 @@ cmake_configure_file(
     out = "ign.rb",
     cmakelists = ["CMakeLists.txt"],
     defines = [
-        "CMAKE_INSTALL_PREFIX=%s" % (CMAKE_INSTALL_PREFIX),
+        "CMAKE_INSTALL_PREFIX=%s" % CMAKE_INSTALL_PREFIX,
     ],
     visibility = ["//visibility:public"],
 )
@@ -85,24 +121,24 @@ cmake_configure_file(
 ruby_binary(
     name = "ign",
     srcs = ["ign.rb"],
+    data = [
+        ":fuel",
+        ":gazebo",
+        ":gui",
+        ":launch",
+        ":msgs",
+        ":sdf",
+        ":transport",
+        ":transport-log",
+        "//ign_gazebo",
+        "//ign_gazebo:ign_gazebo_systems",
+        "//ign_gui",
+        "//ign_launch",
+        "//ign_launch:ign-launch-plugins",
+    ],
     includes = ["."],
     main = "ign.rb",
     visibility = ["//visibility:public"],
-    data = [
-        ":sdf",
-        ":msgs",
-        ":transport",
-        ":transport-log",
-        ":fuel",
-        ":gui",
-        ":gazebo",
-        ":launch",
-        "//ign_launch",
-        "//ign_launch:ign-launch-plugins",
-        "//ign_gui:ign_gui",
-        "//ign_gazebo",
-        "//ign_gazebo:ign_gazebo_systems",
-    ],
 )
 
 # Generates config.hh based on the version numbers in CMake code.
@@ -118,6 +154,7 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "msgs.rb",
@@ -131,6 +168,7 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "transport.rb",
@@ -144,6 +182,7 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "log.rb",
@@ -171,6 +210,7 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "gui.rb",
@@ -184,6 +224,7 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "gazebo.rb",
@@ -197,6 +238,7 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+
 # Generates config.hh based on the version numbers in CMake code.
 cmake_configure_file(
     name = "launch.rb",
@@ -210,59 +252,67 @@ cmake_configure_file(
     ],
     visibility = ["//visibility:public"],
 )
+
 generate_yaml(
     name = "sdf",
+    commands = sdfcmds,
     library_name = SDF_PROJECT_NAME,
     library_version = "%d.%d.%d" % (SDF_MAJOR_VERSION, SDF_MINOR_VERSION, SDF_PATCH_VERSION),
-    commands = sdfcmds,
     ruby_target = "sdformat.rb",
 )
+
 generate_yaml(
     name = "msgs",
+    commands = msgscmds,
     library_name = MSGS_PROJECT_NAME,
     library_version = "%d.%d.%d" % (MSGS_MAJOR_VERSION, MSGS_MINOR_VERSION, MSGS_PATCH_VERSION),
-    commands = msgscmds,
     ruby_target = "msgs.rb",
 )
+
 generate_yaml(
     name = "transport",
+    commands = transportcmds,
     library_name = TRANSPORT_PROJECT_NAME,
     library_version = "%d.%d.%d" % (TRANSPORT_MAJOR_VERSION, TRANSPORT_MINOR_VERSION, TRANSPORT_PATCH_VERSION),
-    commands = transportcmds,
     ruby_target = "transport.rb",
 )
+
 generate_yaml(
     name = "transport-log",
+    commands = logcmds,
     library_name = TRANSPORT_PROJECT_NAME,
     library_version = "%d.%d.%d" % (TRANSPORT_MAJOR_VERSION, TRANSPORT_MINOR_VERSION, TRANSPORT_PATCH_VERSION),
-    commands = logcmds,
     ruby_target = "log.rb",
 )
+
 generate_yaml(
     name = "fuel",
+    commands = fuelcmds,
     library_name = FUEL_PROJECT_NAME,
     library_version = "%d.%d.%d" % (FUEL_MAJOR_VERSION, FUEL_MINOR_VERSION, FUEL_PATCH_VERSION),
-    commands = fuelcmds,
     ruby_target = "fuel.rb",
 )
+
 generate_yaml(
     name = "gui",
+    commands = guicmds,
     library_name = GUI_PROJECT_NAME,
     library_version = "%d.%d.%d" % (GUI_MAJOR_VERSION, GUI_MINOR_VERSION, GUI_PATCH_VERSION),
-    commands = guicmds,
     ruby_target = "gui.rb",
 )
+
 generate_yaml(
     name = "gazebo",
+    commands = gazebocmds,
     library_name = GAZEBO_PROJECT_NAME,
     library_version = "%d.%d.%d" % (GAZEBO_MAJOR_VERSION, GAZEBO_MINOR_VERSION, GAZEBO_PATCH_VERSION),
-    commands = gazebocmds,
     ruby_target = "gazebo.rb",
 )
+
 generate_yaml(
     name = "launch",
+    commands = launchcmds,
     library_name = LAUNCH_PROJECT_NAME,
     library_version = "%d.%d.%d" % (LAUNCH_MAJOR_VERSION, LAUNCH_MINOR_VERSION, LAUNCH_PATCH_VERSION),
-    commands = launchcmds,
     ruby_target = "launch.rb",
 )
