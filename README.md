@@ -29,7 +29,7 @@ sudo apt install libignition-tools<#>-dev
 ```
 
 Be sure to replace `<#>` with a number value, such as 2 or 3, depending on
-which version you need, or leave it empty for version 1.
+which version you need, or leave it empty for version 0.
 
 ### Windows
 
@@ -50,7 +50,7 @@ conda install libignition-tools<#> --channel conda-forge
 ```
 
 Be sure to replace `<#>` with a number value, such as 2 or 3, depending on
-which version you need, or leave it empty for version 1.
+which version you need, or leave it empty for version 0.
 
 ## Source Install
 
