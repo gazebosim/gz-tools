@@ -122,7 +122,7 @@ This assumes you have created and activated a Conda environment while installing
     cmake --build . --config Release
     ```
 
-1. Optionally, install
+2. Optionally, install
 
     ```
     cmake --install . --config Release
