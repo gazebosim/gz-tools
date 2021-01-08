@@ -18,6 +18,8 @@ We recommend following the Binary Install instructions to get up and running as 
 
 The Source Install instructions should be used if you need the very latest software improvements, you need to modify the code, or you plan to make a contribution.
 
+Windows support: Currently, the library builds on Windows, but the `ign` command-line tool is not readily functional. We are investigating this.
+
 ## Binary Install
 
 ### Ubuntu
