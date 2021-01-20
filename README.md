@@ -9,6 +9,8 @@ specific Ignition project. For example, all the commands that start with
 
 [http://ignitionrobotics.org](http://ignitionrobotics.org)
 
+**Note** While `ign-tools` is currently building on Windows 10, the command line utilities are not yet supported.
+
 # Installation
 
 These instructions are for installing only Ignition Tools.
