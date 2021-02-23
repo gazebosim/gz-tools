@@ -39,6 +39,14 @@ if (config_path != nil)
   conf_dirs += config_path
 end
 conf_dirs.append('@CMAKE_INSTALL_PREFIX@')
+conf_dirs.append('sdformat')
+conf_dirs.append('ign_msgs')
+conf_dirs.append('ign_transport')
+conf_dirs.append('ign_transport/log') 
+conf_dirs.append('ign_fuel_tools')
+conf_dirs.append('ign_gui')
+conf_dirs.append('ign_gazebo')
+
 
 conf_dirs.each do |conf_directory|
   next if Dir.glob(conf_directory + '/*.yaml').empty?
