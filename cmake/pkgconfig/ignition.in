@@ -1,5 +1,5 @@
-prefix=${pcfiledir}/../..
-libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
+prefix=${pcfiledir}/@PC_CONFIG_RELATIVE_PATH_TO_PREFIX@
+libdir=${prefix}/@LIB_INSTALL_DIR@
 includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
 
 Name: Ignition @IGN_PROJECT_NAME@
