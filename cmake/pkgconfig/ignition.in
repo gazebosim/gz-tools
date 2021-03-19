@@ -1,3 +1,4 @@
+# This packages provides no headers or libraries, so those fields are omitted
 Name: Ignition @IGN_PROJECT_NAME@
 Description: A set of @IGN_PROJECT_NAME@ classes for robot applications
 Version: @PROJECT_VERSION_FULL@
