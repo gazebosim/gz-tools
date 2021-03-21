@@ -234,7 +234,9 @@ if ARGV.include?('--force-version')
   # Sanity check: Verify if we have the command for the specified version.
   found = false
   commands[ARGV[0]].each_with_index do |version, index|
-    next unless version.first.eql?(required_version)
+    required_arr = required_version.split('.')
+    version_arr = version.first.split('.')
+    next unless required_arr.zip(version_arr).map {|required, current| required == current}.all?
     found = true
     version_index = index
     break
