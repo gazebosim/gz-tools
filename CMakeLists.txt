@@ -250,11 +250,17 @@ else (build_errors)
 
   ########################################
   # Make the package config files
+  set(PC_CONFIG_INSTALL_DIR ${LIB_INSTALL_DIR}/pkgconfig)
+  file(RELATIVE_PATH
+    PC_CONFIG_RELATIVE_PATH_TO_PREFIX
+    "${CMAKE_INSTALL_PREFIX}/${PC_CONFIG_INSTALL_DIR}"
+    "${CMAKE_INSTALL_PREFIX}"
+  )
   configure_file(
     ${CMAKE_SOURCE_DIR}/cmake/pkgconfig/ignition.in
     ${CMAKE_CURRENT_BINARY_DIR}/cmake/pkgconfig/${PROJECT_NAME_LOWER}.pc @ONLY)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cmake/pkgconfig/${PROJECT_NAME_LOWER}.pc
-    DESTINATION ${LIB_INSTALL_DIR}/pkgconfig
+    DESTINATION ${PC_CONFIG_INSTALL_DIR}
     COMPONENT pkgconfig)
 
   ########################################
