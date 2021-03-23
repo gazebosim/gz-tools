@@ -1,5 +1,47 @@
 ## Ignition Tools 1.x
 
+### Ignition Tools 1.1.0 (20XX-XX-XX)
+
+1. Use ; as IGN_CONFIG_PATH delimiter on windows
+    * [Pull request #45](https://github.com/ignitionrobotics/ign-tools/pull/45)
+
+1. Clean up ignition-tools.pc file
+    * [Pull request #40](https://github.com/ignitionrobotics/ign-tools/pull/40)
+
+1. Fix cmake warning and error mesage types
+    * [Pull request #41](https://github.com/ignitionrobotics/ign-tools/pull/41)
+
+1. Infrastructure updates
+    * [Pull request #42](https://github.com/ignitionrobotics/ign-tools/pull/42)
+    * [Pull request #38](https://github.com/ignitionrobotics/ign-tools/pull/38)
+    * [Pull request #37](https://github.com/ignitionrobotics/ign-tools/pull/37)
+    * [Pull request #29](https://github.com/ignitionrobotics/ign-tools/pull/29)
+    * [Pull request #22](https://github.com/ignitionrobotics/ign-tools/pull/22)
+    * [Pull request #17](https://github.com/ignitionrobotics/ign-tools/pull/17)
+    * [Pull request #11](https://github.com/ignitionrobotics/ign-tools/pull/11)
+    * [Pull request #add gitignore](https://github.com/ignitionrobotics/ign-tools/pull/add gitignore)
+
+1. Do not overwrite default linker flags so that LDFLAGS environment variable is considered
+    * [Pull request #35](https://github.com/ignitionrobotics/ign-tools/pull/35)
+
+1. Add Windows installation
+    * [Pull request #34](https://github.com/ignitionrobotics/ign-tools/pull/34)
+
+1. Fix: Use PACKAGE_PREFIX_DIR to ensure relocatable CMake install for conan
+    * [Pull request #30](https://github.com/ignitionrobotics/ign-tools/pull/30)
+
+1. Add ruby style checker
+    * [Pull request #25](https://github.com/ignitionrobotics/ign-tools/pull/25)
+
+1. When using help, append --help to specific command
+    * [Pull request #15](https://github.com/ignitionrobotics/ign-tools/pull/15)
+
+1. Added --commands
+    * [BitBucket pull request 23](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/23)
+
+1. Set the process title to something nice
+    * [BitBucket pull request 22](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/22)
+
 ### Ignition Tools 1.0.0 (2019-12-09)
 
 ### Ignition Tools 0.2.0
