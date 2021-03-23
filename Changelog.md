@@ -19,7 +19,7 @@
     * [Pull request #22](https://github.com/ignitionrobotics/ign-tools/pull/22)
     * [Pull request #17](https://github.com/ignitionrobotics/ign-tools/pull/17)
     * [Pull request #11](https://github.com/ignitionrobotics/ign-tools/pull/11)
-    * [Pull request #add gitignore](https://github.com/ignitionrobotics/ign-tools/pull/add gitignore)
+    * [Pull request #13](https://github.com/ignitionrobotics/ign-tools/pull/13)
 
 1. Do not overwrite default linker flags so that LDFLAGS environment variable is considered
     * [Pull request #35](https://github.com/ignitionrobotics/ign-tools/pull/35)
