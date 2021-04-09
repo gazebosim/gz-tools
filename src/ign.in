@@ -34,7 +34,7 @@ yaml_found = false
 
 conf_dirs = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
 conf_dirs = ENV['IGN_CONFIG_PATH'] if ENV.key?('IGN_CONFIG_PATH')
-conf_dirs = conf_dirs.split(':')
+conf_dirs = conf_dirs.split('@ENV_PATH_DELIMITER@')
 
 conf_dirs.each do |conf_directory|
   next if Dir.glob(conf_directory + '/*.yaml').empty?
