@@ -236,7 +236,8 @@ if ARGV.include?('--force-version')
   required_arr = required_version.split('.')
   commands[ARGV[0]].each_with_index do |version, index|
     version_arr = version.first.split('.')
-    next unless required_arr.zip(version_arr).map {|required, current| required == current}.all?
+    next unless required_arr.zip(version_arr).map \
+      { |required, current| required == current }.all?
     found = true
     version_index = index
     break
