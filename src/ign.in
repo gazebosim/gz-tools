@@ -233,8 +233,8 @@ if ARGV.include?('--force-version')
 
   # Sanity check: Verify if we have the command for the specified version.
   found = false
+  required_arr = required_version.split('.')
   commands[ARGV[0]].each_with_index do |version, index|
-    required_arr = required_version.split('.')
     version_arr = version.first.split('.')
     next unless required_arr.zip(version_arr).map {|required, current| required == current}.all?
     found = true
