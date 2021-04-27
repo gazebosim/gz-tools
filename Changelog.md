@@ -1,5 +1,12 @@
 ## Ignition Tools 1.x
 
+### Ignition Tools 1.X.X (20XX-XX-XX)
+
+### Ignition Tools 1.2.0 (2021-04-26)
+
+1. Relax version verification
+    * [Pull request #44](https://github.com/ignitionrobotics/ign-tools/pull/44)
+
 ### Ignition Tools 1.1.0 (2021-03-30)
 
 1. Use ; as IGN_CONFIG_PATH delimiter on windows
