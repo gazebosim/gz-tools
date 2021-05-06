@@ -142,7 +142,12 @@ end
 # versions go first.
 sorted_commands = {}
 commands.each do |cmd, versions|
-  sorted_commands[cmd] = versions.sort.reverse
+  sorted_commands[cmd] = versions.sort_by do |k, _v|
+    # Prereleases include the "~" symbol. However Gem::Version doesn't support
+    # it, so we remove it.
+    k = k.tr('~', '')
+    Gem::Version.new(k)
+  end.reverse
 end
 
 # Commands is a hash where the key is the command and the value is a list.
