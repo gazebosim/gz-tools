@@ -1,6 +1,6 @@
 # Check if SSE instructions are available on the machine where 
 # the project is compiled.
-
+IF(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
 IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
    EXEC_PROGRAM(cat ARGS "/proc/cpuinfo" OUTPUT_VARIABLE CPUINFO)
 
@@ -96,7 +96,7 @@ ELSE(CMAKE_SYSTEM_NAME MATCHES "Linux")
    set(SSSE3_FOUND  false CACHE BOOL "SSSE3 available on host")
    set(SSE4_1_FOUND false CACHE BOOL "SSE4.1 available on host")
 ENDIF(CMAKE_SYSTEM_NAME MATCHES "Linux")
-
+ENDIF(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
 if(NOT SSE2_FOUND)
       MESSAGE(STATUS "Could not find hardware support for SSE2 on this machine.")
 endif(NOT SSE2_FOUND)
