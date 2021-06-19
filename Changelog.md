@@ -2,6 +2,9 @@
 
 ### Ignition Tools 1.X.X (20XX-XX-XX)
 
+1. Remove build dependency on ruby (not needed)
+    * [Pull request #53](https://github.com/ignitionrobotics/ign-tools/pull/53)
+
 ### Ignition Tools 1.2.0 (2021-04-26)
 
 1. Relax version verification
