@@ -242,12 +242,6 @@ else (build_errors)
   message (STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
   message (STATUS "Install path: ${CMAKE_INSTALL_PREFIX}")
 
-  if (BUILD_IGNITION)
-    set(TEST_TYPE "UNIT")
-    add_subdirectory(src)
-    #add_subdirectory(test)
-  endif (BUILD_IGNITION)
-
   ########################################
   # Make the package config files
   set(PC_CONFIG_INSTALL_DIR ${LIB_INSTALL_DIR}/pkgconfig)
