@@ -163,6 +163,7 @@ if (build_errors)
 else (build_errors)
 
   message (STATUS "Install path: ${CMAKE_INSTALL_PREFIX}")
+  o
 
   ########################################
   # Make the package config files
