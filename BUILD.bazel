@@ -33,7 +33,7 @@ ruby_binary(
     srcs = ["ign.rb"],
     data = [
         IGNITION_ROOT + "sdformat:sdf",
-        IGNITION_ROOT + "sdformat:libsdformat10.so",
+        IGNITION_ROOT + "sdformat:sdformat.so",
         IGNITION_ROOT + "ign_msgs:msgs",
         IGNITION_ROOT + "ign_msgs:libignition-msgs.so",
         IGNITION_ROOT + "ign_transport:transport",
@@ -43,8 +43,7 @@ ruby_binary(
         IGNITION_ROOT + "ign_transport/log:sql",
         IGNITION_ROOT + "ign_fuel_tools:fuel",
         IGNITION_ROOT + "ign_fuel_tools:libignition-fuel-tools.so",
-        IGNITION_ROOT + "ign_gazebo:gazebo",
-        IGNITION_ROOT + "ign_gazebo:ign_gazebo_systems",
+        IGNITION_ROOT + "ign_gazebo:gazebo.yaml",
         IGNITION_ROOT + "ign_gazebo:libignition-gazebo.so",
         IGNITION_ROOT + "ign_gui:gui",
         IGNITION_ROOT + "ign_gui:libignition-gui.so",
