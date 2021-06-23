@@ -86,22 +86,3 @@ macro (ign_install_executable _name)
   manpage(${_name} 1)
 endmacro ()
 
-# This should be migrated to more fine control solution based on set_property APPEND
-# directories. It's present on cmake 2.8.8 while precise version is 2.8.7
-link_directories(${PROJECT_BINARY_DIR}/test)
-include_directories("${PROJECT_SOURCE_DIR}/test/gtest/include")
-
-#################################################
-# Enable tests compilation by default
-if (NOT DEFINED ENABLE_TESTS_COMPILATION)
-  set (ENABLE_TESTS_COMPILATION True)
-endif()
-
-# Define testing macros as empty and redefine them if support is found and
-# ENABLE_TESTS_COMPILATION is set to true
-macro (ign_build_tests)
-endmacro()
-
-if (ENABLE_TESTS_COMPILATION)
-  include (${project_cmake_dir}/TestUtils.cmake)
-endif()

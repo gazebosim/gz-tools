@@ -163,6 +163,7 @@ if (build_errors)
 else (build_errors)
 
   message (STATUS "Install path: ${CMAKE_INSTALL_PREFIX}")
+
   ########################################
   # Make the package config files
   set(PC_CONFIG_INSTALL_DIR ${LIB_INSTALL_DIR}/pkgconfig)
