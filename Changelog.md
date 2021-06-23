@@ -5,6 +5,9 @@
 1. Remove all death CMake code related to test.
     * [Pull request #54](https://github.com/ignitionrobotics/ign-tools/pull/54)
 
+1. Remove unused cmake code related to compilations (CFlags, BUILD_TYPE, etc.)
+    * [Pull request #55](https://github.com/ignitionrobotics/ign-tools/pull/55)
+
 ### Ignition Tools 1.2.0 (2021-04-26)
 
 1. Relax version verification

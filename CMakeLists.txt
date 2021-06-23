@@ -133,76 +133,6 @@ message (STATUS "\n\n====== Finding 3rd Party Packages ======")
 include (${project_cmake_dir}/SearchForStuff.cmake)
 message (STATUS "----------------------------------------\n")
 
-#####################################
-MESSAGE(STATUS "Checking ignition build type")
-# Set the default build type
-if (NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING
-        "Choose the type of build, options are: Debug Release RelWithDebInfo Profile Check" FORCE)
-endif (NOT CMAKE_BUILD_TYPE)
-# TODO: still convert to uppercase to keep backwards compatibility with
-# uppercase old supported and deprecated modes
-string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UPPERCASE)
-
-set (BUILD_TYPE_PROFILE FALSE)
-set (BUILD_TYPE_RELEASE FALSE)
-set (BUILD_TYPE_RELWITHDEBINFO FALSE)
-set (BUILD_TYPE_DEBUG FALSE)
-
-if ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "PROFILE")
-  set (BUILD_TYPE_PROFILE TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "RELEASE")
-  set (BUILD_TYPE_RELEASE TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "RELWITHDEBINFO")
-  set (BUILD_TYPE_RELWITHDEBINFO TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "DEBUG")
-  set (BUILD_TYPE_DEBUG TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "COVERAGE")
-  include (${project_cmake_dir}/CodeCoverage.cmake)
-  set (BUILD_TYPE_DEBUG TRUE)
-  SETUP_TARGET_FOR_COVERAGE(coverage ctest coverage)
-else()
-  build_error("CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} unknown. Valid options are: Debug Release RelWithDebInfo Profile Check")
-endif()
-
-#####################################
-# Handle CFlags
-unset (CMAKE_C_FLAGS_ALL CACHE)
-unset (CMAKE_CXX_FLAGS CACHE)
-
-# USE_HOST_CFLAGS (default TRUE)
-# Will check building host machine for proper cflags
-if(NOT DEFINED USE_HOST_CFLAGS OR USE_HOST_CFLAGS)
-  message(STATUS "Enable host CFlags")
-  include (${project_cmake_dir}/HostCFlags.cmake)
-endif()
-
-# USE_UPSTREAM_CFLAGS (default TRUE)
-# Will use predefined ignition developers cflags
-if(NOT DEFINED USE_UPSTREAM_CFLAGS OR USE_UPSTREAM_CFLAGS)
-  message(STATUS "Enable upstream CFlags")
-  include(${project_cmake_dir}/DefaultCFlags.cmake)
-endif()
-
-# Check if warning options are avaliable for the compiler and return WARNING_CXX_FLAGS variable
-filter_valid_compiler_warnings(-Wall -Wextra -Wno-long-long
-  -Wno-unused-value -Wno-unused-value -Wno-unused-value -Wno-unused-value
-  -Wfloat-equal -Wshadow -Winit-self -Wswitch-default
-  -Wmissing-include-dirs -pedantic)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}${WARNING_CXX_FLAGS}")
-
-#################################################
-# OS Specific initialization
-if (UNIX)
-  ign_setup_unix()
-else (WIN32)
-  ign_setup_windows()
-endif()
-
-if(APPLE)
-  ign_setup_apple()
-endif()
-
 #################################################
 # Print warnings and errors
 if ( build_warnings )
@@ -232,14 +162,6 @@ if (build_errors)
       "Please see the BUILD ERRORS above.")
 else (build_errors)
 
-  link_directories(${PROJECT_BINARY_DIR}/src)
-
-  if (DEFINED CMAKE_CXX_FLAGS)
-    message (STATUS "Custom CFlags:${CMAKE_CXX_FLAGS}")
-  else()
-    message (STATUS "Use default CFlags")
-  endif()
-  message (STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
   message (STATUS "Install path: ${CMAKE_INSTALL_PREFIX}")
 
   ########################################
