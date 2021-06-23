@@ -76,8 +76,6 @@ source:
 
  - cmake
  - git
- - ruby-ronn
- - ruby-dev
 
 ### Build from Source
 
