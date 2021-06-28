@@ -207,3 +207,5 @@ else (build_errors)
   message(STATUS "Configuration successful. Type make to compile
   ${PROJECT_NAME_LOWER}")
 endif(build_errors)
+
+add_subdirectory(src)
