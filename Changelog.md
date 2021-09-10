@@ -1,6 +1,6 @@
 ## Ignition Tools 1.x
 
-## Ignition Tools 1.X.X (20XX-XX-XX)
+## Ignition Tools 1.3.0 (2021-09-XX)
 
 1. Remove all death CMake code related to test.
     * [Pull request #54](https://github.com/ignitionrobotics/ign-tools/pull/54)
@@ -10,6 +10,19 @@
 
 1. Remove unused cmake code related to compilations (CFlags, BUILD_TYPE, etc.)
     * [Pull request #55](https://github.com/ignitionrobotics/ign-tools/pull/55)
+
+1. Add Windows support
+    * [Pull request #57](https://github.com/ignitionrobotics/ign-tools/pull/57)
+
+1. Install ign command
+    * [Pull request #56](https://github.com/ignitionrobotics/ign-tools/pull/56)
+
+1. Sort versions correctly.
+    * [Pull request #50](https://github.com/ignitionrobotics/ign-tools/pull/50)
+
+1. Infrastructure
+    * [Pull request #59](https://github.com/ignitionrobotics/ign-tools/pull/59)
+    * [Pull request #58](https://github.com/ignitionrobotics/ign-tools/pull/58)
 
 ### Ignition Tools 1.2.0 (2021-04-26)
 
