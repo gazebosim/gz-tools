@@ -10,12 +10,10 @@
 
 1. Remove unused cmake code related to compilations (CFlags, BUILD_TYPE, etc.)
     * [Pull request #55](https://github.com/ignitionrobotics/ign-tools/pull/55)
+    * [Pull request #56](https://github.com/ignitionrobotics/ign-tools/pull/56)
 
 1. Add Windows support
     * [Pull request #57](https://github.com/ignitionrobotics/ign-tools/pull/57)
-
-1. Install ign command
-    * [Pull request #56](https://github.com/ignitionrobotics/ign-tools/pull/56)
 
 1. Sort versions correctly.
     * [Pull request #50](https://github.com/ignitionrobotics/ign-tools/pull/50)
