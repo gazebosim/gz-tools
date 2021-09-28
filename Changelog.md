@@ -1,6 +1,6 @@
 ## Ignition Tools 1.x
 
-## Ignition Tools 1.3.0 (2021-09-XX)
+## Ignition Tools 1.3.0 (2021-09-27)
 
 1. Remove all death CMake code related to test.
     * [Pull request #54](https://github.com/ignitionrobotics/ign-tools/pull/54)
