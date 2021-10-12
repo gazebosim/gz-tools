@@ -16,6 +16,11 @@ endif()
 add_library(backward SHARED backward.cc)
 target_link_libraries(backward PUBLIC Backward::Backward)
 set_target_properties(backward PROPERTIES OUTPUT_NAME ${PROJECT_NAME}-backward)
+if(WIN32)
+  # Suppress warning from vendored package
+  target_compile_options(backward PUBLIC /wd4267)
+  target_compile_options(backward PUBLIC /wd4996)
+endif()
 install (TARGETS backward DESTINATION ${LIB_INSTALL_DIR})
 
 # Two steps to create `ign`, First using `configure_file`, to interpolate cmake variables. Then
