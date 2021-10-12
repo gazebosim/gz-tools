@@ -17,15 +17,18 @@
 require 'optparse'
 require 'yaml'
 
-# We use 'dl' for Ruby <= 1.9.x and 'fiddle' for Ruby >= 2.0.x
-if RUBY_VERSION.split('.')[0] < '2'
-  require 'dl'
-  require 'dl/import'
-  include DL
-else
-  require 'fiddle'
-  require 'fiddle/import'
-  include Fiddle
+# Module to wrap included shared library module
+module SharedLIbInterface
+  # We use 'dl' for Ruby <= 1.9.x and 'fiddle' for Ruby >= 2.0.x
+  if RUBY_VERSION.split('.')[0] < '2'
+    require 'dl'
+    require 'dl/import'
+    include DL
+  else
+    require 'fiddle'
+    require 'fiddle/import'
+    include Fiddle
+  end
 end
 
 # List of required keys in each YAML file.
@@ -279,11 +282,12 @@ if ARGV.include?('--versions')
 end
 
 # Start Backward before loading plugins
-backward_library_name = "$<TARGET_FILE_NAME:backward>"
+backward_library_name = '$<TARGET_FILE_NAME:backward>'
 begin
-  Importer.dlload backward_library_name
-rescue DLError
-  puts "Library error: #{backward_library_name} not found. Improved backtrace generation will be disabled"
+  SharedLIbInterface::Importer.dlload backward_library_name
+rescue SharedLIbInterface::DLError
+  puts "Library error: #{backward_library_name} not found. Improved backtrace"\
+       'generation will be disabled'
 end
 
 # Read the plugin that handles the command.
