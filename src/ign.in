@@ -18,7 +18,7 @@ require 'optparse'
 require 'yaml'
 
 # Module to wrap included shared library module
-module SharedLIbInterface
+module SharedLibInterface
   # We use 'dl' for Ruby <= 1.9.x and 'fiddle' for Ruby >= 2.0.x
   if RUBY_VERSION.split('.')[0] < '2'
     require 'dl'
@@ -290,8 +290,8 @@ backward_library_name = if (/darwin/ =~ RUBY_PLATFORM).nil?
                           '$<TARGET_FILE:backward>'
                         end
 begin
-  SharedLIbInterface::Importer.dlload backward_library_name
-rescue SharedLIbInterface::DLError
+  SharedLibInterface::Importer.dlload backward_library_name
+rescue SharedLibInterface::DLError
   puts "Library error: #{backward_library_name} not found. Improved backtrace"\
        ' generation will be disabled'
 end
