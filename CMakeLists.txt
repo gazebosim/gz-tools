@@ -131,7 +131,7 @@ include (${project_cmake_dir}/DissectVersion.cmake)
 
 message (STATUS "\n\n====== Finding 3rd Party Packages ======")
 include (${project_cmake_dir}/SearchForStuff.cmake)
-list(APPEND CMAKE_PREFIX_PATH ${project_cmake_dir})
+list(APPEND CMAKE_PREFIX_PATH ${PROJECT_SOURCE_DIR}/src/Backward)
 find_package(Backward)
 message (STATUS "----------------------------------------\n")
 
