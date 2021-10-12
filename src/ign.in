@@ -282,12 +282,18 @@ if ARGV.include?('--versions')
 end
 
 # Start Backward before loading plugins
-backward_library_name = '$<TARGET_FILE_NAME:backward>'
+backward_library_name = if (/darwin/ =~ RUBY_PLATFORM).nil?
+                          '$<TARGET_FILE_NAME:backward>'
+                        else
+                          # On macOS, the full path to the library since
+                          # DYLD_LIBRARY_PATH may not work.
+                          '$<TARGET_FILE:backward>'
+                        end
 begin
   SharedLIbInterface::Importer.dlload backward_library_name
 rescue SharedLIbInterface::DLError
   puts "Library error: #{backward_library_name} not found. Improved backtrace"\
-       'generation will be disabled'
+       ' generation will be disabled'
 end
 
 # Read the plugin that handles the command.
