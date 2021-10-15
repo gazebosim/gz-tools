@@ -1,5 +1,10 @@
 ## Ignition Tools 1.x
 
+## Ignition Tools 1.4.0 (2021-10-15)
+
+1. Improve backtrace generation using Backward
+    * [Pull request #63](https://github.com/ignitionrobotics/ign-tools/pull/63)
+
 ## Ignition Tools 1.3.0 (2021-09-27)
 
 1. Remove all death CMake code related to test.
