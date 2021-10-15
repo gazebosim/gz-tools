@@ -17,6 +17,20 @@
 require 'optparse'
 require 'yaml'
 
+# Module to wrap included shared library module
+module SharedLibInterface
+  # We use 'dl' for Ruby <= 1.9.x and 'fiddle' for Ruby >= 2.0.x
+  if RUBY_VERSION.split('.')[0] < '2'
+    require 'dl'
+    require 'dl/import'
+    include DL
+  else
+    require 'fiddle'
+    require 'fiddle/import'
+    include Fiddle
+  end
+end
+
 # List of required keys in each YAML file.
 #  - format: Format of the YAML file. This version has to be supported by this
 #            script.
@@ -267,9 +281,23 @@ if ARGV.include?('--versions')
   exit(0)
 end
 
+# Start Backward before loading plugins
+backward_library_name = if (/darwin/ =~ RUBY_PLATFORM).nil?
+                          '$<TARGET_FILE_NAME:backward>'
+                        else
+                          # On macOS, the full path to the library since
+                          # DYLD_LIBRARY_PATH may not work.
+                          '$<TARGET_FILE:backward>'
+                        end
+begin
+  SharedLibInterface::Importer.dlload backward_library_name
+rescue SharedLibInterface::DLError
+  puts "Library error: #{backward_library_name} not found. Improved backtrace"\
+       ' generation will be disabled'
+end
+
 # Read the plugin that handles the command.
 cmd_rb_library = commands[ARGV[0]].at(version_index)[1]['library_path']
-
 # Pass the request to the specific ruby library.
 require cmd_rb_library
 cmd = Cmd.new
