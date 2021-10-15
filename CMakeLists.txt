@@ -131,13 +131,16 @@ include (${project_cmake_dir}/DissectVersion.cmake)
 
 message (STATUS "\n\n====== Finding 3rd Party Packages ======")
 include (${project_cmake_dir}/SearchForStuff.cmake)
-list(APPEND CMAKE_PREFIX_PATH ${PROJECT_SOURCE_DIR}/src/Backward)
 
 # Backtrace
 # There appears to be a bug that causes pretty printing backtrace to fail in
 # some instances when using BFD, so we disable it here.
-set(STACK_DETAILS_AUTO_DETECT OFF)
-set(STACK_DETAILS_BFD OFF)
+
+option(USE_SYSTEM_BACKWARDCPP "Use system installed backward-cpp, otherwise use vendored version" FALSE)
+if (NOT USE_SYSTEM_BACKWARDCPP)
+  list(APPEND CMAKE_PREFIX_PATH ${PROJECT_SOURCE_DIR}/src/Backward)
+  set(STACK_DETAILS_AUTO_DETECT FALSE CACHE BOOL "Auto detect backward's stack details dependencies")
+endif()
 find_package(Backward)
 
 message (STATUS "----------------------------------------\n")
