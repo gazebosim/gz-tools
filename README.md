@@ -12,7 +12,7 @@ Build | Status
 Test coverage | [![codecov](https://codecov.io/gh/ignitionrobotics/ign-tools/branch/ign-tools1/graph/badge.svg)](https://codecov.io/gh/ignitionrobotics/ign-tools)
 Ubuntu Bionic | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-bionic-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-bionic-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-homebrew-amd64)
-Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-windows7-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-windows7-amd64)
+Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-1-win)](https://build.osrfoundation.org/job/ign_tools-ign-1-win)
 
 Ignition tools provide the `ign` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
