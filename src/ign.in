@@ -287,7 +287,7 @@ backward_library_name = if (/darwin/ =~ RUBY_PLATFORM).nil?
                         else
                           # On macOS, the full path to the library since
                           # DYLD_LIBRARY_PATH may not work.
-                          '$<TARGET_FILE:backward>'
+                          '@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/$<TARGET_FILE_NAME:backward>'
                         end
 begin
   SharedLibInterface::Importer.dlload backward_library_name
