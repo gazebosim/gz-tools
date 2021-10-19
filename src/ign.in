@@ -283,9 +283,9 @@ end
 
 # Start Backward before loading plugins
 begin
-  SharedLibInterface::Importer.dlload "@backward_library_name@"
+  SharedLibInterface::Importer.dlload '@backward_library_name@'
 rescue SharedLibInterface::DLError
-  puts "Library error: @backward_library_name@ not found. Improved backtrace"\
+  puts 'Library error: @backward_library_name@ not found. Improved backtrace'\
        ' generation will be disabled'
 end
 
