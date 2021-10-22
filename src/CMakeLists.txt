@@ -32,7 +32,7 @@ install (TARGETS backward DESTINATION ${LIB_INSTALL_DIR})
 # Used for the installed version.
 if(APPLE)
   # On macOS, the full path to the library since DYLD_LIBRARY_PATH may not work.
-  set(backward_library_name ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}/$<TARGET_FILE_NAME:backward>)
+  set(backward_library_name ${CMAKE_INSTALL_FULL_LIBDIR}/$<TARGET_FILE_NAME:backward>)
 else()
   set(backward_library_name $<TARGET_FILE_NAME:backward>)
 endif()
