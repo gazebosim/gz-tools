@@ -17,14 +17,14 @@
 require 'optparse'
 
 # Constants.
-COMMANDS = {'tools' => "Test ign tools.\n\n"}
+COMMANDS = { 'tools' => 'Test ign tools.\n\n' }.freeze
 
+# Test Cmd class
 class Cmd
   #
   # Execute the command
   #
-  def execute(args)
-    puts "Test executed"
+  def execute(_args)
+    puts 'Test executed'
   end
 end
-
