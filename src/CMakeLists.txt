@@ -59,46 +59,44 @@ if(BUILD_TESTING)
   configure_file(ign.in ${ign_script_configured_test})
   file(GENERATE OUTPUT ${ign_script_generated_test} INPUT ${ign_script_configured_test})
 
-  set(IGN_DESIGNIATION tools)
-  set(cmd_script_configured_test "${CMAKE_CURRENT_BINARY_DIR}/cmd${IGN_DESIGNIATION}_TEST.rb.configured")
-  set(cmd_script_generated_test "${PROJECT_BINARY_DIR}/test/lib/$<CONFIG>/ruby/ignition/cmd${IGN_DESIGNIATION}_TEST.rb")
+  set(TEST_NAME UNIT_ign_TEST)
 
+  set(ign_library_path  "${PROJECT_SOURCE_DIR}/src/cmd${TEST_NAME}.rb")
+
+  set(yaml_output_dir "${PROJECT_BINARY_DIR}/test/conf" )
+  set(yaml_output_configured_test "${yaml_output_dir}/${TEST_NAME}.yaml.configured")
+  set(yaml_output_generated_test "${yaml_output_dir}/$<CONFIG>/${TEST_NAME}.yaml")
   configure_file(
-    "cmd${IGN_DESIGNIATION}_TEST.rb.in"
-    "${cmd_script_configured_test}"
-    @ONLY)
-
-  file(GENERATE
-    OUTPUT "${cmd_script_generated_test}"
-    INPUT  "${cmd_script_configured_test}")
-
-  set(ign_library_path ${cmd_script_generated_test})
-
-  set(yaml_output_dir "${PROJECT_BINARY_DIR}/test/conf/" )
-  set(yaml_output_configured_test "${yaml_output_dir}/${IGN_DESIGNIATION}_TEST.yaml.configured" )
-  set(yaml_output_generated_test "${yaml_output_dir}/$<CONFIG>/${IGN_DESIGNIATION}_TEST.yaml" )
-  configure_file(
-    "${IGN_DESIGNIATION}_TEST.yaml.in"
-    ${yaml_output_configured_test} @ONLY)
+    "${TEST_NAME}.yaml.in"
+    "${yaml_output_configured_test}" @ONLY)
 
   file(GENERATE
     OUTPUT "${yaml_output_generated_test}"
     INPUT "${yaml_output_configured_test}")
 
-  add_test(NAME UNIT_ign_TEST COMMAND ruby ${ign_script_generated_test} tools_TEST)
+  configure_file(
+    "${PROJECT_SOURCE_DIR}/tools/junit_pass.xml.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_pass.xml"
+    @ONLY)
+
+  configure_file(
+    "${PROJECT_SOURCE_DIR}/tools/junit_fail.xml.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_fail.xml"
+    @ONLY)
+
+  # This simply executes ign. The output will be tested in the check_* test
+  add_test(
+    NAME ${TEST_NAME}
+    COMMAND ${CMAKE_COMMAND}
+    -DTEST_NAME=${TEST_NAME}
+    -DIGN_SCRIPT=${ign_script_generated_test} 
+    -P ${PROJECT_SOURCE_DIR}/cmake/run_test.cmake
+  )
 
   set_tests_properties(
-    UNIT_ign_TEST
+    ${TEST_NAME}
     PROPERTIES
-    ENVIRONMENT
-    "IGN_CONFIG_PATH=${yaml_output_dir}/$<CONFIG>"
-  )
-  set_tests_properties(UNIT_ign_TEST PROPERTIES
-    PASS_REGULAR_EXPRESSION "Test passed"
-  )
-
-  set_tests_properties(UNIT_ign_TEST PROPERTIES
-    FAIL_REGULAR_EXPRESSION "Library error"
+    ENVIRONMENT "IGN_CONFIG_PATH=${yaml_output_dir}/$<CONFIG>"
   )
 endif()
 # END TEST

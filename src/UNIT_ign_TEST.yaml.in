@@ -4,6 +4,6 @@ library_name: @PROJECT_NAME@
 library_version: ''
 library_path: @ign_library_path@
 commands:
-    - tools_TEST   : Test command
+    - UNIT_ign_TEST   : Test command
 ---
 

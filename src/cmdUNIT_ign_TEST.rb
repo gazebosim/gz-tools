@@ -24,7 +24,7 @@ class Cmd
   # Execute the command
   #
   def execute(args)
-    puts "Test passed"
+    puts "Test executed"
   end
 end
 
