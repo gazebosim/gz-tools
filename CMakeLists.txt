@@ -220,4 +220,6 @@ else (build_errors)
   ${PROJECT_NAME_LOWER}")
 endif(build_errors)
 
+include(CTest)
+
 add_subdirectory(src)
