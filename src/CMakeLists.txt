@@ -13,6 +13,14 @@ if(WIN32)
   set(executable_name "ign.rb")
 endif()
 
+if(MSVC)
+
+  # We always want this flag to be specified so we get standard-compliant
+  # exception handling.
+  # EHsc: Use standard-compliant exception handling
+  add_compile_options("/EHsc")
+endif()
+
 cmake_policy(PUSH)
 cmake_policy(SET CMP0042 NEW)
 add_library(backward SHARED backward.cc)
@@ -21,7 +29,7 @@ set_target_properties(backward PROPERTIES OUTPUT_NAME ${PROJECT_NAME}-backward)
 set_target_properties(backward PROPERTIES CXX_STANDARD 14)
 cmake_policy(POP)
 
-if(WIN32)
+if(MSVC)
   # Suppress warning from vendored package
   target_compile_options(backward PUBLIC /wd4267)
   target_compile_options(backward PUBLIC /wd4996)
