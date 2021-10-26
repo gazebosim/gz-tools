@@ -1,4 +1,15 @@
-## Ignition Tools 1.x
+# Ignition Tools 1.x
+
+### Ignition Tools 1.4.1 (2021-10-27)
+
+1. Fix Windows colcon build
+    * [Pull request #65](https://github.com/ignitionrobotics/ign-tools/pull/65)
+
+1. Add flag to get standard-compliant exception handling
+    * [Pull request #68](https://github.com/ignitionrobotics/ign-tools/pull/68)
+
+1. Fix use of Backward on macOS
+    * [Pull request #67](https://github.com/ignitionrobotics/ign-tools/pull/67)
 
 ## Ignition Tools 1.4.0 (2021-10-15)
 
