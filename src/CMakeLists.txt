@@ -34,7 +34,10 @@ if(MSVC)
   target_compile_options(backward PUBLIC /wd4267)
   target_compile_options(backward PUBLIC /wd4996)
 endif()
-install (TARGETS backward DESTINATION ${LIB_INSTALL_DIR})
+install (TARGETS backward 
+         LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+         ARCHIVE DESTINATION ${LIB_INSTALL_DIR} 
+         RUNTIME DESTINATION ${BIN_INSTALL_DIR})
 
 #===============================================================================
 # Used for the installed version.
