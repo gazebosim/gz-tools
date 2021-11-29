@@ -57,6 +57,17 @@ configure_file(ign.in ${ign_script_configured})
 file(GENERATE OUTPUT ${ign_script_generated} INPUT ${ign_script_configured})
 install (PROGRAMS ${ign_script_generated} DESTINATION ${BIN_INSTALL_DIR})
 
+if(WIN32)
+  # On Windows also install the executable as ign 
+  # to permit to invoke ign via Git Bash 
+  # see https://github.com/ignitionrobotics/ign-tools/issues/70
+  install (PROGRAMS ${ign_script_generated} DESTINATION ${BIN_INSTALL_DIR} RENAME ign)
+  
+  # On Windows also install the ign.bat wrapper script to permit to
+  # invoke ign via Command Prompt or Powershell
+  install (PROGRAMS ign.bat DESTINATION ${BIN_INSTALL_DIR})
+endif()
+
 #===============================================================================
 # BEGIN TEST ign command
 # Generate the ruby script for internal testing.
