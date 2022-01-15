@@ -88,6 +88,13 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 sudo make install
 ```
 
+### Bash auto-completion
+
+Source the [etc/ign.bash_completion.sh](etc/ign.bash_completion.sh) script in your bash terminal window to enable auto-complete:
+~~~
+. etc/ign.bash_completion.sh
+~~~
+
 ### Uninstallation
 
 To uninstall the software installed with the previous steps:
