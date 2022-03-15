@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Compile and test
         id: ci
-        uses: ignition-tooling/action-ignition-ci@master
+        uses: ignition-tooling/action-ignition-ci@bionic
   focal-ci:
     runs-on: ubuntu-latest
     name: Ubuntu Focal CI
@@ -21,3 +21,12 @@ jobs:
       - name: Compile and test
         id: ci
         uses: ignition-tooling/action-ignition-ci@focal
+  jammy-ci:
+    runs-on: ubuntu-latest
+    name: Ubuntu Jammy CI
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Compile and test
+        id: ci
+        uses: ignition-tooling/action-ignition-ci@jammy
