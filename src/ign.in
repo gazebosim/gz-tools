@@ -17,6 +17,20 @@
 require 'optparse'
 require 'yaml'
 
+# Module to wrap included shared library module
+module SharedLibInterface
+  # We use 'dl' for Ruby <= 1.9.x and 'fiddle' for Ruby >= 2.0.x
+  if RUBY_VERSION.split('.')[0] < '2'
+    require 'dl'
+    require 'dl/import'
+    include DL
+  else
+    require 'fiddle'
+    require 'fiddle/import'
+    include Fiddle
+  end
+end
+
 # List of required keys in each YAML file.
 #  - format: Format of the YAML file. This version has to be supported by this
 #            script.
@@ -34,7 +48,7 @@ yaml_found = false
 
 conf_dirs = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
 conf_dirs = ENV['IGN_CONFIG_PATH'] if ENV.key?('IGN_CONFIG_PATH')
-conf_dirs = conf_dirs.split(':')
+conf_dirs = conf_dirs.split('@ENV_PATH_DELIMITER@')
 
 conf_dirs.each do |conf_directory|
   next if Dir.glob(conf_directory + '/*.yaml').empty?
@@ -142,7 +156,12 @@ end
 # versions go first.
 sorted_commands = {}
 commands.each do |cmd, versions|
-  sorted_commands[cmd] = versions.sort.reverse
+  sorted_commands[cmd] = versions.sort_by do |k, _v|
+    # Prereleases include the "~" symbol. However Gem::Version doesn't support
+    # it, so we remove it.
+    k = k.tr('~', '')
+    Gem::Version.new(k)
+  end.reverse
 end
 
 # Commands is a hash where the key is the command and the value is a list.
@@ -233,8 +252,11 @@ if ARGV.include?('--force-version')
 
   # Sanity check: Verify if we have the command for the specified version.
   found = false
+  required_arr = required_version.split('.')
   commands[ARGV[0]].each_with_index do |version, index|
-    next unless version.first.eql?(required_version)
+    version_arr = version.first.split('.')
+    next unless required_arr.zip(version_arr).map \
+      { |required, current| required == current }.all?
     found = true
     version_index = index
     break
@@ -259,9 +281,16 @@ if ARGV.include?('--versions')
   exit(0)
 end
 
+# Start Backward before loading plugins
+begin
+  SharedLibInterface::Importer.dlload '@backward_library_name@'
+rescue SharedLibInterface::DLError
+  warn 'Library error: @backward_library_name@ not found. Improved backtrace'\
+       ' generation will be disabled'
+end
+
 # Read the plugin that handles the command.
 cmd_rb_library = commands[ARGV[0]].at(version_index)[1]['library_path']
-
 # Pass the request to the specific ruby library.
 require cmd_rb_library
 cmd = Cmd.new

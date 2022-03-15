@@ -1,6 +1,18 @@
-# Ignition tools
+# Ignition tools: Ignition entry point for using all the suite of ignition tools
 
-**Ignition entry point for using all the suite of ignition tools.**
+**Maintainer:** caguero AT openrobotics DOT org
+
+[![GitHub open issues](https://img.shields.io/github/issues-raw/ignitionrobotics/ign-tools.svg)](https://github.com/ignitionrobotics/ign-tools/issues)
+[![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/ignitionrobotics/ign-tools.svg)](https://github.com/ignitionrobotics/ign-tools/pulls)
+[![Discourse topics](https://img.shields.io/discourse/https/community.gazebosim.org/topics.svg)](https://community.gazebosim.org)
+[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
+Build | Status
+-- | --
+Test coverage | [![codecov](https://codecov.io/gh/ignitionrobotics/ign-tools/branch/ign-tools1/graph/badge.svg)](https://codecov.io/gh/ignitionrobotics/ign-tools)
+Ubuntu Bionic | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-bionic-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-bionic-amd64)
+Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-homebrew-amd64)
+Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-1-win)](https://build.osrfoundation.org/job/ign_tools-ign-1-win)
 
 Ignition tools provide the `ign` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
@@ -64,8 +76,6 @@ source:
 
  - cmake
  - git
- - ruby-ronn
- - ruby-dev
 
 ### Build from Source
 
@@ -77,6 +87,13 @@ cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 sudo make install
 ```
+
+### Bash auto-completion
+
+Source the [etc/ign.bash_completion.sh](etc/ign.bash_completion.sh) script in your bash terminal window to enable auto-complete:
+~~~
+. etc/ign.bash_completion.sh
+~~~
 
 ### Uninstallation
 
@@ -120,3 +137,20 @@ This assumes you have created and activated a Conda environment while installing
   ```
   cmake --install . --config Release
   ```
+
+# Contributing
+
+Please see the [contribution guide](https://ignitionrobotics.org/docs/all/contributing).
+
+# Code of Conduct
+
+Please see
+[CODE_OF_CONDUCT.md](https://github.com/ignitionrobotics/ign-gazebo/blob/main/CODE_OF_CONDUCT.md).
+
+# Versioning
+
+This library uses [Semantic Versioning](https://semver.org/). Additionally, this library is part of the [Ignition Robotics project](https://ignitionrobotics.org) which periodically releases a versioned set of compatible and complimentary libraries. See the [Ignition Robotics website](https://ignitionrobotics.org) for version and release information.
+
+# License
+
+This library is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See also the [LICENSE](https://github.com/ignitionrobotics/ign-gazebo/blob/main/LICENSE) file.

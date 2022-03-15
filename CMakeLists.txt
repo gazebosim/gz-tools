@@ -131,86 +131,28 @@ include (${project_cmake_dir}/DissectVersion.cmake)
 
 message (STATUS "\n\n====== Finding 3rd Party Packages ======")
 include (${project_cmake_dir}/SearchForStuff.cmake)
+
+# Backtrace
+# There appears to be a bug that causes pretty printing backtrace to fail in
+# some instances when using BFD, so we disable it here.
+
+option(USE_SYSTEM_BACKWARDCPP "Use system installed backward-cpp, otherwise use vendored version" FALSE)
+if (NOT USE_SYSTEM_BACKWARDCPP)
+  list(APPEND CMAKE_PREFIX_PATH ${PROJECT_SOURCE_DIR}/src/Backward)
+  set(STACK_DETAILS_AUTO_DETECT FALSE CACHE BOOL "Auto detect backward's stack details dependencies")
+endif()
+find_package(Backward)
+
 message (STATUS "----------------------------------------\n")
-
-#####################################
-MESSAGE(STATUS "Checking ignition build type")
-# Set the default build type
-if (NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING
-        "Choose the type of build, options are: Debug Release RelWithDebInfo Profile Check" FORCE)
-endif (NOT CMAKE_BUILD_TYPE)
-# TODO: still convert to uppercase to keep backwards compatibility with
-# uppercase old supported and deprecated modes
-string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UPPERCASE)
-
-set (BUILD_TYPE_PROFILE FALSE)
-set (BUILD_TYPE_RELEASE FALSE)
-set (BUILD_TYPE_RELWITHDEBINFO FALSE)
-set (BUILD_TYPE_DEBUG FALSE)
-
-if ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "PROFILE")
-  set (BUILD_TYPE_PROFILE TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "RELEASE")
-  set (BUILD_TYPE_RELEASE TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "RELWITHDEBINFO")
-  set (BUILD_TYPE_RELWITHDEBINFO TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "DEBUG")
-  set (BUILD_TYPE_DEBUG TRUE)
-elseif ("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "COVERAGE")
-  include (${project_cmake_dir}/CodeCoverage.cmake)
-  set (BUILD_TYPE_DEBUG TRUE)
-  SETUP_TARGET_FOR_COVERAGE(coverage ctest coverage)
-else()
-  build_error("CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} unknown. Valid options are: Debug Release RelWithDebInfo Profile Check")
-endif()
-
-#####################################
-# Handle CFlags
-unset (CMAKE_C_FLAGS_ALL CACHE)
-unset (CMAKE_CXX_FLAGS CACHE)
-
-# USE_HOST_CFLAGS (default TRUE)
-# Will check building host machine for proper cflags
-if(NOT DEFINED USE_HOST_CFLAGS OR USE_HOST_CFLAGS)
-  message(STATUS "Enable host CFlags")
-  include (${project_cmake_dir}/HostCFlags.cmake)
-endif()
-
-# USE_UPSTREAM_CFLAGS (default TRUE)
-# Will use predefined ignition developers cflags
-if(NOT DEFINED USE_UPSTREAM_CFLAGS OR USE_UPSTREAM_CFLAGS)
-  message(STATUS "Enable upstream CFlags")
-  include(${project_cmake_dir}/DefaultCFlags.cmake)
-endif()
-
-# Check if warning options are avaliable for the compiler and return WARNING_CXX_FLAGS variable
-filter_valid_compiler_warnings(-Wall -Wextra -Wno-long-long
-  -Wno-unused-value -Wno-unused-value -Wno-unused-value -Wno-unused-value
-  -Wfloat-equal -Wshadow -Winit-self -Wswitch-default
-  -Wmissing-include-dirs -pedantic)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}${WARNING_CXX_FLAGS}")
-
-#################################################
-# OS Specific initialization
-if (UNIX)
-  ign_setup_unix()
-else (WIN32)
-  ign_setup_windows()
-endif()
-
-if(APPLE)
-  ign_setup_apple()
-endif()
 
 #################################################
 # Print warnings and errors
 if ( build_warnings )
-  message(STATUS "BUILD WARNINGS")
+  message(WARNING "BUILD WARNINGS")
   foreach (msg ${build_warnings})
-    message(STATUS ${msg})
+    message(WARNING ${msg})
   endforeach ()
-  message(STATUS "END BUILD WARNINGS\n")
+  message(WARNING "END BUILD WARNINGS\n")
 endif (build_warnings)
 
 ########### Add uninstall target ###############
@@ -223,38 +165,30 @@ add_custom_target(uninstall
   "${CMAKE_CURRENT_BINARY_DIR}/cmake/cmake_uninstall.cmake")
 
 if (build_errors)
-  message(STATUS "BUILD ERRORS: These must be resolved before compiling.")
+  message(SEND_ERROR "BUILD ERRORS: These must be resolved before compiling.")
   foreach (msg ${build_errors})
-    message(STATUS ${msg})
+    message(SEND_ERROR ${msg})
   endforeach ()
-  message(STATUS "END BUILD ERRORS\n")
+  message(SEND_ERROR "END BUILD ERRORS\n")
   message (FATAL_ERROR "Errors encountered in build. "
       "Please see the BUILD ERRORS above.")
 else (build_errors)
 
-  link_directories(${PROJECT_BINARY_DIR}/src)
-
-  if (DEFINED CMAKE_CXX_FLAGS)
-    message (STATUS "Custom CFlags:${CMAKE_CXX_FLAGS}")
-  else()
-    message (STATUS "Use default CFlags")
-  endif()
-  message (STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
   message (STATUS "Install path: ${CMAKE_INSTALL_PREFIX}")
-
-  if (BUILD_IGNITION)
-    set(TEST_TYPE "UNIT")
-    add_subdirectory(src)
-    #add_subdirectory(test)
-  endif (BUILD_IGNITION)
 
   ########################################
   # Make the package config files
+  set(PC_CONFIG_INSTALL_DIR ${LIB_INSTALL_DIR}/pkgconfig)
+  file(RELATIVE_PATH
+    PC_CONFIG_RELATIVE_PATH_TO_PREFIX
+    "${CMAKE_INSTALL_PREFIX}/${PC_CONFIG_INSTALL_DIR}"
+    "${CMAKE_INSTALL_PREFIX}"
+  )
   configure_file(
     ${CMAKE_SOURCE_DIR}/cmake/pkgconfig/ignition.in
     ${CMAKE_CURRENT_BINARY_DIR}/cmake/pkgconfig/${PROJECT_NAME_LOWER}.pc @ONLY)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cmake/pkgconfig/${PROJECT_NAME_LOWER}.pc
-    DESTINATION ${LIB_INSTALL_DIR}/pkgconfig
+    DESTINATION ${PC_CONFIG_INSTALL_DIR}
     COMPONENT pkgconfig)
 
   ########################################
@@ -285,3 +219,7 @@ else (build_errors)
   message(STATUS "Configuration successful. Type make to compile
   ${PROJECT_NAME_LOWER}")
 endif(build_errors)
+
+include(CTest)
+
+add_subdirectory(src)
