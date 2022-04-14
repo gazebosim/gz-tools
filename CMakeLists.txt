@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project (ignition-tools2)
+project (ignition-tools2) 
 
 # Note about ignition-cmake:
 # -------------------------
