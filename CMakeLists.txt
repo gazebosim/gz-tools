@@ -206,7 +206,14 @@ else (build_errors)
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME_LOWER}-config.cmake
     DESTINATION ${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME_LOWER}
     COMPONENT cmake)
-
+    
+  ########################################
+  #Includes and installs cmake helper functions
+  include(cmake/helper_functions.cmake)
+  install(
+      FILES cmake/helper_functions.cmake
+      DESTINATION ${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME_LOWER})
+    
   ########################################
   # If present, load platform-specific build hooks.  This system is used,
   # for example, by the Ubuntu overlay, to arrange for installation of
