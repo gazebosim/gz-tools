@@ -27,9 +27,9 @@ function _ign
     fi
 
   else
-    opts=$(ign --commands)
+    opts="$(ign --commands) help"
   fi
 
-  COMPREPLY=($(compgen -W "${opts} help" -- ${cur}))
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
 complete -F "_ign" "ign"
