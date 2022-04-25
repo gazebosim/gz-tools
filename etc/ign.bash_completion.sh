@@ -30,6 +30,6 @@ function _ign
     opts=$(ign --commands)
   fi
 
-  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+  COMPREPLY=($(compgen -W "${opts} help" -- ${cur}))
 }
 complete -F "_ign" "ign"
