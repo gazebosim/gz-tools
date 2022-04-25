@@ -10,7 +10,7 @@ function _ign
 
   # searching for the command
   for ((i=1; $i<=$COMP_CWORD; i++)); do
-    if [[ ${COMPWORDS[i]} != -* ]]; then
+    if [[ ${COMP_WORDS[i]} != -* ]]; then
       cmd="${COMP_WORDS[i]}"
       break
     fi
