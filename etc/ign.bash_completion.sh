@@ -35,11 +35,11 @@ function _ign
       # Complete subcommands
       case "$cmd" in
         gui)
-          _ign_gui
+          _gz_gui
           return
           ;;
         plugin)
-          _ign_plugin
+          _gz_plugin
           return
           ;;
       esac
