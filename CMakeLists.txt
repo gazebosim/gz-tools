@@ -223,3 +223,4 @@ endif(build_errors)
 include(CTest)
 
 add_subdirectory(src)
+add_subdirectory(etc)
