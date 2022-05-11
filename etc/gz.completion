@@ -4,6 +4,6 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 # Source the bash completion script for each subcommand
-for f in $SCRIPT_DIR/ignition.completion.d/*.bash_completion.sh ; do
+for f in $SCRIPT_DIR/gz.completion.d/*.bash_completion.sh ; do
   source $f
 done
