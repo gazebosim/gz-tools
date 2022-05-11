@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Source scripts from different libraries for subcommand bash completions
+
 # Directory of current script
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 

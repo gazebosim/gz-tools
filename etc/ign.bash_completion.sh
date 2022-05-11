@@ -33,16 +33,16 @@ function _ign
     # Subcommand is a library name or an option (-*)
     else
       # Complete subcommands
-      case "$cmd" in
-        gui)
-          _gz_gui
-          return
-          ;;
-        plugin)
-          _gz_plugin
-          return
-          ;;
-      esac
+      # If subcommand completion function exists (defined by corresponding
+      # library), call it.
+      func="_gz_$cmd"
+      if [[ "$(type -t $func)" == 'function' ]]; then
+        $func
+      else
+        # Use bash default auto-complete
+        COMPREPLY=($(compgen -o default -- "${COMP_WORDS[COMP_CWORD]}"))
+      fi
+      return
     fi
 
   # on first word, top-level command (ign)
