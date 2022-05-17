@@ -1,6 +1,6 @@
 #include "backward.hpp"
 
-namespace ignition {
+namespace gz {
 namespace tools {
 
   backward::SignalHandling sh;
