@@ -2,14 +2,14 @@
 
 **Maintainer:** caguero AT openrobotics DOT org
 
-[![GitHub open issues](https://img.shields.io/github/issues-raw/ignitionrobotics/ign-tools.svg)](https://github.com/ignitionrobotics/ign-tools/issues)
-[![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/ignitionrobotics/ign-tools.svg)](https://github.com/ignitionrobotics/ign-tools/pulls)
+[![GitHub open issues](https://img.shields.io/github/issues-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/issues)
+[![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/pulls)
 [![Discourse topics](https://img.shields.io/discourse/https/community.gazebosim.org/topics.svg)](https://community.gazebosim.org)
 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Build | Status
 -- | --
-Test coverage | [![codecov](https://codecov.io/gh/ignitionrobotics/ign-tools/branch/ign-tools2/graph/badge.svg)](https://codecov.io/gh/ignitionrobotics/ign-tools)
+Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/ign-tools2/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools)
 Ubuntu Bionic | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools2-bionic-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools2-bionic-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools2-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools2-homebrew-amd64)
 Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-1-win)](https://build.osrfoundation.org/job/ign_tools-ign-1-win)
@@ -145,7 +145,7 @@ Please see the [contribution guide](https://ignitionrobotics.org/docs/all/contri
 # Code of Conduct
 
 Please see
-[CODE_OF_CONDUCT.md](https://github.com/ignitionrobotics/ign-gazebo/blob/main/CODE_OF_CONDUCT.md).
+[CODE_OF_CONDUCT.md](https://github.com/gazebosim/gz-sim/blob/main/CODE_OF_CONDUCT.md).
 
 # Versioning
 
@@ -153,4 +153,4 @@ This library uses [Semantic Versioning](https://semver.org/). Additionally, this
 
 # License
 
-This library is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See also the [LICENSE](https://github.com/ignitionrobotics/ign-gazebo/blob/main/LICENSE) file.
+This library is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See also the [LICENSE](https://github.com/gazebosim/gz-sim/blob/main/LICENSE) file.
