@@ -5,4 +5,4 @@ Deprecated code produces compile-time warnings. These warning serve as
 notification to users that their code should be upgraded. The next major
 release will remove the deprecated code.
 
-## Ignition Tools 0.X to N.M
+## Gazebo Tools 0.X to N.M

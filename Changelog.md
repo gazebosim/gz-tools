@@ -1,14 +1,14 @@
-## Ignition Tools 2.x
+## Gazebo Tools 2.x
 
-### Ignition Tools 2.X.X (20XX-XX-XX)
+### Gazebo Tools 2.X.X (20XX-XX-XX)
 
-### Ignition Tools 2.0.0 (20XX-XX-XX)
+### Gazebo Tools 2.0.0 (20XX-XX-XX)
 
-## Ignition Tools 1.x
+## Gazebo Tools 1.x
 
-### Ignition Tools 1.X.X (20XX-XX-XX)
+### Gazebo Tools 1.X.X (20XX-XX-XX)
 
-### Ignition Tools 1.4.1 (2021-10-27)
+### Gazebo Tools 1.4.1 (2021-10-27)
 
 1. Fix Windows colcon build
     * [Pull request #65](https://github.com/gazebosim/gz-tools/pull/65)
@@ -19,12 +19,12 @@
 1. Fix use of Backward on macOS
     * [Pull request #67](https://github.com/gazebosim/gz-tools/pull/67)
 
-## Ignition Tools 1.4.0 (2021-10-15)
+## Gazebo Tools 1.4.0 (2021-10-15)
 
 1. Improve backtrace generation using Backward
     * [Pull request #63](https://github.com/gazebosim/gz-tools/pull/63)
 
-## Ignition Tools 1.3.0 (2021-09-27)
+## Gazebo Tools 1.3.0 (2021-09-27)
 
 1. Remove all death CMake code related to test.
     * [Pull request #54](https://github.com/gazebosim/gz-tools/pull/54)
@@ -46,12 +46,12 @@
     * [Pull request #59](https://github.com/gazebosim/gz-tools/pull/59)
     * [Pull request #58](https://github.com/gazebosim/gz-tools/pull/58)
 
-### Ignition Tools 1.2.0 (2021-04-26)
+### Gazebo Tools 1.2.0 (2021-04-26)
 
 1. Relax version verification
     * [Pull request #44](https://github.com/gazebosim/gz-tools/pull/44)
 
-### Ignition Tools 1.1.0 (2021-03-30)
+### Gazebo Tools 1.1.0 (2021-03-30)
 
 1. Use ; as GZ_CONFIG_PATH delimiter on windows
     * [Pull request #45](https://github.com/gazebosim/gz-tools/pull/45)
@@ -93,9 +93,9 @@
 1. Set the process title to something nice
     * [BitBucket pull request 22](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/22)
 
-### Ignition Tools 1.0.0 (2019-12-09)
+### Gazebo Tools 1.0.0 (2019-12-09)
 
-### Ignition Tools 0.2.0
+### Gazebo Tools 0.2.0
 
 1.  Accepting multiple paths in `GZ_CONFIG_PATH`.
     * [BitBucket pull request 14](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/14)
@@ -110,5 +110,5 @@
 1.  Exit with success code 0 for help command.
     * [BitBucket pull request 4](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/4)
 
-### Ignition Tools 0.1.0
+### Gazebo Tools 0.1.0
 

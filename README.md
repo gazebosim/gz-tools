@@ -17,7 +17,7 @@ Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/ico
 Ignition tools provide the `ign` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
 specific Ignition project. For example, all the commands that start with
-`ign topic ...` will be implemented by the Ignition Transport library.
+`ign topic ...` will be implemented by the Gazebo Transport library.
 
 [http://ignitionrobotics.org](http://ignitionrobotics.org)
 
@@ -25,7 +25,7 @@ specific Ignition project. For example, all the commands that start with
 
 # Installation
 
-These instructions are for installing only Ignition Tools.
+These instructions are for installing only Gazebo Tools.
 If you're interested in using all the Ignition libraries, check out this [Ignition installation](https://ignitionrobotics.org/docs/latest/install).
 
 We recommend following the Binary Installation instructions to get up and running as quickly and painlessly as possible.
@@ -149,7 +149,7 @@ Please see
 
 # Versioning
 
-This library uses [Semantic Versioning](https://semver.org/). Additionally, this library is part of the [Ignition Robotics project](https://ignitionrobotics.org) which periodically releases a versioned set of compatible and complimentary libraries. See the [Ignition Robotics website](https://ignitionrobotics.org) for version and release information.
+This library uses [Semantic Versioning](https://semver.org/). Additionally, this library is part of the [Gazebo Robotics project](https://ignitionrobotics.org) which periodically releases a versioned set of compatible and complimentary libraries. See the [Gazebo Robotics website](https://ignitionrobotics.org) for version and release information.
 
 # License
 
