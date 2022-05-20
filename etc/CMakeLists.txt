@@ -1,3 +1,15 @@
-# Install the bash completion script in an unversioned location.
-install(FILES ign.bash_completion.sh DESTINATION share/gz/gz.completion.d)
-install(FILES gz.completion DESTINATION share/gz)
+# Tack version onto and install the bash completion scripts
+configure_file(
+  "gz.completion"
+    "${CMAKE_CURRENT_BINARY_DIR}/gz${PROJECT_MAJOR_VERSION}.completion" @ONLY)
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/gz${PROJECT_MAJOR_VERSION}.completion
+  DESTINATION share/gz)
+
+configure_file(
+  "ign.bash_completion.sh"
+    "${CMAKE_CURRENT_BINARY_DIR}/ign${PROJECT_MAJOR_VERSION}.bash_completion.sh" @ONLY)
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/ign${PROJECT_MAJOR_VERSION}.bash_completion.sh
+  DESTINATION
+    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/gz/gz${PROJECT_MAJOR_VERSION}.completion.d)

@@ -6,6 +6,9 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 # Source the bash completion script for each subcommand
-for f in $SCRIPT_DIR/gz.completion.d/*.bash_completion.sh ; do
+# Files with greater version numbers will be sourced after files with lesser
+# version numbers, which means functions from newer versions will overwrite
+# those from older versions.
+for f in $SCRIPT_DIR/gz@PROJECT_MAJOR_VERSION@.completion.d/*.bash_completion.sh ; do
   source $f
 done
