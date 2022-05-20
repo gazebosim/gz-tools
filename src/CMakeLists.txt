@@ -118,7 +118,7 @@ if(BUILD_TESTING)
   set_tests_properties(
     ${TEST_NAME}
     PROPERTIES
-    ENVIRONMENT "IGN_CONFIG_PATH=${yaml_output_dir}/$<CONFIG>"
+    ENVIRONMENT "GZ_CONFIG_PATH=${yaml_output_dir}/$<CONFIG>"
   )
 endif()
 # END TEST

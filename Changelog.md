@@ -53,7 +53,7 @@
 
 ### Ignition Tools 1.1.0 (2021-03-30)
 
-1. Use ; as IGN_CONFIG_PATH delimiter on windows
+1. Use ; as GZ_CONFIG_PATH delimiter on windows
     * [Pull request #45](https://github.com/ignitionrobotics/ign-tools/pull/45)
 
 1. Clean up ignition-tools.pc file
@@ -97,7 +97,7 @@
 
 ### Ignition Tools 0.2.0
 
-1.  Accepting multiple paths in `IGN_CONFIG_PATH`.
+1.  Accepting multiple paths in `GZ_CONFIG_PATH`.
     * [BitBucket pull request 14](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/14)
     * [BitBucket pull request 13](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/13)
 
