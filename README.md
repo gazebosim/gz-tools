@@ -19,14 +19,14 @@ subcommands. Each subcommand is implemented in a plugin that belongs to a
 specific Ignition project. For example, all the commands that start with
 `ign topic ...` will be implemented by the Gazebo Transport library.
 
-[http://ignitionrobotics.org](http://ignitionrobotics.org)
+[http://gazebosim.org](http://gazebosim.org)
 
 **Note** While `ign-tools` is currently building on Windows 10, the command line utilities are not yet supported.
 
 # Installation
 
 These instructions are for installing only Gazebo Tools.
-If you're interested in using all the Ignition libraries, check out this [Ignition installation](https://ignitionrobotics.org/docs/latest/install).
+If you're interested in using all the Ignition libraries, check out this [Ignition installation](https://gazebosim.org/docs/latest/install).
 
 We recommend following the Binary Installation instructions to get up and running as quickly and painlessly as possible.
 
@@ -140,7 +140,7 @@ This assumes you have created and activated a Conda environment while installing
 
 # Contributing
 
-Please see the [contribution guide](https://ignitionrobotics.org/docs/all/contributing).
+Please see the [contribution guide](https://gazebosim.org/docs/all/contributing).
 
 # Code of Conduct
 
@@ -149,7 +149,7 @@ Please see
 
 # Versioning
 
-This library uses [Semantic Versioning](https://semver.org/). Additionally, this library is part of the [Gazebo project](https://ignitionrobotics.org) which periodically releases a versioned set of compatible and complimentary libraries. See the [Gazebo website](https://ignitionrobotics.org) for version and release information.
+This library uses [Semantic Versioning](https://semver.org/). Additionally, this library is part of the [Gazebo project](https://gazebosim.org) which periodically releases a versioned set of compatible and complimentary libraries. See the [Gazebo website](https://gazebosim.org) for version and release information.
 
 # License
 
