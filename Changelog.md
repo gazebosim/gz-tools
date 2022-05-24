@@ -88,27 +88,27 @@
     * [Pull request #15](https://github.com/gazebosim/gz-tools/pull/15)
 
 1. Added --commands
-    * [BitBucket pull request 23](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/23)
+    * [BitBucket pull request 23](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/23)
 
 1. Set the process title to something nice
-    * [BitBucket pull request 22](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/22)
+    * [BitBucket pull request 22](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/22)
 
 ### Gazebo Tools 1.0.0 (2019-12-09)
 
 ### Gazebo Tools 0.2.0
 
 1.  Accepting multiple paths in `GZ_CONFIG_PATH`.
-    * [BitBucket pull request 14](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/14)
-    * [BitBucket pull request 13](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/13)
+    * [BitBucket pull request 14](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/14)
+    * [BitBucket pull request 13](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/13)
 
 1.  Backport changes from default branch (pipeline, Code of Conduct, etc.)
-    * [BitBucket pull request 11](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/11)
+    * [BitBucket pull request 11](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/11)
 
 1.  Link to main contributing guide.
-    * [BitBucket pull request 5](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/5)
+    * [BitBucket pull request 5](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/5)
 
 1.  Exit with success code 0 for help command.
-    * [BitBucket pull request 4](https://osrf-migration.github.io/ignition-gh-pages/#!/gazebosim/gz-tools/pull-requests/4)
+    * [BitBucket pull request 4](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/4)
 
 ### Gazebo Tools 0.1.0
 
