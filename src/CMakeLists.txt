@@ -60,7 +60,7 @@ install (PROGRAMS ${ign_script_generated} DESTINATION ${BIN_INSTALL_DIR})
 if(WIN32)
   # On Windows also install the executable as ign 
   # to permit to invoke ign via Git Bash 
-  # see https://github.com/ignitionrobotics/ign-tools/issues/70
+  # see https://github.com/gazebosim/gz-tools/issues/70
   install (PROGRAMS ${ign_script_generated} DESTINATION ${BIN_INSTALL_DIR} RENAME ign)
   
   # On Windows also install the ign.bat wrapper script to permit to
@@ -118,7 +118,7 @@ if(BUILD_TESTING)
   set_tests_properties(
     ${TEST_NAME}
     PROPERTIES
-    ENVIRONMENT "IGN_CONFIG_PATH=${yaml_output_dir}/$<CONFIG>"
+    ENVIRONMENT "GZ_CONFIG_PATH=${yaml_output_dir}/$<CONFIG>"
   )
 endif()
 # END TEST

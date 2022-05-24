@@ -47,7 +47,12 @@ commands = {}
 yaml_found = false
 
 conf_dirs = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
-conf_dirs = ENV['IGN_CONFIG_PATH'] if ENV.key?('IGN_CONFIG_PATH')
+conf_dirs = ENV['GZ_CONFIG_PATH'] if ENV.key?('GZ_CONFIG_PATH')
+
+if ENV.key?('IGN_CONFIG_PATH')
+  conf_dirs = conf_dirs + '@ENV_PATH_DELIMITER@' + ENV['IGN_CONFIG_PATH']
+end
+
 conf_dirs = conf_dirs.split('@ENV_PATH_DELIMITER@')
 
 conf_dirs.each do |conf_directory|
@@ -147,8 +152,8 @@ end
 unless yaml_found
   puts "I cannot find any available 'ign' command:\n"\
        "\t* Did you install any ignition library?\n"\
-       "\t* Did you set the IGN_CONFIG_PATH environment variable?\n"\
-       "\t    E.g.: export IGN_CONFIG_PATH=$HOME/local/share/ignition\n"
+       "\t* Did you set the GZ_CONFIG_PATH environment variable?\n"\
+       "\t    E.g.: export GZ_CONFIG_PATH=$HOME/local/share/ignition\n"
   exit(-1)
 end
 

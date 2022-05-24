@@ -1,91 +1,91 @@
-## Ignition Tools 2.x
+## Gazebo Tools 2.x
 
-### Ignition Tools 2.X.X (20XX-XX-XX)
+### Gazebo Tools 2.X.X (20XX-XX-XX)
 
-### Ignition Tools 2.0.0 (20XX-XX-XX)
+### Gazebo Tools 2.0.0 (20XX-XX-XX)
 
-## Ignition Tools 1.x
+## Gazebo Tools 1.x
 
-### Ignition Tools 1.X.X (20XX-XX-XX)
+### Gazebo Tools 1.X.X (20XX-XX-XX)
 
-### Ignition Tools 1.4.1 (2021-10-27)
+### Gazebo Tools 1.4.1 (2021-10-27)
 
 1. Fix Windows colcon build
-    * [Pull request #65](https://github.com/ignitionrobotics/ign-tools/pull/65)
+    * [Pull request #65](https://github.com/gazebosim/gz-tools/pull/65)
 
 1. Add flag to get standard-compliant exception handling
-    * [Pull request #68](https://github.com/ignitionrobotics/ign-tools/pull/68)
+    * [Pull request #68](https://github.com/gazebosim/gz-tools/pull/68)
 
 1. Fix use of Backward on macOS
-    * [Pull request #67](https://github.com/ignitionrobotics/ign-tools/pull/67)
+    * [Pull request #67](https://github.com/gazebosim/gz-tools/pull/67)
 
-## Ignition Tools 1.4.0 (2021-10-15)
+## Gazebo Tools 1.4.0 (2021-10-15)
 
 1. Improve backtrace generation using Backward
-    * [Pull request #63](https://github.com/ignitionrobotics/ign-tools/pull/63)
+    * [Pull request #63](https://github.com/gazebosim/gz-tools/pull/63)
 
-## Ignition Tools 1.3.0 (2021-09-27)
+## Gazebo Tools 1.3.0 (2021-09-27)
 
 1. Remove all death CMake code related to test.
-    * [Pull request #54](https://github.com/ignitionrobotics/ign-tools/pull/54)
+    * [Pull request #54](https://github.com/gazebosim/gz-tools/pull/54)
 
 1. Remove build dependency on ruby (not needed)
-    * [Pull request #53](https://github.com/ignitionrobotics/ign-tools/pull/53)
+    * [Pull request #53](https://github.com/gazebosim/gz-tools/pull/53)
 
 1. Remove unused cmake code related to compilations (CFlags, BUILD_TYPE, etc.)
-    * [Pull request #55](https://github.com/ignitionrobotics/ign-tools/pull/55)
-    * [Pull request #56](https://github.com/ignitionrobotics/ign-tools/pull/56)
+    * [Pull request #55](https://github.com/gazebosim/gz-tools/pull/55)
+    * [Pull request #56](https://github.com/gazebosim/gz-tools/pull/56)
 
 1. Add Windows support
-    * [Pull request #57](https://github.com/ignitionrobotics/ign-tools/pull/57)
+    * [Pull request #57](https://github.com/gazebosim/gz-tools/pull/57)
 
 1. Sort versions correctly.
-    * [Pull request #50](https://github.com/ignitionrobotics/ign-tools/pull/50)
+    * [Pull request #50](https://github.com/gazebosim/gz-tools/pull/50)
 
 1. Infrastructure
-    * [Pull request #59](https://github.com/ignitionrobotics/ign-tools/pull/59)
-    * [Pull request #58](https://github.com/ignitionrobotics/ign-tools/pull/58)
+    * [Pull request #59](https://github.com/gazebosim/gz-tools/pull/59)
+    * [Pull request #58](https://github.com/gazebosim/gz-tools/pull/58)
 
-### Ignition Tools 1.2.0 (2021-04-26)
+### Gazebo Tools 1.2.0 (2021-04-26)
 
 1. Relax version verification
-    * [Pull request #44](https://github.com/ignitionrobotics/ign-tools/pull/44)
+    * [Pull request #44](https://github.com/gazebosim/gz-tools/pull/44)
 
-### Ignition Tools 1.1.0 (2021-03-30)
+### Gazebo Tools 1.1.0 (2021-03-30)
 
-1. Use ; as IGN_CONFIG_PATH delimiter on windows
-    * [Pull request #45](https://github.com/ignitionrobotics/ign-tools/pull/45)
+1. Use ; as GZ_CONFIG_PATH delimiter on windows
+    * [Pull request #45](https://github.com/gazebosim/gz-tools/pull/45)
 
 1. Clean up ignition-tools.pc file
-    * [Pull request #40](https://github.com/ignitionrobotics/ign-tools/pull/40)
+    * [Pull request #40](https://github.com/gazebosim/gz-tools/pull/40)
 
 1. Fix cmake warning and error mesage types
-    * [Pull request #41](https://github.com/ignitionrobotics/ign-tools/pull/41)
+    * [Pull request #41](https://github.com/gazebosim/gz-tools/pull/41)
 
 1. Infrastructure updates
-    * [Pull request #42](https://github.com/ignitionrobotics/ign-tools/pull/42)
-    * [Pull request #38](https://github.com/ignitionrobotics/ign-tools/pull/38)
-    * [Pull request #37](https://github.com/ignitionrobotics/ign-tools/pull/37)
-    * [Pull request #29](https://github.com/ignitionrobotics/ign-tools/pull/29)
-    * [Pull request #22](https://github.com/ignitionrobotics/ign-tools/pull/22)
-    * [Pull request #17](https://github.com/ignitionrobotics/ign-tools/pull/17)
-    * [Pull request #11](https://github.com/ignitionrobotics/ign-tools/pull/11)
-    * [Pull request #13](https://github.com/ignitionrobotics/ign-tools/pull/13)
+    * [Pull request #42](https://github.com/gazebosim/gz-tools/pull/42)
+    * [Pull request #38](https://github.com/gazebosim/gz-tools/pull/38)
+    * [Pull request #37](https://github.com/gazebosim/gz-tools/pull/37)
+    * [Pull request #29](https://github.com/gazebosim/gz-tools/pull/29)
+    * [Pull request #22](https://github.com/gazebosim/gz-tools/pull/22)
+    * [Pull request #17](https://github.com/gazebosim/gz-tools/pull/17)
+    * [Pull request #11](https://github.com/gazebosim/gz-tools/pull/11)
+    * [Pull request #13](https://github.com/gazebosim/gz-tools/pull/13)
 
 1. Do not overwrite default linker flags so that LDFLAGS environment variable is considered
-    * [Pull request #35](https://github.com/ignitionrobotics/ign-tools/pull/35)
+    * [Pull request #35](https://github.com/gazebosim/gz-tools/pull/35)
 
 1. Add Windows installation
-    * [Pull request #34](https://github.com/ignitionrobotics/ign-tools/pull/34)
+    * [Pull request #34](https://github.com/gazebosim/gz-tools/pull/34)
 
 1. Fix: Use PACKAGE_PREFIX_DIR to ensure relocatable CMake install for conan
-    * [Pull request #30](https://github.com/ignitionrobotics/ign-tools/pull/30)
+    * [Pull request #30](https://github.com/gazebosim/gz-tools/pull/30)
 
 1. Add ruby style checker
-    * [Pull request #25](https://github.com/ignitionrobotics/ign-tools/pull/25)
+    * [Pull request #25](https://github.com/gazebosim/gz-tools/pull/25)
 
 1. When using help, append --help to specific command
-    * [Pull request #15](https://github.com/ignitionrobotics/ign-tools/pull/15)
+    * [Pull request #15](https://github.com/gazebosim/gz-tools/pull/15)
 
 1. Added --commands
     * [BitBucket pull request 23](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/23)
@@ -93,11 +93,11 @@
 1. Set the process title to something nice
     * [BitBucket pull request 22](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/22)
 
-### Ignition Tools 1.0.0 (2019-12-09)
+### Gazebo Tools 1.0.0 (2019-12-09)
 
-### Ignition Tools 0.2.0
+### Gazebo Tools 0.2.0
 
-1.  Accepting multiple paths in `IGN_CONFIG_PATH`.
+1.  Accepting multiple paths in `GZ_CONFIG_PATH`.
     * [BitBucket pull request 14](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/14)
     * [BitBucket pull request 13](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/13)
 
@@ -110,5 +110,5 @@
 1.  Exit with success code 0 for help command.
     * [BitBucket pull request 4](https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/4)
 
-### Ignition Tools 0.1.0
+### Gazebo Tools 0.1.0
 
