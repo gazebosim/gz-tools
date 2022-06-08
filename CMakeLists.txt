@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
-project (ignition-tools2)
+project (gz-tools2)
 
-# Note about ignition-cmake:
+# Note about gz-cmake:
 # -------------------------
-# The project is not using ignition-cmake2 due to problems
-# with compatibility when mixed with projects using ignition-cmake0
-# When ignition-cmake0 will be EOL the code to implement
-# ignition-cmake2 back to this project can be found at:
-# https://osrf-migration.github.io/ignition-gh-pages/#!/ignitionrobotics/ign-tools/pull-requests/6
+# The project is not using gz-cmake2 due to problems
+# with compatibility when mixed with projects using gz-cmake0
+# When gz-cmake0 will be EOL the code to implement
+# gz-cmake2 back to this project can be found at:
+# https://osrf-migration.github.io/gz-gh-pages/#!/gzrobotics/ign-tools/pull-requests/6
 
 string (SUBSTRING ${PROJECT_NAME} 9 -1 IGN_PROJECT_NAME)
 string (TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
