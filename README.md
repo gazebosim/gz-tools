@@ -14,10 +14,10 @@ Ubuntu Bionic | [![Build Status](https://build.osrfoundation.org/buildStatus/ico
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools2-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools2-homebrew-amd64)
 Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-1-win)](https://build.osrfoundation.org/job/ign_tools-ign-1-win)
 
-Ignition tools provide the `ign` command line tool that accepts multiple
+Ignition tools provide the `gz` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
 specific Ignition project. For example, all the commands that start with
-`ign topic ...` will be implemented by the Gazebo Transport library.
+`gz topic ...` will be implemented by the Gazebo Transport library.
 
 [http://gazebosim.org](http://gazebosim.org)
 
@@ -32,7 +32,7 @@ We recommend following the Binary Installation instructions to get up and runnin
 
 The Source Installation instructions should be used if you need the very latest software improvements, you need to modify the code, or you plan to make a contribution.
 
-Windows support: Currently, the library builds on Windows, but the `ign` command-line tool is not readily functional. We are investigating this.
+Windows support: Currently, the library builds on Windows, but the `gz` command-line tool is not readily functional. We are investigating this.
 
 ## Binary Installation
 
@@ -53,8 +53,8 @@ Miniconda suffices.
 
 Create if necessary, and activate a Conda environment:
 ```
-conda create -n ign-ws
-conda activate ign-ws
+conda create -n gz-ws
+conda activate gz-ws
 ```
 
 Install `ignition-tools`:
@@ -90,9 +90,9 @@ sudo make install
 
 ### Bash auto-completion
 
-Source the [etc/ign.bash_completion.sh](etc/ign.bash_completion.sh) script in your bash terminal window to enable auto-complete:
+Source the [etc/gz.bash_completion.sh](etc/gz.bash_completion.sh) script in your bash terminal window to enable auto-complete:
 ~~~
-. etc/ign.bash_completion.sh
+. etc/gz.bash_completion.sh
 ~~~
 
 ### Uninstallation
@@ -112,8 +112,8 @@ Miniconda suffices.
 
 Create if necessary, and activate a Conda environment:
 ```
-conda create -n ign-ws
-conda activate ign-ws
+conda create -n gz-ws
+conda activate gz-ws
 ```
 
 Install prerequisites:

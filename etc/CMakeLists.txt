@@ -10,9 +10,9 @@ install(FILES
     ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/gz)
 
 configure_file(
-  "ign.bash_completion.sh"
-    "${CMAKE_CURRENT_BINARY_DIR}/ign${PROJECT_MAJOR_VERSION}.bash_completion.sh" @ONLY)
+  "gz.bash_completion.sh"
+    "${CMAKE_CURRENT_BINARY_DIR}/gz${PROJECT_MAJOR_VERSION}.bash_completion.sh" @ONLY)
 install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/ign${PROJECT_MAJOR_VERSION}.bash_completion.sh
+    ${CMAKE_CURRENT_BINARY_DIR}/gz${PROJECT_MAJOR_VERSION}.bash_completion.sh
   DESTINATION
     ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/gz/gz${PROJECT_MAJOR_VERSION}.completion.d)

@@ -17,7 +17,7 @@
 require 'optparse'
 
 # Constants.
-COMMANDS = { 'tools' => 'Test ign tools.\n\n' }.freeze
+COMMANDS = { 'tools' => 'Test gz tools.\n\n' }.freeze
 
 # Test Cmd class
 class Cmd

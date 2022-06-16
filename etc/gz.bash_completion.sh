@@ -15,12 +15,12 @@
 # limitations under the License.
 #
 
-# ign bash completion
+# gz bash completion
 
-function _ign
+function _gz
 {
   local prev cur cmd opts
-  local ign="$1"
+  local gz="$1"
   cur="$2"
   prev="$3"
 
@@ -38,12 +38,12 @@ function _ign
     fi
   done
 
-  # On a word after top-level command ign. It may be an option (-*)
-  if [[ "$cur" == -* ]] || [[ "$prev" != "ign" ]]; then
+  # On a word after top-level command gz. It may be an option (-*)
+  if [[ "$cur" == -* ]] || [[ "$prev" != "gz" ]]; then
 
     # Subcommand is help
     if [[ "$cmd" == "help" ]]; then
-      opts=$(ign --commands)
+      opts=$(gz --commands)
 
     # Subcommand is a library name or an option (-*)
     else
@@ -60,11 +60,11 @@ function _ign
       return
     fi
 
-  # on first word, top-level command (ign)
+  # on first word, top-level command (gz)
   else
-    opts="$(ign --commands) help"
+    opts="$(gz --commands) help"
   fi
 
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
-complete -F "_ign" "ign"
+complete -F "_gz" "gz"
