@@ -69,8 +69,7 @@ if(WIN32)
 
   # TODO(CH3): Deprecated. Tick-tock the ign executable
   # symlinks on Windows require admin priviledges, fallback to copy
-  add_custom_command(TARGET gz.bat POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy
+  add_custom_command(COMMAND "${CMAKE_COMMAND}" -E copy
     ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz.bat
     ${PROJECT_BINARY_DIR}/ign.bat)
   install(PROGRAMS ${PROJECT_BINARY_DIR}/ign.bat DESTINATION ${BIN_INSTALL_DIR})
