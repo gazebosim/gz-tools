@@ -8,3 +8,4 @@ release will remove the deprecated code.
 ## Gazebo Tools 1.X to 2.X
 
 * The environment variable `IGN_CONFIG_PATH` is deprecated. Use `GZ_CONFIG_PATH` instead.
+* The `ign` command line executable is deprecated. Use `gz` instead.

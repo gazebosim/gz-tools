@@ -1,5 +1,5 @@
 # This script is part of the unit test mechanism for ign-tools.
-execute_process(COMMAND ruby ${IGN_SCRIPT} 
+execute_process(COMMAND ruby ${GZ_SCRIPT}
   ${TEST_NAME}
   OUTPUT_VARIABLE TEST_OUTPUT
   ERROR_VARIABLE TEST_ERROR)
@@ -12,8 +12,8 @@ execute_process(COMMAND
   "../test_results/${TEST_NAME}.xml"
 )
 
-if (${TEST_OUTPUT} MATCHES "Test executed" AND NOT 
-    ((${TEST_OUTPUT} MATCHES "Library error") OR 
+if (${TEST_OUTPUT} MATCHES "Test executed" AND NOT
+    ((${TEST_OUTPUT} MATCHES "Library error") OR
     (${TEST_ERROR} MATCHES "Library error")))
   execute_process(COMMAND
     ${CMAKE_COMMAND} -E copy

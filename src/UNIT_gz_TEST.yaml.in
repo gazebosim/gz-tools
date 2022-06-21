@@ -2,8 +2,8 @@
 format: 1.0.0
 library_name: @PROJECT_NAME@
 library_version: ''
-library_path: @ign_library_path@
+library_path: @gz_library_path@
 commands:
-    - UNIT_ign_TEST   : Test command
+    - UNIT_gz_TEST   : Test command
 ---
 
