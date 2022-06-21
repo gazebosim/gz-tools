@@ -68,8 +68,6 @@ conf_dirs.each do |conf_directory|
     yml = YAML.load_file(conf_file)
 
     # Sanity check: Verify that the content of the file is YAML.
-    # safe navigation only available from Ubuntu Jammy
-    # rubocop:disable-next-line Style/SafeNavigation
     unless yml && yml.is_a?(Hash)
       puts "Configuration warning: File [#{conf_file}] does not contain a "\
            'valid YAML format. Ignoring this configuration file.'
