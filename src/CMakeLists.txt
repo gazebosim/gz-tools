@@ -68,18 +68,25 @@ if(WIN32)
   install(PROGRAMS gz.bat DESTINATION ${BIN_INSTALL_DIR})
 
   # TODO(CH3): Deprecated. Tick-tock the ign executable
+  # symlinks on Windows require admin priviledges, fallback to copy
+  add_custom_command(TARGET gz.bat POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy
+    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz.bat
+    ${PROJECT_BINARY_DIR}/ign.bat)
+  install(PROGRAMS ${PROJECT_BINARY_DIR}/ign.bat DESTINATION ${BIN_INSTALL_DIR})
+
+  add_custom_command(TARGET ${gz_script_generated} POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy
+    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
+    ${PROJECT_BINARY_DIR}/ign)
+else()
+  # TODO(CH3): Deprecated. Tick-tock the ign executable with symlink
   # This is exceptionally scuffed
   install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz.bat
-    ${PROJECT_BINARY_DIR}/ign.bat)")
-  install(PROGRAMS ${PROJECT_BINARY_DIR}/ign.bat DESTINATION ${BIN_INSTALL_DIR})
+    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
+    ${PROJECT_BINARY_DIR}/ign)")
 endif()
 
-# TODO(CH3): Deprecated. Tick-tock the ign executable with symlink
-# This is exceptionally scuffed
-install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-  ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
-  ${PROJECT_BINARY_DIR}/ign)")
 install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${BIN_INSTALL_DIR})
 
 #===============================================================================
