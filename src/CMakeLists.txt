@@ -67,27 +67,16 @@ if(WIN32)
   # invoke gz via Command Prompt or Powershell
   install(PROGRAMS gz.bat DESTINATION ${BIN_INSTALL_DIR})
 
-  # TODO(CH3): Deprecated. Tick-tock the ign executable
-  # symlinks on Windows require admin priviledges, fallback to copy
-  add_custom_target(copy_to_ign_bat ALL
-    COMMAND "${CMAKE_COMMAND}" -E copy
-    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz.bat
-    ${PROJECT_BINARY_DIR}/ign.bat)
-  # install(PROGRAMS ${PROJECT_BINARY_DIR}/ign.bat DESTINATION ${BIN_INSTALL_DIR})
-
-  add_custom_target(copy_to_ign ALL
-    COMMAND "${CMAKE_COMMAND}" -E copy
-    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
-    ${PROJECT_BINARY_DIR}/ign)
+  # TODO(chapulina) tick-tock ign on Windows if someone actually needs it. It's
+  # complicated to symlink / copy files on Windows.
 else()
   # TODO(CH3): Deprecated. Tick-tock the ign executable with symlink
   # This is exceptionally scuffed
   install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
     ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
     ${PROJECT_BINARY_DIR}/ign)")
+  install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${BIN_INSTALL_DIR})
 endif()
-
-install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${BIN_INSTALL_DIR})
 
 #===============================================================================
 # BEGIN TEST gz command
