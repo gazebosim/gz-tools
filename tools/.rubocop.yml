@@ -1,6 +1,6 @@
 AllCops:
   Include:
-    - '**/src/ign.in'
+    - '**/src/gz.in'
 
 Metrics/BlockLength:
   Max: 80
