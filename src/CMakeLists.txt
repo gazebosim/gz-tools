@@ -69,19 +69,18 @@ if(WIN32)
 
   # TODO(CH3): Deprecated. Tick-tock the ign executable
   # This is exceptionally scuffed
-  install(PROGRAMS ${ign_script_generated} DESTINATION ${BIN_INSTALL_DIR} RENAME ign)
   install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
     ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz.bat
     ${PROJECT_BINARY_DIR}/ign.bat)")
   install(PROGRAMS ${PROJECT_BINARY_DIR}/ign.bat DESTINATION ${BIN_INSTALL_DIR})
-else()
-  # TODO(CH3): Deprecated. Tick-tock the ign executable with symlink
-  # This is exceptionally scuffed
-  install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
-    ${PROJECT_BINARY_DIR}/ign)")
-  install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${BIN_INSTALL_DIR})
 endif()
+
+# TODO(CH3): Deprecated. Tick-tock the ign executable with symlink
+# This is exceptionally scuffed
+install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+  ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
+  ${PROJECT_BINARY_DIR}/ign)")
+install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${BIN_INSTALL_DIR})
 
 #===============================================================================
 # BEGIN TEST gz command
