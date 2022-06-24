@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Copyright (C) 2019 Open Source Robotics Foundation
 #
@@ -49,11 +50,10 @@ yaml_found = false
 conf_dirs = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
 conf_dirs = ENV['GZ_CONFIG_PATH'] if ENV.key?('GZ_CONFIG_PATH')
 
-if ENV.key?('IGN_CONFIG_PATH')
-  conf_dirs = conf_dirs + '@ENV_PATH_DELIMITER@' + ENV['IGN_CONFIG_PATH']
-end
-
 conf_dirs = conf_dirs.split('@ENV_PATH_DELIMITER@')
+
+# Deprecated
+conf_dirs.append(ENV['IGN_CONFIG_PATH']) if ENV.key?('IGN_CONFIG_PATH')
 
 conf_dirs.each do |conf_directory|
   next if Dir.glob(conf_directory + '/*.yaml').empty?
@@ -92,6 +92,7 @@ conf_dirs.each do |conf_directory|
 
       # Verify that the value for this key is not empty.
       next if yml[tag]
+
       puts "Configuration error: File [#{conf_file}] does not contain any "\
            "value for the key '#{tag}'."
       exit(-1)
@@ -262,6 +263,7 @@ if ARGV.include?('--force-version')
     version_arr = version.first.split('.')
     next unless required_arr.zip(version_arr).map \
       { |required, current| required == current }.all?
+
     found = true
     version_index = index
     break

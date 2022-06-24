@@ -1,5 +1,3 @@
-include (${project_cmake_dir}/Utils.cmake)
-
 # Set delimiter for environment variables with multiple path values based on OS
 if (WIN32)
   set(ENV_PATH_DELIMITER ";")
@@ -37,7 +35,7 @@ endif()
 install (TARGETS backward
          LIBRARY DESTINATION ${LIB_INSTALL_DIR}
          ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
-         RUNTIME DESTINATION ${BIN_INSTALL_DIR})
+         RUNTIME DESTINATION ${IGN_BIN_INSTALL_DIR})
 
 #===============================================================================
 # Used for the installed version.
@@ -55,17 +53,17 @@ set(gz_script_generated ${PROJECT_BINARY_DIR}/$<CONFIG>/${executable_name})
 
 configure_file(gz.in ${gz_script_configured})
 file(GENERATE OUTPUT ${gz_script_generated} INPUT ${gz_script_configured})
-install (PROGRAMS ${gz_script_generated} DESTINATION ${BIN_INSTALL_DIR})
+install (PROGRAMS ${gz_script_generated} DESTINATION ${IGN_BIN_INSTALL_DIR})
 
 if(WIN32)
   # On Windows also install the executable as gz
   # to permit to invoke gz via Git Bash
   # see https://github.com/gazebosim/gz-tools/issues/70
-  install(PROGRAMS ${gz_script_generated} DESTINATION ${BIN_INSTALL_DIR} RENAME gz)
+  install(PROGRAMS ${gz_script_generated} DESTINATION ${IGN_BIN_INSTALL_DIR} RENAME gz)
 
   # On Windows also install the gz.bat wrapper script to permit to
   # invoke gz via Command Prompt or Powershell
-  install(PROGRAMS gz.bat DESTINATION ${BIN_INSTALL_DIR})
+  install(PROGRAMS gz.bat DESTINATION ${IGN_BIN_INSTALL_DIR})
 
   # TODO(chapulina) tick-tock ign on Windows if someone actually needs it. It's
   # complicated to symlink / copy files on Windows.
@@ -73,9 +71,9 @@ else()
   # TODO(CH3): Deprecated. Tick-tock the ign executable with symlink
   # This is exceptionally scuffed
   install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/gz
+    ${CMAKE_INSTALL_PREFIX}/${IGN_BIN_INSTALL_DIR}/gz
     ${PROJECT_BINARY_DIR}/ign)")
-  install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${BIN_INSTALL_DIR})
+  install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${IGN_BIN_INSTALL_DIR})
 endif()
 
 #===============================================================================
@@ -116,7 +114,7 @@ if(BUILD_TESTING)
     "${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_fail.xml"
     @ONLY)
 
-  # This simply executes ign. The output will be tested in the check_* test
+  # This simply executes gz. The output will be tested in the check_* test
   add_test(
     NAME ${TEST_NAME}
     COMMAND ${CMAKE_COMMAND}
@@ -130,6 +128,11 @@ if(BUILD_TESTING)
     PROPERTIES
     ENVIRONMENT "GZ_CONFIG_PATH=${yaml_output_dir}/$<CONFIG>"
   )
+
+  if (RUBOCOP_PROGRAM)
+    add_test(NAME rubocop
+        COMMAND ${RUBOCOP_PROGRAM} -E -c ${CMAKE_CURRENT_SOURCE_DIR}/../tools/.rubocop.yml ${CMAKE_CURRENT_SOURCE_DIR})
+  endif()
 endif()
 # END TEST
 #==============================
