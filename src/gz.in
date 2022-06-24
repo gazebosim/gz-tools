@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 # Copyright (C) 2019 Open Source Robotics Foundation
 #
@@ -49,11 +50,10 @@ yaml_found = false
 conf_dirs = '@CMAKE_INSTALL_PREFIX@/share/ignition/'
 conf_dirs = ENV['GZ_CONFIG_PATH'] if ENV.key?('GZ_CONFIG_PATH')
 
-if ENV.key?('IGN_CONFIG_PATH')
-  conf_dirs = conf_dirs + '@ENV_PATH_DELIMITER@' + ENV['IGN_CONFIG_PATH']
-end
-
 conf_dirs = conf_dirs.split('@ENV_PATH_DELIMITER@')
+
+# Deprecated
+conf_dirs.append(ENV['IGN_CONFIG_PATH']) if ENV.key?('IGN_CONFIG_PATH')
 
 conf_dirs.each do |conf_directory|
   next if Dir.glob(conf_directory + '/*.yaml').empty?
@@ -92,6 +92,7 @@ conf_dirs.each do |conf_directory|
 
       # Verify that the value for this key is not empty.
       next if yml[tag]
+
       puts "Configuration error: File [#{conf_file}] does not contain any "\
            "value for the key '#{tag}'."
       exit(-1)
@@ -148,12 +149,12 @@ conf_dirs.each do |conf_directory|
   end
 end
 
-# Check that we have at least one configuration file with ign commands.
+# Check that we have at least one configuration file with gz commands.
 unless yaml_found
-  puts "I cannot find any available 'ign' command:\n"\
-       "\t* Did you install any ignition library?\n"\
+  puts "I cannot find any available 'gz' command:\n"\
+       "\t* Did you install any Gazebo library?\n"\
        "\t* Did you set the GZ_CONFIG_PATH environment variable?\n"\
-       "\t    E.g.: export GZ_CONFIG_PATH=$HOME/local/share/ignition\n"
+       "\t    E.g.: export GZ_CONFIG_PATH=$HOME/local/share/gz\n"
   exit(-1)
 end
 
@@ -176,9 +177,9 @@ commands = sorted_commands
 # puts commands
 
 # Read the command line arguments.
-usage = 'The \'ign\' command provides a command line interface to the ignition'\
-        " tools.\n\n"\
-        "  ign <command> [options]\n\n"\
+usage = 'The \'gz\' command provides a command line interface to the Gazebo'\
+        " Tools.\n\n"\
+        "  gz <command> [options]\n\n"\
         "List of available commands:\n\n"\
         "  help:          Print this help text.\n"
 
@@ -200,7 +201,7 @@ usage += "\nOptions:\n\n"\
          "  --versions                 Show the available versions.\n"\
          '  --commands                 Show the available commands.'
 
-usage += "\nUse 'ign help <command>' to print help for a command.\n"
+usage += "\nUse 'gz help <command>' to print help for a command.\n"
 
 OptionParser.new do |opts|
   opts.banner = usage
@@ -262,6 +263,7 @@ if ARGV.include?('--force-version')
     version_arr = version.first.split('.')
     next unless required_arr.zip(version_arr).map \
       { |required, current| required == current }.all?
+
     found = true
     version_index = index
     break
@@ -301,6 +303,6 @@ require cmd_rb_library
 cmd = Cmd.new
 
 # Set the process title to something nice.
-Process.setproctitle("ign #{ARGV.join(' ')}")
+Process.setproctitle("gz #{ARGV.join(' ')}")
 
 cmd.execute(ARGV)

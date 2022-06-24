@@ -1,4 +1,4 @@
-# Ignition tools: Ignition entry point for using all the suite of ignition tools
+# Gazebo Tools: Entrypoint to Gazebo's command line interface
 
 **Maintainer:** caguero AT openrobotics DOT org
 
@@ -10,133 +10,36 @@
 Build | Status
 -- | --
 Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/ign-tools2/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools)
-Ubuntu Bionic | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools2-bionic-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools2-bionic-amd64)
+Ubuntu Focal  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools2-focal-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools2-focal-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools2-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools2-homebrew-amd64)
-Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-1-win)](https://build.osrfoundation.org/job/ign_tools-ign-1-win)
+Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-2-win)](https://build.osrfoundation.org/job/ign_tools-ign-2-win)
 
-Ignition tools provide the `ign` command line tool that accepts multiple
+Gazebo Tools provide the `gz` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
-specific Ignition project. For example, all the commands that start with
-`ign topic ...` will be implemented by the Gazebo Transport library.
+specific Gazebo project. For example, all the commands that start with
+`gz topic ...` are implemented by the Gazebo Transport library.
 
-[http://gazebosim.org](http://gazebosim.org)
+# Table of Contents
 
-**Note** While `ign-tools` is currently building on Windows 10, the command line utilities are not yet supported.
+[Features](#features)
 
-# Installation
+[Install](#install)
 
-These instructions are for installing only Gazebo Tools.
-If you're interested in using all the Ignition libraries, check out this [Ignition installation](https://gazebosim.org/docs/latest/install).
+[Contributing](#contributing)
 
-We recommend following the Binary Installation instructions to get up and running as quickly and painlessly as possible.
+[Code of Conduct](#code-of-conduct)
 
-The Source Installation instructions should be used if you need the very latest software improvements, you need to modify the code, or you plan to make a contribution.
+[Versioning](#versioning)
 
-Windows support: Currently, the library builds on Windows, but the `ign` command-line tool is not readily functional. We are investigating this.
+[License](#license)
 
-## Binary Installation
+# Features
 
-### Ubuntu
+Gazebo Tools provides the `gz` CLI for the entire Gazebo project.
 
-On Ubuntu systems, `apt-get` can be used to install `ignition-tools`:
-```
-sudo apt install libignition-tools<#>-dev
-```
+# Install
 
-Be sure to replace `<#>` with a number value, such as 2 or 3, depending on
-which version you need, or leave it empty for version 1.
-
-### Windows
-
-Install [Conda package management system](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html).
-Miniconda suffices.
-
-Create if necessary, and activate a Conda environment:
-```
-conda create -n ign-ws
-conda activate ign-ws
-```
-
-Install `ignition-tools`:
-```
-conda install libignition-tools<#> --channel conda-forge
-```
-
-Be sure to replace `<#>` with a number value, such as 2 or 3, depending on
-which version you need, or leave it empty for version 1.
-
-## Source Installation
-
-## UNIX
-
-### Prerequisites
-
-The following dependencies are required to compile ignition-tools from
-source:
-
- - cmake
- - git
-
-### Build from Source
-
-Standard installation can be performed in UNIX systems using the following
-steps:
-```
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr
-sudo make install
-```
-
-### Bash auto-completion
-
-Source the [etc/ign.bash_completion.sh](etc/ign.bash_completion.sh) script in your bash terminal window to enable auto-complete:
-~~~
-. etc/ign.bash_completion.sh
-~~~
-
-### Uninstallation
-
-To uninstall the software installed with the previous steps:
-```
-cd build
-sudo make uninstall
-```
-
-## Windows
-
-### Prerequisites
-
-Install [Conda package management system](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html).
-Miniconda suffices.
-
-Create if necessary, and activate a Conda environment:
-```
-conda create -n ign-ws
-conda activate ign-ws
-```
-
-Install prerequisites:
-```
-conda install ruby git cmake --channel conda-forge
-```
-
-### Build from Source
-
-This assumes you have created and activated a Conda environment while installing the Prerequisites.
-
-1. Configure and build
-  ```
-  mkdir build
-  cd build
-  cmake .. -DBUILD_TESTING=OFF  # Optionally, -DCMAKE_INSTALL_PREFIX=path\to\install
-  cmake --build . --config Release
-  ```
-
-2. Optionally, install
-  ```
-  cmake --install . --config Release
-  ```
+See the [installation tutorial](https://gazebosim.org/api/tools/2.0/install.html).
 
 # Contributing
 
@@ -153,4 +56,4 @@ This library uses [Semantic Versioning](https://semver.org/). Additionally, this
 
 # License
 
-This library is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See also the [LICENSE](https://github.com/gazebosim/gz-sim/blob/main/LICENSE) file.
+This library is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See also the [LICENSE](https://github.com/gazebosim/gz-tools/blob/main/LICENSE) file.
