@@ -3,13 +3,13 @@ cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
 #============================================================================
 # Initialize the project
 #============================================================================
-project(ignition-tools2 VERSION 2.0.0)
+project(gz-tools2 VERSION 2.0.0)
 
 #============================================================================
 # Find gz-cmake
 #============================================================================
-find_package(ignition-cmake3 REQUIRED)
-set(GZ_CMAKE_VER ${ignition-cmake3_VERSION_MAJOR})
+find_package(gz-cmake3 REQUIRED)
+set(GZ_CMAKE_VER ${gz-cmake3_VERSION_MAJOR})
 
 #============================================================================
 # Configure the project
