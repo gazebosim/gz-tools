@@ -208,10 +208,10 @@ else (build_errors)
     COMPONENT cmake)
     
   ########################################
-  #Includes and installs cmake helper functions
-  include(cmake/helper_functions.cmake)
+  #Includes and installs cmake configuration functions
+  include(cmake/configuration_functions.cmake)
   install(
-      FILES cmake/helper_functions.cmake
+      FILES cmake/configuration_functions.cmake
       DESTINATION ${LIB_INSTALL_DIR}/cmake/${PROJECT_NAME_LOWER})
     
   ########################################
