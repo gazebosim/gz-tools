@@ -10,3 +10,10 @@ release will remove the deprecated code.
 * This package now depends on gz-cmake
 * The environment variable `IGN_CONFIG_PATH` is deprecated. Use `GZ_CONFIG_PATH` instead.
 * The `ign` command line executable is deprecated. Use `gz` instead.
+
+* The project name has been changed to use the `gz-` prefix, you **must** use the `gz` prefix!
+  * This also means that any generated code that use the project name (e.g. CMake variables, in-source macros) would have to be migrated.
+  * Some non-exhaustive examples of this include:
+    * `GZ_<PROJECT>_<VISIBLE/HIDDEN>`
+    * CMake `-config` files
+    * Paths that depend on the project name
