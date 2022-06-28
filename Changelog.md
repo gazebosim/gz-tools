@@ -56,7 +56,7 @@
 1. Use ; as GZ_CONFIG_PATH delimiter on windows
     * [Pull request #45](https://github.com/gazebosim/gz-tools/pull/45)
 
-1. Clean up ignition-tools.pc file
+1. Clean up gz-tools.pc file
     * [Pull request #40](https://github.com/gazebosim/gz-tools/pull/40)
 
 1. Fix cmake warning and error mesage types
