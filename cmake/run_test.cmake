@@ -1,4 +1,4 @@
-# This script is part of the unit test mechanism for ign-tools.
+# This script is part of the unit test mechanism for gz-tools.
 execute_process(COMMAND ruby ${GZ_SCRIPT}
   ${TEST_NAME}
   OUTPUT_VARIABLE TEST_OUTPUT
