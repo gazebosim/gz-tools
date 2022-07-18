@@ -9,7 +9,6 @@
 
 Build | Status
 -- | --
-Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/ign-tools1/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools/branch/ign-tools1)
 Ubuntu Focal | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-focal-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-focal-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-homebrew-amd64)
 Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-1-win)](https://build.osrfoundation.org/job/ign_tools-ign-1-win)
