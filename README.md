@@ -1,32 +1,31 @@
-# Ignition tools: Ignition entry point for using all the suite of ignition tools
+# Gazebo tools: Gazebo entry point for using all the suite of Gazebo tools
 
 **Maintainer:** caguero AT openrobotics DOT org
 
-[![GitHub open issues](https://img.shields.io/github/issues-raw/ignitionrobotics/ign-tools.svg)](https://github.com/ignitionrobotics/ign-tools/issues)
-[![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/ignitionrobotics/ign-tools.svg)](https://github.com/ignitionrobotics/ign-tools/pulls)
+[![GitHub open issues](https://img.shields.io/github/issues-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/issues)
+[![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/pulls)
 [![Discourse topics](https://img.shields.io/discourse/https/community.gazebosim.org/topics.svg)](https://community.gazebosim.org)
 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Build | Status
 -- | --
-Test coverage | [![codecov](https://codecov.io/gh/ignitionrobotics/ign-tools/branch/ign-tools1/graph/badge.svg)](https://codecov.io/gh/ignitionrobotics/ign-tools)
-Ubuntu Bionic | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-bionic-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-bionic-amd64)
+Ubuntu Focal | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-focal-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-focal-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-ign-tools1-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-ign-tools1-homebrew-amd64)
 Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ign-1-win)](https://build.osrfoundation.org/job/ign_tools-ign-1-win)
 
-Ignition tools provide the `ign` command line tool that accepts multiple
+Gazebo tools provide the `ign` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
-specific Ignition project. For example, all the commands that start with
-`ign topic ...` will be implemented by the Ignition Transport library.
+specific Gazebo project. For example, all the commands that start with
+`ign topic ...` will be implemented by the Gazebo Transport library.
 
-[http://ignitionrobotics.org](http://ignitionrobotics.org)
+[http://gazebosim.org](http://gazebosim.org)
 
 **Note** While `ign-tools` is currently building on Windows 10, the command line utilities are not yet supported.
 
 # Installation
 
-These instructions are for installing only Ignition Tools.
-If you're interested in using all the Ignition libraries, check out this [Ignition installation](https://ignitionrobotics.org/docs/latest/install).
+These instructions are for installing only Gazebo Tools.
+If you're interested in using all the Gazebo libraries, check out this [Gazebo installation](https://gazebosim.org/docs/latest/install).
 
 We recommend following the Binary Installation instructions to get up and running as quickly and painlessly as possible.
 
@@ -53,8 +52,8 @@ Miniconda suffices.
 
 Create if necessary, and activate a Conda environment:
 ```
-conda create -n ign-ws
-conda activate ign-ws
+conda create -n gz-ws
+conda activate gz-ws
 ```
 
 Install `ignition-tools`:
@@ -71,7 +70,7 @@ which version you need, or leave it empty for version 1.
 
 ### Prerequisites
 
-The following dependencies are required to compile ignition-tools from
+The following dependencies are required to compile Gazebo tools from
 source:
 
  - cmake
@@ -90,7 +89,7 @@ sudo make install
 
 ### Bash auto-completion
 
-Source the [etc/ign.bash_completion.sh](etc/ign.bash_completion.sh) script in your bash terminal window to enable auto-complete:
+Source the [etc/ign.bash_completion.sh](https://github.com/gazebosim/gz-tools/blob/ign-tools1/etc/ign.bash_completion.sh) script in your bash terminal window to enable auto-complete:
 ~~~
 . etc/ign.bash_completion.sh
 ~~~
@@ -112,8 +111,8 @@ Miniconda suffices.
 
 Create if necessary, and activate a Conda environment:
 ```
-conda create -n ign-ws
-conda activate ign-ws
+conda create -n gz-ws
+conda activate gz-ws
 ```
 
 Install prerequisites:
@@ -140,17 +139,17 @@ This assumes you have created and activated a Conda environment while installing
 
 # Contributing
 
-Please see the [contribution guide](https://ignitionrobotics.org/docs/all/contributing).
+Please see the [contribution guide](https://gazebosim.org/docs/all/contributing).
 
 # Code of Conduct
 
 Please see
-[CODE_OF_CONDUCT.md](https://github.com/ignitionrobotics/ign-gazebo/blob/main/CODE_OF_CONDUCT.md).
+[CODE_OF_CONDUCT.md](https://github.com/gazebosim/gz-sim/blob/main/CODE_OF_CONDUCT.md).
 
 # Versioning
 
-This library uses [Semantic Versioning](https://semver.org/). Additionally, this library is part of the [Ignition Robotics project](https://ignitionrobotics.org) which periodically releases a versioned set of compatible and complimentary libraries. See the [Ignition Robotics website](https://ignitionrobotics.org) for version and release information.
+This library uses [Semantic Versioning](https://semver.org/). Additionally, this library is part of the [Gazebo project](https://gazebosim.org) which periodically releases a versioned set of compatible and complimentary libraries. See the [Gazebo website](https://gazebosim.org) for version and release information.
 
 # License
 
-This library is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See also the [LICENSE](https://github.com/ignitionrobotics/ign-gazebo/blob/main/LICENSE) file.
+This library is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). See also the [LICENSE](https://github.com/gazebosim/gz-sim/blob/main/LICENSE) file.
