@@ -67,4 +67,7 @@ function _ign
 
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
+
+source @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_DATAROOTDIR@/gz/gz@PROJECT_MAJOR_VERSION@.completion
+
 complete -F "_ign" "ign"
