@@ -25,5 +25,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # version numbers, which means functions from newer versions will overwrite
 # those from older versions.
 for f in $SCRIPT_DIR/gz*.completion.d/*.bash_completion.sh ; do
+  [[ -e "$f" ]] || continue
   source $f
 done

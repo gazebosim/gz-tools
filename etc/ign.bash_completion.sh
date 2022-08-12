@@ -43,7 +43,7 @@ function _ign
 
     # Subcommand is help
     if [[ "$cmd" == "help" ]]; then
-      opts=$(ign --commands)
+      opts=$(ign --commands) || opts=""
 
     # Subcommand is a library name or an option (-*)
     else
@@ -62,7 +62,8 @@ function _ign
 
   # on first word, top-level command (ign)
   else
-    opts="$(ign --commands) help"
+    commands=$(ign --commands) || commands=""
+    opts="${commands} help"
   fi
 
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
