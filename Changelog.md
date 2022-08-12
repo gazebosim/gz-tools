@@ -1,4 +1,30 @@
-# Ignition Tools 1.x
+# Gazebo Tools 1.x
+
+### Gazebo Tools 1.5.0 (2022-08-12)
+
+1. Bash completion for subcommand names and flags
+    * [Pull request #77](https://github.com/gazebosim/gz-tools/pull/77)
+    * [Pull request #86](https://github.com/gazebosim/gz-tools/pull/86)
+    * [Pull request #87](https://github.com/gazebosim/gz-tools/pull/87)
+    * [Pull request #104](https://github.com/gazebosim/gz-tools/pull/104)
+    * [Pull request #106](https://github.com/gazebosim/gz-tools/pull/106)
+
+1. Infrastructure & CI
+    * [Pull request #100](https://github.com/gazebosim/gz-tools/pull/100)
+    * [Pull request #80](https://github.com/gazebosim/gz-tools/pull/80)
+    * [Pull request #75](https://github.com/gazebosim/gz-tools/pull/75)
+
+1. Remove unused config.hh.in
+    * [Pull request #91](https://github.com/gazebosim/gz-tools/pull/91)
+
+1. Bump CMake to 2.8.12
+    * [Pull request #85](https://github.com/gazebosim/gz-tools/pull/85)
+
+1. Fix `.dll` installation directory on Windows
+    * [Pull request #74](https://github.com/gazebosim/gz-tools/pull/74)
+
+1. Permit to invoke `ign` command in Windows
+    * [Pull request #73](https://github.com/gazebosim/gz-tools/pull/73)
 
 ### Ignition Tools 1.4.1 (2021-10-27)
 
