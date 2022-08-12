@@ -11,9 +11,7 @@
 
 1. Infrastructure & CI
     * [Pull request #100](https://github.com/gazebosim/gz-tools/pull/100)
-    * [Pull request #83](https://github.com/gazebosim/gz-tools/pull/83)
     * [Pull request #80](https://github.com/gazebosim/gz-tools/pull/80)
-    * [Pull request #76](https://github.com/gazebosim/gz-tools/pull/76)
     * [Pull request #75](https://github.com/gazebosim/gz-tools/pull/75)
 
 1. Remove unused config.hh.in
