@@ -2,7 +2,40 @@
 
 ### Gazebo Tools 2.X.X (20XX-XX-XX)
 
-### Gazebo Tools 2.0.0 (20XX-XX-XX)
+### Gazebo Tools 2.0.0 (2022-09-22)
+
+1. Remove ign CLI from version 2
+    * [Pull request #109](https://github.com/gazebosim/gz-tools/pull/109)
+
+1. Finale: CMake var followups, docs, and paths
+    * [Pull request #99](https://github.com/gazebosim/gz-tools/pull/99)
+
+1. ign -> gz Partial Docs Migration and Project Name Followups : gz-tools
+    * [Pull request #98](https://github.com/gazebosim/gz-tools/pull/98)
+
+1. Rename CMake project to gz
+    * [Pull request #93](https://github.com/gazebosim/gz-tools/pull/93)
+
+1. Use gz-cmake
+    * [Pull request #96](https://github.com/gazebosim/gz-tools/pull/96)
+
+1. ign -> gz CLI Migration : gz-tools
+    * [Pull request #94](https://github.com/gazebosim/gz-tools/pull/94)
+
+1. Standardize config macros
+    * [Pull request #90](https://github.com/gazebosim/gz-tools/pull/90)
+
+1. Migrate ignition:: to gz::
+    * [Pull request #89](https://github.com/gazebosim/gz-tools/pull/89)
+
+1. Remove Bionic from future releases (Garden+)
+    * [Pull request #78](https://github.com/gazebosim/gz-tools/pull/78)
+
+1. Update codeowners
+    * [Pull request #27](https://github.com/gazebosim/gz-tools/pull/27)
+
+1. [master] Workflow updates
+    * [Pull request #18](https://github.com/gazebosim/gz-tools/pull/18)
 
 ## Gazebo Tools 1.x
 
