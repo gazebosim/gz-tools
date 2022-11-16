@@ -64,17 +64,9 @@ if(WIN32)
   # On Windows also install the gz.bat wrapper script to permit to
   # invoke gz via Command Prompt or Powershell
   install(PROGRAMS gz.bat DESTINATION ${GZ_BIN_INSTALL_DIR})
-
-  # TODO(chapulina) tick-tock ign on Windows if someone actually needs it. It's
-  # complicated to symlink / copy files on Windows.
-else()
-  # TODO(CH3): Deprecated. Tick-tock the ign executable with symlink
-  # This is exceptionally scuffed
-  install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_INSTALL_PREFIX}/${GZ_BIN_INSTALL_DIR}/gz
-    ${PROJECT_BINARY_DIR}/ign)")
-  install(PROGRAMS ${PROJECT_BINARY_DIR}/ign DESTINATION ${GZ_BIN_INSTALL_DIR})
 endif()
+
+# Note: The `ign` CLI isn't installed on purpose so that v3 is co-installable with v2
 
 #===============================================================================
 # BEGIN TEST gz command

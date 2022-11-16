@@ -43,7 +43,7 @@ function _gz
 
     # Subcommand is help
     if [[ "$cmd" == "help" ]]; then
-      opts=$(gz --commands)
+      opts=$(gz --commands) || opts=""
 
     # Subcommand is a library name or an option (-*)
     else
@@ -62,9 +62,13 @@ function _gz
 
   # on first word, top-level command (gz)
   else
-    opts="$(gz --commands) help"
+    commands=$(gz --commands) || commands=""
+    opts="${commands} help"
   fi
 
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
+
+source @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_DATAROOTDIR@/gz/gz@PROJECT_MAJOR_VERSION@.completion
+
 complete -F "_gz" "gz"

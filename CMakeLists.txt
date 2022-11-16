@@ -41,6 +41,8 @@ if (NOT USE_SYSTEM_BACKWARDCPP)
 endif()
 find_package(Backward)
 
+add_subdirectory(etc)
+
 #============================================================================
 # Configure the build
 #============================================================================
