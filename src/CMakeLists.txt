@@ -66,7 +66,7 @@ if(WIN32)
   install(PROGRAMS gz.bat DESTINATION ${GZ_BIN_INSTALL_DIR})
 endif()
 
-# Note: The `ign` CLI isn't installed on purpose so that v2 is co-installable with v1
+# Note: The `ign` CLI isn't installed on purpose so that v3 is co-installable with v2
 
 #===============================================================================
 # BEGIN TEST gz command
