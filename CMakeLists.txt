@@ -8,8 +8,8 @@ project(gz-tools3 VERSION 3.0.0)
 #============================================================================
 # Find gz-cmake
 #============================================================================
-find_package(gz-cmake3 REQUIRED)
-set(GZ_CMAKE_VER ${gz-cmake3_VERSION_MAJOR})
+find_package(gz-cmake4 REQUIRED)
+set(GZ_CMAKE_VER ${gz-cmake4_VERSION_MAJOR})
 
 #============================================================================
 # Configure the project
