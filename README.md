@@ -39,7 +39,7 @@ Gazebo Tools provides the `gz` CLI for the entire Gazebo project.
 
 # Install
 
-See the [installation tutorial](https://gazebosim.org/api/tools/2.0/install.html).
+See the [installation tutorial](https://gazebosim.org/api/tools/2/install.html).
 
 # Contributing
 
