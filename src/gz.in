@@ -307,3 +307,4 @@ cmd = Cmd.new
 Process.setproctitle("gz #{ARGV.join(' ')}")
 
 cmd.execute(ARGV)
+exit(1)
