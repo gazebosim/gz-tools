@@ -7,7 +7,7 @@ configure_file(
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/gz${PROJECT_MAJOR_VERSION}.completion
   DESTINATION
-    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/gz)
+    ${CMAKE_INSTALL_DATAROOTDIR}/gz)
 
 configure_file(
   "gz.bash_completion.sh"
@@ -16,4 +16,4 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/gz${PROJECT_MAJOR_VERSION}.bash_completion.sh
   RENAME gz
   DESTINATION
-    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/bash-completion/completions)
+    ${CMAKE_INSTALL_DATAROOTDIR}/bash-completion/completions)
