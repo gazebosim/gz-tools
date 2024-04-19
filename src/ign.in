@@ -281,6 +281,13 @@ if ARGV.include?('--versions')
   exit(0)
 end
 
+if defined? RubyInstaller
+  # RubyInstaller does not search for dlls in PATH
+  # https://github.com/oneclick/rubyinstaller2/wiki/For-gem-developers#-dll-loading
+  ENV['RUBY_DLL_PATH'] = ENV['PATH']
+  RubyInstaller::Runtime.enable_dll_search_paths
+end
+
 # Start Backward before loading plugins
 begin
   SharedLibInterface::Importer.dlload '@backward_library_name@'
