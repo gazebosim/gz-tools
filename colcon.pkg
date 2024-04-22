@@ -4,5 +4,7 @@
 #   - https://colcon.readthedocs.io/en/released/user/configuration.html#colcon-pkg-files
 
 {
+  # explicitly add gz-cmake4 as a dependency since it is not included in the package.xml
+  # see https://github.com/gazebosim/gz-tools/pull/142 for discussion of alternatives
   "dependencies": ["gz-cmake4"],
 }
