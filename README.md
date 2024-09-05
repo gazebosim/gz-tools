@@ -9,7 +9,7 @@
 
 Build | Status
 -- | --
-Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/ign-tools2/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools)
+Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/tree/gz-tools2/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools/tree/gz-tools2)
 Ubuntu Jammy  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-tools2-jammy-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-tools2-jammy-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-tools2-homebrew-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-tools2-homebrew-amd64)
 Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-2-win)](https://build.osrfoundation.org/job/gz_tools-2-win)
