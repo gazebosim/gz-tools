@@ -86,13 +86,6 @@ Gazebo Tools requires:
 
 * [Ruby](https://www.ruby-lang.org/). Refer to the [Ruby Documentation](https://www.ruby-lang.org/downloads/) for installation instructions. On Ubuntu systems `apt-get` can be used to install Ubuntu Package `ruby-dev`:
 
-Note: 
-In case the Gazebo CMake binary didn't work out for you, you can make it from source using following command:
-```
-echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
-sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys D2486D2DD83DB69272AFE98867170598AF249743
-sudo apt update
-```
 
 ### Ubuntu Linux
 
