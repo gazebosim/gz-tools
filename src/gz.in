@@ -49,11 +49,7 @@ yaml_found = false
 
 conf_dirs = '@CMAKE_INSTALL_PREFIX@/share/gz/'
 conf_dirs = ENV['GZ_CONFIG_PATH'] if ENV.key?('GZ_CONFIG_PATH')
-
 conf_dirs = conf_dirs.split('@ENV_PATH_DELIMITER@')
-
-# Deprecated
-conf_dirs.append(ENV['IGN_CONFIG_PATH']) if ENV.key?('IGN_CONFIG_PATH')
 
 conf_dirs.each do |conf_directory|
   next if Dir.glob(conf_directory + '/*.yaml').empty?
@@ -185,7 +181,8 @@ usage = 'The \'gz\' command provides a command line interface to the Gazebo'\
 
 # Used to align the commands and the description.
 padding_width = 15
-commands.each do |cmd, versions|
+commands.keys.sort.each do |cmd|
+  versions = commands[cmd]
   # Calculate the padding to add between the command and the description.
   padding_to_apply = padding_width - cmd.size - 1
   padding = ''
@@ -286,6 +283,13 @@ if ARGV.include?('--versions')
   end
 
   exit(0)
+end
+
+if defined? RubyInstaller
+  # RubyInstaller does not search for dlls in PATH
+  # https://github.com/oneclick/rubyinstaller2/wiki/For-gem-developers#-dll-loading
+  ENV['RUBY_DLL_PATH'] = ENV['PATH']
+  RubyInstaller::Runtime.enable_dll_search_paths
 end
 
 # Start Backward before loading plugins
