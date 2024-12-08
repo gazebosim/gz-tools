@@ -181,8 +181,7 @@ usage = 'The \'gz\' command provides a command line interface to the Gazebo'\
 
 # Used to align the commands and the description.
 padding_width = 15
-commands.keys.sort.each do |cmd|
-  versions = commands[cmd]
+commands.keys.sort.each do |cmd, versions|
   # Calculate the padding to add between the command and the description.
   padding_to_apply = padding_width - cmd.size - 1
   padding = ''
@@ -283,13 +282,6 @@ if ARGV.include?('--versions')
   end
 
   exit(0)
-end
-
-if defined? RubyInstaller
-  # RubyInstaller does not search for dlls in PATH
-  # https://github.com/oneclick/rubyinstaller2/wiki/For-gem-developers#-dll-loading
-  ENV['RUBY_DLL_PATH'] = ENV['PATH']
-  RubyInstaller::Runtime.enable_dll_search_paths
 end
 
 # Start Backward before loading plugins
