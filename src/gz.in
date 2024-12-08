@@ -181,7 +181,7 @@ usage = 'The \'gz\' command provides a command line interface to the Gazebo'\
 
 # Used to align the commands and the description.
 padding_width = 15
-commands.keys.sort.each do |cmd, versions|
+commands.each do |cmd, versions|
   # Calculate the padding to add between the command and the description.
   padding_to_apply = padding_width - cmd.size - 1
   padding = ''
