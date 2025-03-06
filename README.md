@@ -1,6 +1,6 @@
 # Gazebo tools: Gazebo entry point for using all the suite of Gazebo tools
 
-**Maintainer:** caguero AT openrobotics DOT org
+**Maintainer:** caguero AT honurobotics DOT com
 
 [![GitHub open issues](https://img.shields.io/github/issues-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/issues)
 [![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/pulls)
