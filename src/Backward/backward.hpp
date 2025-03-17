@@ -102,7 +102,7 @@
 // #define BACKWARD_HAS_UNWIND 1
 //  - unwind comes from libgcc, but I saw an equivalent inside clang itself.
 //  - with unwind, the stacktrace is as accurate as it can possibly be, since
-//  this is used by the C++ runtine in gcc/clang for stack unwinding on
+//  this is used by the C++ runtime in gcc/clang for stack unwinding on
 //  exception.
 //  - normally libgcc is already linked to your program by default.
 //
@@ -272,7 +272,7 @@
 // #define BACKWARD_HAS_UNWIND 1
 //  - unwind comes from libgcc, but I saw an equivalent inside clang itself.
 //  - with unwind, the stacktrace is as accurate as it can possibly be, since
-//  this is used by the C++ runtine in gcc/clang for stack unwinding on
+//  this is used by the C++ runtime in gcc/clang for stack unwinding on
 //  exception.
 //  - normally libgcc is already linked to your program by default.
 //
@@ -713,7 +713,7 @@ struct ResolvedTrace : public Trace {
 
 /*************** STACK TRACE ***************/
 
-// default implemention.
+// default implementation.
 template <typename TAG> class StackTraceImpl {
 public:
   size_t size() const { return 0; }
@@ -828,7 +828,7 @@ private:
     uintptr_t ip = _Unwind_GetIPInfo(ctx, &ip_before_instruction);
 
     if (!ip_before_instruction) {
-      // calculating 0-1 for unsigned, looks like a possible bug to sanitiziers,
+      // calculating 0-1 for unsigned, looks like a possible bug to sanitizers,
       // so let's do it explicitly:
       if (ip == 0) {
         ip = std::numeric_limits<uintptr_t>::max(); // set it to 0xffff... (as
@@ -1481,7 +1481,7 @@ public:
         // this time we get the name of the function where the code is
         // located, instead of the function were the address is
         // located. In short, if the code was inlined, we get the
-        // function correspoding to the code. Else we already got in
+        // function corresponding to the code. Else we already got in
         // trace.function.
         trace.source.function = demangle(details_selected->funcname);
 
