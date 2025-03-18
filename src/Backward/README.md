@@ -104,7 +104,7 @@ following libraries:
 
 Unwind comes from libgcc, but there is an equivalent inside clang itself. With
 unwind, the stacktrace is as accurate as it can possibly be, since this is
-used by the C++ runtine in gcc/clang for stack unwinding on exception.
+used by the C++ runtime in gcc/clang for stack unwinding on exception.
 
 Normally libgcc is already linked to your program by default.
 
