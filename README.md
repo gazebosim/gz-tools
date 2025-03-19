@@ -12,7 +12,7 @@ Build | Status
 Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/main/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools/branch/main)
 Ubuntu Focal  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-main-focal-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-main-focal-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-main-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-main-homebrew-amd64)
-Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ci-win)](https://build.osrfoundation.org/job/ign_tools-ci-win)
+Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ci-clowin)](https://build.osrfoundation.org/job/ign_tools-ci-clowin)
 
 Gazebo Tools provide the `gz` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
