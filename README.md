@@ -9,10 +9,10 @@
 
 Build | Status
 -- | --
-Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/ign-tools2/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools)
-Ubuntu Jammy  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-tools2-jammy-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-tools2-jammy-amd64)
-Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-tools2-homebrew-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-tools2-homebrew-amd64)
-Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-2-win)](https://build.osrfoundation.org/job/gz_tools-2-win)
+Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/main/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools/branch/main)
+Ubuntu Jammy  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-main-jammy-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-main-jammy-amd64)
+Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-main-homebrew-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-main-homebrew-amd64)
+Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-clowin)](https://build.osrfoundation.org/job/gz_tools-ci-clowin)
 
 Gazebo Tools provide the `gz` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
