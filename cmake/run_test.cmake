@@ -4,7 +4,7 @@ execute_process(COMMAND ruby ${GZ_SCRIPT}
   OUTPUT_VARIABLE TEST_OUTPUT
   ERROR_VARIABLE TEST_ERROR)
 
-# Copy failure result everytime we run test so we don't accidentally use
+# Copy failure result every time we run test so we don't accidentally use
 # previous results.
 execute_process(COMMAND
   ${CMAKE_COMMAND} -E copy

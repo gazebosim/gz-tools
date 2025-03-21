@@ -171,11 +171,11 @@ First, follow the [gz-cmake](https://github.com/gazebosim/gz-cmake) tutorial for
   ```
   conda search libgz-tools* --channel conda-forge --info
   ```
-  See the [Conda release repository](https://github.com/conda-forge/libignition-tools4-feedstock) for more information.
+  See the [Conda release repository](https://github.com/conda-forge/gz-tools2-feedstock) for more information.
 
   Install dependencies, replacing `<#>` with the desired version:
   ```
-  conda install libgz-cmake<#> --channel conda-forge
+  conda install backward-cpp ruby libgz-cmake<#> --channel conda-forge
   ```
 
 3. Navigate to where you would like to build the library, and clone the repository.

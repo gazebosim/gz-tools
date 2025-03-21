@@ -4,6 +4,52 @@
 
 ### Gazebo Tools 2.X.X (20XX-XX-XX)
 
+### Gazebo Tools 2.0.2 (2025-01-30)
+
+1. Add colcon.pkg with gz-cmake4 dependency
+    * [Pull request #142](https://github.com/gazebosim/gz-tools/pull/142)
+
+1. Fix dll search paths for Ruby on Windows
+    * [Pull request #140](https://github.com/gazebosim/gz-tools/pull/140)
+
+1. Add package.xml
+    * [Pull request #136](https://github.com/gazebosim/gz-tools/pull/136)
+
+### Gazebo Tools 2.0.1 (2024-03-28)
+
+1. Use relative install path for gz bash completion data
+    * [Pull request #137](https://github.com/gazebosim/gz-tools/pull/137)
+
+1. gz.in: sort list of commands alphabetically
+    * [Pull request #134](https://github.com/gazebosim/gz-tools/pull/134)
+
+1. Add project soversion information to backward library
+    * [Pull request #133](https://github.com/gazebosim/gz-tools/pull/133)
+
+1. Remove shebang from shell completion files
+    * [Pull request #132](https://github.com/gazebosim/gz-tools/pull/132)
+
+1. Update CI badges in README
+    * [Pull request #131](https://github.com/gazebosim/gz-tools/pull/131)
+
+1. Support building with gz-cmake3 or gz-cmake4
+    * [Pull request #128](https://github.com/gazebosim/gz-tools/pull/128)
+
+1. Fix conda link and dependencies
+    * [Pull request #126](https://github.com/gazebosim/gz-tools/pull/126)
+
+1. Fix installation link
+    * [Pull request #124](https://github.com/gazebosim/gz-tools/pull/124)
+
+1. Infrastructure
+    * [Pull request #118](https://github.com/gazebosim/gz-tools/pull/118)
+    * [Pull request #121](https://github.com/gazebosim/gz-tools/pull/121)
+    * [Pull request #123](https://github.com/gazebosim/gz-tools/pull/123)
+    * [Pull request #130](https://github.com/gazebosim/gz-tools/pull/130)
+
+1. Rename COPYING to LICENSE
+    * [Pull request #117](https://github.com/gazebosim/gz-tools/pull/117)
+
 ### Gazebo Tools 2.0.0 (2022-09-22)
 
 1. Remove ign CLI from version 2
@@ -120,7 +166,7 @@
 1. Clean up gz-tools.pc file
     * [Pull request #40](https://github.com/gazebosim/gz-tools/pull/40)
 
-1. Fix cmake warning and error mesage types
+1. Fix cmake warning and error message types
     * [Pull request #41](https://github.com/gazebosim/gz-tools/pull/41)
 
 1. Infrastructure updates

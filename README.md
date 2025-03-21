@@ -10,9 +10,9 @@
 Build | Status
 -- | --
 Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/main/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools/branch/main)
-Ubuntu Focal  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-main-focal-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-main-focal-amd64)
-Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ignition_tools-ci-main-homebrew-amd64)](https://build.osrfoundation.org/job/ignition_tools-ci-main-homebrew-amd64)
-Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=ign_tools-ci-clowin)](https://build.osrfoundation.org/job/ign_tools-ci-clowin)
+Ubuntu Noble  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-main-noble-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-main-noble-amd64/)
+Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-main-homebrew-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-main-homebrew-amd64)
+Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-main-clowin)](https://build.osrfoundation.org/job/gz_tools-main-clowin)
 
 Gazebo Tools provide the `gz` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a
@@ -39,7 +39,7 @@ Gazebo Tools provides the `gz` CLI for the entire Gazebo project.
 
 # Install
 
-See the [installation tutorial](https://gazebosim.org/api/tools/2.0/install.html).
+See the [installation tutorial](https://gazebosim.org/api/tools/2/install.html).
 
 # Contributing
 

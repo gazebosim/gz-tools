@@ -1,4 +1,4 @@
-# Note on deprecations
+# Note on deprecation
 A tick-tock release cycle allows easy migration to new software versions.
 Obsolete code is marked as deprecated for one major release.
 Deprecated code produces compile-time warnings. These warning serve as
