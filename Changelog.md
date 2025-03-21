@@ -77,13 +77,8 @@
 1. Clean up ignition-tools.pc file
     * [Pull request #40](https://github.com/ignitionrobotics/ign-tools/pull/40)
 
-<<<<<<< HEAD
 1. Fix cmake warning and error mesage types
     * [Pull request #41](https://github.com/ignitionrobotics/ign-tools/pull/41)
-=======
-1. Fix cmake warning and error message types
-    * [Pull request #41](https://github.com/gazebosim/gz-tools/pull/41)
->>>>>>> 705c038 (Fix spelling errors (#152))
 
 1. Infrastructure updates
     * [Pull request #42](https://github.com/ignitionrobotics/ign-tools/pull/42)
