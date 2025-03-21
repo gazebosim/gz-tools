@@ -21,7 +21,12 @@ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `ls
 
 Setup keys:
 ```
-wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+wget -qO - http://packages.osrfoundation.org/gazebo.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/gazebo-archive-keyring.gpg > /dev/null
+```
+
+You can check available version of libgz-tools using following command:
+```bash
+apt-cache search libgz-tools
 ```
 
 Install Gazebo Tools:
@@ -80,6 +85,7 @@ Gazebo Tools requires:
 * [Gazebo CMake](https://gazebosim.org/libs/cmake)
 
 * [Ruby](https://www.ruby-lang.org/). Refer to the [Ruby Documentation](https://www.ruby-lang.org/downloads/) for installation instructions. On Ubuntu systems `apt-get` can be used to install Ubuntu Package `ruby-dev`:
+
 
 ### Ubuntu Linux
 
