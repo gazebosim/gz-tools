@@ -25,7 +25,7 @@ wget -qO - http://packages.osrfoundation.org/gazebo.key | gpg --dearmor | sudo t
 ```
 
 You can check available version of libgz-tools using following command:
-```
+```bash
 apt-cache search libgz-tools
 ```
 
