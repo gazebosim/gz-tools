@@ -1,5 +1,7 @@
 ## Gazebo Tools 2.x
 
+### Gazebo Tools 2.X.X (20XX-XX-XX)
+
 ### Gazebo Tools 2.0.2 (2025-01-30)
 
 1. Add colcon.pkg with gz-cmake4 dependency
@@ -10,8 +12,6 @@
 
 1. Add package.xml
     * [Pull request #136](https://github.com/gazebosim/gz-tools/pull/136)
-
-### Gazebo Tools 2.X.X (20XX-XX-XX)
 
 ### Gazebo Tools 2.0.1 (2024-03-28)
 
