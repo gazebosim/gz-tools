@@ -29,7 +29,7 @@ function _ign
 
   # Look for the first command that is not an option (-*)
   # COMP_WORDS: array of words in current command line COMP_LINE
-  # COMP_CWORD: index of word containing current cursur location
+  # COMP_CWORD: index of word containing current cursor location
   # COMP_LINE: line entered so far
   for ((i=1; $i<=$COMP_CWORD; i++)); do
     if [[ ${COMP_WORDS[i]} != -* ]]; then
