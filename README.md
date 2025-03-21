@@ -1,6 +1,6 @@
 # Gazebo Tools: Entrypoint to Gazebo's command line interface
 
-**Maintainer:** caguero AT openrobotics DOT org
+**Maintainer:** caguero AT honurobotics DOT com
 
 [![GitHub open issues](https://img.shields.io/github/issues-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/issues)
 [![GitHub open pull requests](https://img.shields.io/github/issues-pr-raw/gazebosim/gz-tools.svg)](https://github.com/gazebosim/gz-tools/pulls)
@@ -12,7 +12,7 @@ Build | Status
 Test coverage | [![codecov](https://codecov.io/gh/gazebosim/gz-tools/branch/ign-tools2/graph/badge.svg)](https://codecov.io/gh/gazebosim/gz-tools)
 Ubuntu Jammy  | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-tools2-jammy-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-tools2-jammy-amd64)
 Homebrew      | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-ci-gz-tools2-homebrew-amd64)](https://build.osrfoundation.org/job/gz_tools-ci-gz-tools2-homebrew-amd64)
-Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-2-win)](https://build.osrfoundation.org/job/gz_tools-2-win)
+Windows       | [![Build Status](https://build.osrfoundation.org/buildStatus/icon?job=gz_tools-2-clowin)](https://build.osrfoundation.org/job/gz_tools-2-clowin)
 
 Gazebo Tools provide the `gz` command line tool that accepts multiple
 subcommands. Each subcommand is implemented in a plugin that belongs to a

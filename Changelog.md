@@ -2,6 +2,17 @@
 
 ### Gazebo Tools 2.X.X (20XX-XX-XX)
 
+### Gazebo Tools 2.0.2 (2025-01-30)
+
+1. Add colcon.pkg with gz-cmake4 dependency
+    * [Pull request #142](https://github.com/gazebosim/gz-tools/pull/142)
+
+1. Fix dll search paths for Ruby on Windows
+    * [Pull request #140](https://github.com/gazebosim/gz-tools/pull/140)
+
+1. Add package.xml
+    * [Pull request #136](https://github.com/gazebosim/gz-tools/pull/136)
+
 ### Gazebo Tools 2.0.1 (2024-03-28)
 
 1. Use relative install path for gz bash completion data
@@ -153,7 +164,7 @@
 1. Clean up gz-tools.pc file
     * [Pull request #40](https://github.com/gazebosim/gz-tools/pull/40)
 
-1. Fix cmake warning and error mesage types
+1. Fix cmake warning and error message types
     * [Pull request #41](https://github.com/gazebosim/gz-tools/pull/41)
 
 1. Infrastructure updates
