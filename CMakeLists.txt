@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
 
 #============================================================================
 # Initialize the project
@@ -8,17 +8,7 @@ project(gz-tools3 VERSION 3.0.0)
 #============================================================================
 # Find gz-cmake
 #============================================================================
-find_package(gz-cmake3 QUIET)
-if (${gz-cmake3_FOUND})
-  set(GZ_CMAKE_VER ${gz-cmake3_VERSION_MAJOR})
-else()
-  find_package(gz-cmake4 QUIET)
-  if (${gz-cmake4_FOUND})
-    set(GZ_CMAKE_VER ${gz-cmake4_VERSION_MAJOR})
-  else()
-    message(FATAL_ERROR "Could not find either gz-cmake3 or gz-cmake4")
-  endif()
-endif()
+find_package(gz-cmake5 REQUIRED)
 
 #============================================================================
 # Configure the project
@@ -55,8 +45,7 @@ add_subdirectory(etc)
 #============================================================================
 # Configure the build
 #============================================================================
-gz_configure_build(QUIT_IF_BUILD_ERRORS
-  HIDE_SYMBOLS_BY_DEFAULT)
+gz_configure_build(QUIT_IF_BUILD_ERRORS)
 
 #============================================================================
 # Create package information
