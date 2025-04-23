@@ -56,12 +56,12 @@ conf_dirs = conf_dirs.split('@ENV_PATH_DELIMITER@')
 conf_dirs.append(ENV['IGN_CONFIG_PATH']) if ENV.key?('IGN_CONFIG_PATH')
 
 conf_dirs.each do |conf_directory|
-  next if Dir.glob(conf_directory + '/*.yaml').empty?
+  next if Dir.glob("#{conf_directory}/*.yaml").empty?
 
   yaml_found = true
 
   # Iterate over the list of configuration files.
-  Dir.glob(conf_directory + '/*.yaml') do |conf_file|
+  Dir.glob("#{conf_directory}/*.yaml") do |conf_file|
     next if conf_file == [',', '..'].any?
 
     # Read the configuration file.
@@ -194,7 +194,7 @@ commands.keys.sort.each do |cmd|
     padding += ' '
   end
 
-  usage += '  ' + cmd + ':' + padding + versions.first[1]['description'] + "\n"
+  usage += "  #{cmd}:#{padding}#{versions.first[1]['description']}\n"
 end
 
 usage += "\nOptions:\n\n"\
