@@ -2,7 +2,34 @@
 
 ## Gazebo Tools 2.x
 
-### Gazebo Tools 2.X.X (20XX-XX-XX)
+### Gazebo Tools 2.3.0 (2025-08-26)
+
+1. Remove version from package name, use gz-cmake
+    * [Pull request #157](https://github.com/gazebosim/gz-tools/pull/157)
+
+1. Support gz-cmake without major version
+    * [Pull request #161](https://github.com/gazebosim/gz-tools/pull/161)
+
+1. Add GitHub CI for 24.04
+    * [Pull request #160](https://github.com/gazebosim/gz-tools/pull/160)
+
+1. gz-tools2: support gz-cmake5
+    * [Pull request #158](https://github.com/gazebosim/gz-tools/pull/158)
+
+1. Update changelog
+    * [Pull request #154](https://github.com/gazebosim/gz-tools/pull/154))
+
+1. Fix spelling errors
+    * [Pull request #152](https://github.com/gazebosim/gz-tools/pull/152)
+
+1. Update maintainer email
+    * [Pull request #148](https://github.com/gazebosim/gz-tools/pull/148)
+
+1. Remove deprecations: tock
+    * [Pull request #145](https://github.com/gazebosim/gz-tools/pull/145)
+
+1. Use HIDE_SYMBOLS_BY_DEFAULT
+    * [Pull request #129](https://github.com/gazebosim/gz-tools/pull/129)
 
 ### Gazebo Tools 2.0.2 (2025-01-30)
 
