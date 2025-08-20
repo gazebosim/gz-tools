@@ -1,4 +1,8 @@
+## Gazebo Tools 3.x
+
 ### Gazebo Tools 3.0.0 (2025-08-26)
+
+1. **Baseline:** this includes all changes from 2.0.2 and earlier.
 
 1. Remove version from package name, use gz-cmake
     * [Pull request #157](https://github.com/gazebosim/gz-tools/pull/157)
@@ -26,8 +30,6 @@
 
 1. Use HIDE_SYMBOLS_BY_DEFAULT
     * [Pull request #129](https://github.com/gazebosim/gz-tools/pull/129)
-
-## Gazebo Tools 3.x
 
 ### Gazebo Tools 2.0.2 (2025-01-30)
 
