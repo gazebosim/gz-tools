@@ -1,5 +1,7 @@
 ## Gazebo Tools 3.x
 
+### Gazebo Tools 2.X.X (20XX-XX-XX)
+
 ### Gazebo Tools 2.1.0 (2025-08-XX)
 
 1. **Baseline:** this includes all changes from 2.0.2 and earlier.
