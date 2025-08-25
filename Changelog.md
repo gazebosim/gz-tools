@@ -2,7 +2,7 @@
 
 ### Gazebo Tools 2.X.X (20XX-XX-XX)
 
-### Gazebo Tools 2.0.3 (2025-09-XX)
+### Gazebo Tools 2.0.3 (2025-08-25)
 
 1. Update install.md with GPG key addition via trusted.gpg.d and add instructions to install Gazebo CMake from source
     * [Pull request #144](https://github.com/gazebosim/gz-tools/pull/144)
