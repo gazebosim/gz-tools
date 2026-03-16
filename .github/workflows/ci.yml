@@ -18,3 +18,5 @@ jobs:
       - name: Compile and test
         id: ci
         uses: gazebo-tooling/action-gz-ci@noble
+        with:
+          gzdev-project-name: rotary
