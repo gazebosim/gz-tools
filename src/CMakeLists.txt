@@ -101,12 +101,12 @@ if(BUILD_TESTING)
 
   configure_file(
     "${PROJECT_SOURCE_DIR}/tools/junit_pass.xml.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_pass.xml"
+    "${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_pass.xml.configured"
     @ONLY)
 
   configure_file(
     "${PROJECT_SOURCE_DIR}/tools/junit_fail.xml.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_fail.xml"
+    "${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_fail.xml.configured"
     @ONLY)
 
   # This simply executes gz. The output will be tested in the check_* test

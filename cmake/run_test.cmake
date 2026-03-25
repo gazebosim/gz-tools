@@ -8,7 +8,7 @@ execute_process(COMMAND ruby ${GZ_SCRIPT}
 # previous results.
 execute_process(COMMAND
   ${CMAKE_COMMAND} -E copy
-  "${TEST_NAME}_fail.xml"
+  "${TEST_NAME}_fail.xml.configured"
   "../test_results/${TEST_NAME}.xml"
 )
 
@@ -17,7 +17,7 @@ if (${TEST_OUTPUT} MATCHES "Test executed" AND NOT
     (${TEST_ERROR} MATCHES "Library error")))
   execute_process(COMMAND
     ${CMAKE_COMMAND} -E copy
-    "${TEST_NAME}_pass.xml"
+    "${TEST_NAME}_pass.xml.configured"
     "../test_results/${TEST_NAME}.xml"
   )
 else()
