@@ -294,9 +294,10 @@ end
 
 # Start Backward before loading plugins
 begin
-  SharedLibInterface::Importer.dlload '@backward_library_name@'
+  _backward_lib = File.expand_path('@backward_library_name@', __dir__)
+  SharedLibInterface::Importer.dlload _backward_lib
 rescue SharedLibInterface::DLError
-  warn 'Library error: @backward_library_name@ not found. Improved backtrace'\
+  warn "Library error: #{_backward_lib} not found. Improved backtrace"\
        ' generation will be disabled'
 end
 
