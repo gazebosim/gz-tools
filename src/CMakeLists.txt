@@ -42,12 +42,13 @@ install (TARGETS backward
 
 #===============================================================================
 # Used for the installed version.
-if(APPLE)
-  # On macOS, the full path to the library since DYLD_LIBRARY_PATH may not work.
-  set(backward_library_name ${CMAKE_INSTALL_FULL_LIBDIR}/$<TARGET_FILE_NAME:backward>)
-else()
-  set(backward_library_name $<TARGET_FILE_NAME:backward>)
-endif()
+# Compute a path relative to the bin dir so the gz script can find the backward
+# library without relying on LD_LIBRARY_PATH/DYLD_LIBRARY_PATH and without
+# using absolute paths (which break CMAKE_STAGING_PREFIX and relocatability).
+file(RELATIVE_PATH _backward_relpath
+  ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
+  ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+set(backward_library_name ${_backward_relpath}/$<TARGET_FILE_NAME:backward>)
 
 # Two steps to create `gz`, First using `configure_file`, to interpolate cmake variables. Then
 # use `file(GENERATE ...)` to use generator expressions
