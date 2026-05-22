@@ -45,10 +45,16 @@ install (TARGETS backward
 # Compute a path relative to the bin dir so the gz script can find the backward
 # library without relying on LD_LIBRARY_PATH/DYLD_LIBRARY_PATH and without
 # using absolute paths (which break CMAKE_STAGING_PREFIX and relocatability).
-file(RELATIVE_PATH _backward_relpath
-  ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
-  ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
-set(backward_library_name ${_backward_relpath}/$<TARGET_FILE_NAME:backward>)
+if (NOT MSVC)
+  file(RELATIVE_PATH _backward_relpath
+    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
+    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+  set(backward_library_name ${_backward_relpath}/$<TARGET_FILE_NAME:backward>)
+else()
+  # On Windows, dll files are installed in `bin`, right next to the `gz`
+  # executable, so there is no need to compute a relative path.
+  set(backward_library_name $<TARGET_FILE_NAME:backward>)
+endif()
 
 # Two steps to create `gz`, First using `configure_file`, to interpolate cmake variables. Then
 # use `file(GENERATE ...)` to use generator expressions
