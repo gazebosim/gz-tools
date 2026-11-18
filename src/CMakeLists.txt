@@ -24,7 +24,7 @@ cmake_policy(SET CMP0042 NEW)
 add_library(backward SHARED backward.cc)
 target_link_libraries(backward PUBLIC Backward::Backward)
 set_target_properties(backward PROPERTIES
-                      CXX_STANDARD 14
+                      CXX_STANDARD ${CMAKE_CXX_STANDARD}
                       OUTPUT_NAME ${PROJECT_NAME}-backward
                       SOVERSION ${PROJECT_VERSION_MAJOR}
                       VERSION ${PROJECT_VERSION_FULL})

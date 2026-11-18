@@ -13,6 +13,11 @@ find_package(gz-cmake REQUIRED)
 #============================================================================
 # Configure the project
 #============================================================================
+if(NOT DEFINED CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 gz_configure_project(VERSION_SUFFIX pre1)
 
 #============================================================================
